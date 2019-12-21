@@ -2,13 +2,13 @@
 <?xml-stylesheet type="text/xsl" href="https://xiahualiu.github.io/xml/base.min.xml" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Xiahua</title>
-    <link>https://xiahualiu.github.io/</link>
-    <description>Recent content on Xiahua</description>
+    <title>Posts on Xiahua</title>
+    <link>https://xiahualiu.github.io/posts/</link>
+    <description>Recent content in Posts on Xiahua</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 21 Dec 2019 15:02:54 -0500</lastBuildDate>
-    <atom:link href="https://xiahualiu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://xiahualiu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hello World</title>
       <link>https://xiahualiu.github.io/posts/hello-world/</link>
