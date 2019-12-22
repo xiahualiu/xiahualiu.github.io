@@ -1697,6 +1697,83 @@ uint32_t Systok &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;spa
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     <item>
+      <title>S32K144EVB的学习历程（三）</title>
+      <link>https://xiahualiu.github.io/posts/2017-10-02-s32k144_3/</link>
+      <pubDate>Sat, 21 Oct 2017 00:00:00 +0000</pubDate>
+      <guid>https://xiahualiu.github.io/posts/2017-10-02-s32k144_3/</guid>
+      <description>&lt;p&gt;让我们继续上一节的内容&lt;/p&gt;
+&lt;h3 id=&#34;fast-irc-control-status-register-scg-firccsr&#34;&gt;Fast IRC Control Status Register (SCG_FIRCCSR)&lt;/h3&gt;
+&lt;p&gt;这个寄存器展示并且控制 FIRC 的工作状态&lt;/p&gt;
+&lt;h3 id=&#34;fast-irc-divide-register-scg-fircdiv&#34;&gt;Fast IRC Divide Register (SCG_FIRCDIV)&lt;/h3&gt;
+&lt;p&gt;这个寄存器控制 FIRC 的分频器的值&lt;/p&gt;
+&lt;h3 id=&#34;fast-irc-configuration-register-scg-firccfg&#34;&gt;Fast IRC Configuration Register (SCG_FIRCCFG)&lt;/h3&gt;
+&lt;p&gt;这个寄存器控制 FIRC 的基础设置，不能在 FIRC 开启的时候修改&lt;/p&gt;
+&lt;h3 id=&#34;system-pll-control-status-register-scg-spllcsr&#34;&gt;System PLL Control Status Register (SCG_SPLLCSR)&lt;/h3&gt;
+&lt;h3 id=&#34;system-pll-divide-register-scg-splldiv&#34;&gt;System PLL Divide Register (SCG_SPLLDIV)&lt;/h3&gt;
+&lt;h3 id=&#34;system-pll-configuration-register-scg-spllcfg&#34;&gt;System PLL Configuration Register (SCG_SPLLCFG)&lt;/h3&gt;
+&lt;p&gt;以上的几个寄存器基本设置都类似，但是具体到写程序的时候，一定要对照寄存器的表来写，因为他们之间都有一些不同&lt;/p&gt;
+&lt;h2 id=&#34;-scg-&#34;&gt;不同工作模式中 SCG 的工作流程&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;启动的时候，’Reset’ 会直接传递给 Run 模式下的 FIRC，Run 模式下 FIRC，SOSC，SPLL，SIRC 共同工作，可以互相传递时钟&lt;/li&gt;
+&lt;li&gt;启动完成后，如果单片机进入 &lt;strong&gt;High Speed Mode&lt;/strong&gt; 则会直接将 FIRC 时钟和 SPLL 相互传递&lt;/li&gt;
+&lt;li&gt;启动完成后，如果单片机进入 &lt;strong&gt;Very Slow Power Mode&lt;/strong&gt; 则只启用 SIRC 时钟。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;heading&#34;&gt;查看代码对应的时钟寄存器&lt;/h1&gt;
+&lt;h4 id=&#34;void-sosc-init-8mhzvoid-&#34;&gt;&lt;code&gt;void SOSC_init_8MHz(void)&lt;/code&gt; :&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SCG-&amp;gt;SOSCDIV=0x00000101;&lt;/code&gt; 设置对应的两路 DIV&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SCG-&amp;gt;SOSCCFG=0x00000024;&lt;/code&gt; 设置SOSC的硬件属性，晶振频率选择，可以看出来 1MHz ~ 8Mhz 是中频的范围，这个值在 Reference Manual 中并未给出。HGO 中高增益意味着高功率，在这里我们不需要高增益。&lt;/li&gt;
+&lt;li&gt;循环，等 &lt;code&gt;SOSCCSR&lt;/code&gt; 状态寄存器解锁&lt;/li&gt;
+&lt;li&gt;设置 &lt;code&gt;SOSCCSR&lt;/code&gt;  状态寄存器，这里什么都没有开启，只给了使能。&lt;/li&gt;
+&lt;li&gt;循环，等待 &lt;code&gt;SOSCCSR&lt;/code&gt; 有效&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;注意，这个函数应该在启用 &lt;strong&gt;锁相环&lt;/strong&gt; 前设定完成，而且要保证使能步骤在函数内部的最后一步完成。&lt;/p&gt;
+&lt;h4 id=&#34;void-spll-init-160mhzvoid-&#34;&gt;&lt;code&gt;void SPLL_init_160MHz(void)&lt;/code&gt; :&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;循环，等 &lt;code&gt;SPLLCSR&lt;/code&gt; 状态寄存器解锁&lt;/li&gt;
+&lt;li&gt;设置 &lt;code&gt;SPLLCSR&lt;/code&gt; 先关闭锁相环，&lt;code&gt;SPLLDIV&lt;/code&gt; 设置两路 DIV，&lt;code&gt;SPLLCFG&lt;/code&gt; 设置 MULT 和 PREDIV 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2017-10-02-S32K144_3/SPLLCalculation.png&#34; alt=&#34;1&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;循环，等待 &lt;code&gt;SPLLCSR&lt;/code&gt; 状态寄存器 解锁&lt;/li&gt;
+&lt;li&gt;使能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;void-normalrunmode-80mhz-void-&#34;&gt;&lt;code&gt;void NormalRUNmode_80MHz (void)&lt;/code&gt; :&lt;/h4&gt;
+&lt;p&gt;这个其实就是设置 SCG_RCCR 的值，这个值在 RUN 模式下是用于设定一些分频器（&lt;code&gt;DIVSLOW&lt;/code&gt; &lt;code&gt;DIVBUS&lt;/code&gt; &lt;code&gt;DIVCORE&lt;/code&gt;） 和选择时钟源（&lt;code&gt;SCS&lt;/code&gt;）的。&lt;/p&gt;
+&lt;h1 id=&#34;lpit&#34;&gt;低功率中断计时器（LPIT）设置&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;S32K144中有一个 LPIT 模块 &lt;code&gt;LPIT0&lt;/code&gt; 和四个通道，低泄露模式和等待模式不被该芯片支持，修改 LPIT 在其功能时钟在关闭的时候会导致赋值错误。&lt;/li&gt;
+&lt;li&gt;LPIT 每个通道会给 DMAMUX 周期性触发&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;LPIT 被设计为捕捉脉冲在其输入引脚，并不需要和其时钟频率有关，但是为了保证可靠性，连续的触发操作应该至少间隔 10 个 LPIT 总线时钟周期。&lt;/p&gt;
+&lt;h3 id=&#34;tval-&#34;&gt;TVAL 是初值寄存器：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;在 LPIT 比较模式中&lt;/strong&gt;：其中储存的值会逐渐减少到 0，之后会产生中断并且将初值恢复，写入一个新的值不会立刻修改初值，必须要到当前的值到零重装才能生效，如果想要立即生效请在 TCRTL 寄存器中关闭该模块再重新打开。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在 LPIT 捕捉模式中&lt;/strong&gt;：其中储存的值是计数值的相反值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;tctrl-&#34;&gt;TCTRL 是控制寄存器：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;工作模式有：
+&lt;ul&gt;
+&lt;li&gt;32-bit 周期计数&lt;/li&gt;
+&lt;li&gt;双 16-bit 周期计数&lt;/li&gt;
+&lt;li&gt;32-bit 触发积累&lt;/li&gt;
+&lt;li&gt;32-bit 输入捕捉&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;TSOT（Timer Start On Trigger），TROT（Timer Reset On Trigger） 和 TSOI（Timer Stop On Interrupt） ，CHAIN 设置请参考 Reference Manual，不难，根据名字就可以理解。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;lpit-&#34;&gt;LPIT 使用的步骤：&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;PCC 选择 LPIT 的时钟源，然后使用 &lt;code&gt;PCC_PCCn_CGC_MASK&lt;/code&gt; 取或打开 LPIT 。&lt;/li&gt;
+&lt;li&gt;首先使用 LPIT0 指针赋值 MCR 寄存器，默认赋值 &lt;code&gt;0x00000001&lt;/code&gt; 即可，仅仅打开 &lt;code&gt;M_CEN&lt;/code&gt; 开关，此开关未打开前后续的寄存器处于锁定状态，赋值以及读取均会报错。&lt;/li&gt;
+&lt;li&gt;LPIT0 指针赋值 &lt;code&gt;TMR[n].TVAL&lt;/code&gt; 和 &lt;code&gt;TMR[n].TCTRL&lt;/code&gt;, TVAL 控制 timeout 周期，TCTRL 控制开启对应的通道。并且确定工作模式。&lt;/li&gt;
+&lt;li&gt;检测 MSR 寄存器中的 TIFn 是否产生 flag（1）。&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    <item>
       <title>S32K144EVB的学习历程（七）SPI</title>
       <link>https://xiahualiu.github.io/posts/2017-10-20-s32k144_7/</link>
       <pubDate>Fri, 20 Oct 2017 10:48:30 +0000</pubDate>
@@ -3593,83 +3670,6 @@ SCG&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;c
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt; * @}
 &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt; */&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;/* end of group Interrupt_vector_numbers_S32K144 */&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;之前找内核那几个中断的 IRQn 找的好久，最后在头文件里面发现了这个表，在这里就先记录下来方便以后的查阅。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>S32K144EVB的学习历程（三）</title>
-      <link>https://xiahualiu.github.io/posts/2017-10-02-s32k144_3/</link>
-      <pubDate>Mon, 02 Oct 2017 00:00:00 +0000</pubDate>
-      <guid>https://xiahualiu.github.io/posts/2017-10-02-s32k144_3/</guid>
-      <description>&lt;p&gt;让我们继续上一节的内容&lt;/p&gt;
-&lt;h3 id=&#34;fast-irc-control-status-register-scg-firccsr&#34;&gt;Fast IRC Control Status Register (SCG_FIRCCSR)&lt;/h3&gt;
-&lt;p&gt;这个寄存器展示并且控制 FIRC 的工作状态&lt;/p&gt;
-&lt;h3 id=&#34;fast-irc-divide-register-scg-fircdiv&#34;&gt;Fast IRC Divide Register (SCG_FIRCDIV)&lt;/h3&gt;
-&lt;p&gt;这个寄存器控制 FIRC 的分频器的值&lt;/p&gt;
-&lt;h3 id=&#34;fast-irc-configuration-register-scg-firccfg&#34;&gt;Fast IRC Configuration Register (SCG_FIRCCFG)&lt;/h3&gt;
-&lt;p&gt;这个寄存器控制 FIRC 的基础设置，不能在 FIRC 开启的时候修改&lt;/p&gt;
-&lt;h3 id=&#34;system-pll-control-status-register-scg-spllcsr&#34;&gt;System PLL Control Status Register (SCG_SPLLCSR)&lt;/h3&gt;
-&lt;h3 id=&#34;system-pll-divide-register-scg-splldiv&#34;&gt;System PLL Divide Register (SCG_SPLLDIV)&lt;/h3&gt;
-&lt;h3 id=&#34;system-pll-configuration-register-scg-spllcfg&#34;&gt;System PLL Configuration Register (SCG_SPLLCFG)&lt;/h3&gt;
-&lt;p&gt;以上的几个寄存器基本设置都类似，但是具体到写程序的时候，一定要对照寄存器的表来写，因为他们之间都有一些不同&lt;/p&gt;
-&lt;h2 id=&#34;-scg-&#34;&gt;不同工作模式中 SCG 的工作流程&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;启动的时候，’Reset’ 会直接传递给 Run 模式下的 FIRC，Run 模式下 FIRC，SOSC，SPLL，SIRC 共同工作，可以互相传递时钟&lt;/li&gt;
-&lt;li&gt;启动完成后，如果单片机进入 &lt;strong&gt;High Speed Mode&lt;/strong&gt; 则会直接将 FIRC 时钟和 SPLL 相互传递&lt;/li&gt;
-&lt;li&gt;启动完成后，如果单片机进入 &lt;strong&gt;Very Slow Power Mode&lt;/strong&gt; 则只启用 SIRC 时钟。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h1 id=&#34;heading&#34;&gt;查看代码对应的时钟寄存器&lt;/h1&gt;
-&lt;h4 id=&#34;void-sosc-init-8mhzvoid-&#34;&gt;&lt;code&gt;void SOSC_init_8MHz(void)&lt;/code&gt; :&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;SCG-&amp;gt;SOSCDIV=0x00000101;&lt;/code&gt; 设置对应的两路 DIV&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;SCG-&amp;gt;SOSCCFG=0x00000024;&lt;/code&gt; 设置SOSC的硬件属性，晶振频率选择，可以看出来 1MHz ~ 8Mhz 是中频的范围，这个值在 Reference Manual 中并未给出。HGO 中高增益意味着高功率，在这里我们不需要高增益。&lt;/li&gt;
-&lt;li&gt;循环，等 &lt;code&gt;SOSCCSR&lt;/code&gt; 状态寄存器解锁&lt;/li&gt;
-&lt;li&gt;设置 &lt;code&gt;SOSCCSR&lt;/code&gt;  状态寄存器，这里什么都没有开启，只给了使能。&lt;/li&gt;
-&lt;li&gt;循环，等待 &lt;code&gt;SOSCCSR&lt;/code&gt; 有效&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;注意，这个函数应该在启用 &lt;strong&gt;锁相环&lt;/strong&gt; 前设定完成，而且要保证使能步骤在函数内部的最后一步完成。&lt;/p&gt;
-&lt;h4 id=&#34;void-spll-init-160mhzvoid-&#34;&gt;&lt;code&gt;void SPLL_init_160MHz(void)&lt;/code&gt; :&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;循环，等 &lt;code&gt;SPLLCSR&lt;/code&gt; 状态寄存器解锁&lt;/li&gt;
-&lt;li&gt;设置 &lt;code&gt;SPLLCSR&lt;/code&gt; 先关闭锁相环，&lt;code&gt;SPLLDIV&lt;/code&gt; 设置两路 DIV，&lt;code&gt;SPLLCFG&lt;/code&gt; 设置 MULT 和 PREDIV 。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2017-10-02-S32K144_3/SPLLCalculation.png&#34; alt=&#34;1&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;循环，等待 &lt;code&gt;SPLLCSR&lt;/code&gt; 状态寄存器 解锁&lt;/li&gt;
-&lt;li&gt;使能&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;void-normalrunmode-80mhz-void-&#34;&gt;&lt;code&gt;void NormalRUNmode_80MHz (void)&lt;/code&gt; :&lt;/h4&gt;
-&lt;p&gt;这个其实就是设置 SCG_RCCR 的值，这个值在 RUN 模式下是用于设定一些分频器（&lt;code&gt;DIVSLOW&lt;/code&gt; &lt;code&gt;DIVBUS&lt;/code&gt; &lt;code&gt;DIVCORE&lt;/code&gt;） 和选择时钟源（&lt;code&gt;SCS&lt;/code&gt;）的。&lt;/p&gt;
-&lt;h1 id=&#34;lpit&#34;&gt;低功率中断计时器（LPIT）设置&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;S32K144中有一个 LPIT 模块 &lt;code&gt;LPIT0&lt;/code&gt; 和四个通道，低泄露模式和等待模式不被该芯片支持，修改 LPIT 在其功能时钟在关闭的时候会导致赋值错误。&lt;/li&gt;
-&lt;li&gt;LPIT 每个通道会给 DMAMUX 周期性触发&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;LPIT 被设计为捕捉脉冲在其输入引脚，并不需要和其时钟频率有关，但是为了保证可靠性，连续的触发操作应该至少间隔 10 个 LPIT 总线时钟周期。&lt;/p&gt;
-&lt;h3 id=&#34;tval-&#34;&gt;TVAL 是初值寄存器：&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;在 LPIT 比较模式中&lt;/strong&gt;：其中储存的值会逐渐减少到 0，之后会产生中断并且将初值恢复，写入一个新的值不会立刻修改初值，必须要到当前的值到零重装才能生效，如果想要立即生效请在 TCRTL 寄存器中关闭该模块再重新打开。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;在 LPIT 捕捉模式中&lt;/strong&gt;：其中储存的值是计数值的相反值。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;tctrl-&#34;&gt;TCTRL 是控制寄存器：&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;工作模式有：
-&lt;ul&gt;
-&lt;li&gt;32-bit 周期计数&lt;/li&gt;
-&lt;li&gt;双 16-bit 周期计数&lt;/li&gt;
-&lt;li&gt;32-bit 触发积累&lt;/li&gt;
-&lt;li&gt;32-bit 输入捕捉&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;TSOT（Timer Start On Trigger），TROT（Timer Reset On Trigger） 和 TSOI（Timer Stop On Interrupt） ，CHAIN 设置请参考 Reference Manual，不难，根据名字就可以理解。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;lpit-&#34;&gt;LPIT 使用的步骤：&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;PCC 选择 LPIT 的时钟源，然后使用 &lt;code&gt;PCC_PCCn_CGC_MASK&lt;/code&gt; 取或打开 LPIT 。&lt;/li&gt;
-&lt;li&gt;首先使用 LPIT0 指针赋值 MCR 寄存器，默认赋值 &lt;code&gt;0x00000001&lt;/code&gt; 即可，仅仅打开 &lt;code&gt;M_CEN&lt;/code&gt; 开关，此开关未打开前后续的寄存器处于锁定状态，赋值以及读取均会报错。&lt;/li&gt;
-&lt;li&gt;LPIT0 指针赋值 &lt;code&gt;TMR[n].TVAL&lt;/code&gt; 和 &lt;code&gt;TMR[n].TCTRL&lt;/code&gt;, TVAL 控制 timeout 周期，TCTRL 控制开启对应的通道。并且确定工作模式。&lt;/li&gt;
-&lt;li&gt;检测 MSR 寄存器中的 TIFn 是否产生 flag（1）。&lt;/li&gt;
-&lt;/ol&gt;</description>
     </item>
     <item>
       <title>C 指针疑难杂谈</title>
