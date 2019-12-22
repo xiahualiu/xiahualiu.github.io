@@ -12,7 +12,7 @@
       <link>https://xiahualiu.github.io/posts/2019-07-28-partial-fraction-expansion/</link>
       <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/2019-07-28-partial-fraction-expansion/</guid>
-      <description>&lt;p&gt;2019 07 28 Partial Fraction Expansion&amp;quot;rtial fraction expansion (also known as partial fraction decomposition) is a very basic math operation when we want to simplify a problem involving a fraction with polynomial numerator and denominator. We have some methods to handle the fundamental fraction terms like Laplace transform of a simple exponential signal is:&lt;/p&gt;
+      <description>&lt;p&gt;Partial fraction expansion (also known as partial fraction decomposition) is a very basic math operation when we want to simplify a problem involving a fraction with polynomial numerator and denominator. We have some methods to handle the fundamental fraction terms like Laplace transform of a simple exponential signal is:&lt;/p&gt;
 &lt;p&gt;$$F(s)=\frac{1}{a+s}$$&lt;/p&gt;
 &lt;p&gt;And the by inverse Laplace Transform we know the signal is either $e^{-at}u(t)$ or $-e^{-at}u(-t)$, depending on the transform is left-sided or right-sided.&lt;/p&gt;
 &lt;p&gt;But in a more complicated situation, while we are facing the transform like&lt;/p&gt;
@@ -99,7 +99,7 @@ $$&lt;/p&gt;
       <link>https://xiahualiu.github.io/posts/2019-04-25-lfsr-crc/</link>
       <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/2019-04-25-lfsr-crc/</guid>
-      <description>&lt;p&gt;wadays, cyclic redundancy check (CRC) is widely used on various fields, including data transmission or data integraty check, e.g UART or CAN bus. For many new hardware beginning learners, CRC appears to be a complexed mathematical blackbox which produces a serial of seemingly gibberish binary numbers. But it indeed is a very reliable mechanics which extracts the feature of the data and simple to understand and implement.&lt;/p&gt;
+      <description>&lt;p&gt;Nowadays, cyclic redundancy check (CRC) is widely used on various fields, including data transmission or data integraty check, e.g UART or CAN bus. For many new hardware beginning learners, CRC appears to be a complexed mathematical blackbox which produces a serial of seemingly gibberish binary numbers. But it indeed is a very reliable mechanics which extracts the feature of the data and simple to understand and implement.&lt;/p&gt;
 &lt;p&gt;First I want to introduce a thing to you, that is LFSR, Linear Feedback Shift Register. LFSR circuit looks just like below:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2019-4-25-LFSR-CRC/lfsr.png&#34; alt=&#34;A 4-bit LFSR&#34;&gt;&lt;/p&gt;
 &lt;p&gt;If we put D3 D2 D1 D0 in a row, we can have a 4-bit value and every time when the clock edge occurs, the value is renewed by itself with the feedback channel. If only the g0 and g4 were open, LFSR itself transforms into a normal loop shift register.&lt;/p&gt;
@@ -3325,21 +3325,22 @@ PriorityQueue &lt;span style=&#34;color:#a6e22e&#34;&gt;Merge&lt;/span&gt;(Prior
       <link>https://xiahualiu.github.io/posts/2018-07-13-csapp-link/</link>
       <pubDate>Fri, 13 Jul 2018 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/2018-07-13-csapp-link/</guid>
-      <description>&lt;p&gt;nux LD 程序这样的 &lt;strong&gt;静态链接器（static linker）&lt;/strong&gt; 以一组可重定位目标文件和命令行参数作为输入，神成一个完全链接的、可以加载和运行的可执行目标文件作为输出。输入的可重定位目标文件由各种不同的代码和 &lt;strong&gt;数据节&lt;/strong&gt; 组成，每一节都是一个连续的字节序列。指令在一节中，初始化了的全局变量在另一节中，而未初始化的变量又在另外一节中。&lt;/p&gt;
+      <description>&lt;h2 id=&#34;heading&#34;&gt;静态链接&lt;/h2&gt;
+&lt;p&gt;像Linux LD 程序这样的 &lt;strong&gt;静态链接器（static linker）&lt;/strong&gt; 以一组可重定位目标文件和命令行参数作为输入，神成一个完全链接的、可以加载和运行的可执行目标文件作为输出。输入的可重定位目标文件由各种不同的代码和 &lt;strong&gt;数据节&lt;/strong&gt; 组成，每一节都是一个连续的字节序列。指令在一节中，初始化了的全局变量在另一节中，而未初始化的变量又在另外一节中。&lt;/p&gt;
 &lt;p&gt;构建可执行文件前，链接器必须完成以下的两个主要任务：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;符号解析（symbol resolution）&lt;/strong&gt;。目标文件定义和引用符号，每个符号对应一个函数、一个全局变量或一个静态变量（也就是 C 语言中任何以 static 属性声明的变量）。符号解析的目的是将每个符号引用正好和一个符号定义关联起来。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;重定位（reallocation）&lt;/strong&gt;。编译器和汇编器生成正好从地址 0 开始的代码和数据节。链接器通过把每个符号定义与一个内存位置关联起来，从而 &lt;em&gt;重定位&lt;/em&gt; 这些节，然后修改所有对于这些符号的引用，使得他们指向这个内存位置。链接器使用汇编器产生的 &lt;em&gt;重定位条目（relocation entry）&lt;/em&gt; 的详细指令，不加甄别地执行这样的重定位。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;链接器的目标文件：**目标文件纯粹是字节块的集合。**在这些块中，有些包含程序代码，有些包含程序数据，而其他的则包含引导链接器和加载器的数据结构。链接器将这些块连接起来，确定被连接块的运行时位置，并且修改代码和数据块中的各种位置。链接器对目标机器的连接甚少。产生目标文件的编译器和汇编器已经完成了大部分工作。&lt;/p&gt;
-&lt;h2 id=&#34;heading&#34;&gt;目标文件&lt;/h2&gt;
+&lt;h2 id=&#34;heading-1&#34;&gt;目标文件&lt;/h2&gt;
 &lt;p&gt;目标文件有三种形式：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;可重定位目标文件&lt;/strong&gt;。包含二进制代码和数据，可以在编译的时候与其他的可重定位目标文件合并起来，创建一个可执行目标文件。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;可执行目标文件&lt;/strong&gt;。包含二进制代码和数据，其形式可以被直接复制到内存中执行。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;共享目标文件&lt;/strong&gt;。一种特殊类型的可重定位目标文件，可以在加载或者运行时被动态地加载到内存并且链接。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;heading-1&#34;&gt;可重定位目标文件&lt;/h2&gt;
+&lt;h2 id=&#34;heading-2&#34;&gt;可重定位目标文件&lt;/h2&gt;
 &lt;p&gt;一个典型的 ELF 可重定位目标文件的格式。我们会在接下来的内容里逐条分析各个节的内容和作用。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2018-7-13-CSAPP-link/ELF_structure.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;ELF 头（ELF header）以一个 16 字节的序列开始，这个序列描述了生成该文件的系统的 &lt;strong&gt;字的大小&lt;/strong&gt; 和 &lt;strong&gt;字节顺序&lt;/strong&gt;。 ELF 头剩下的部分包含帮助链接器语法分析和解释目标文件的信息。其中包括 &lt;strong&gt;ELF 头的大小&lt;/strong&gt;、&lt;strong&gt;目标文件的类型（如可重定位、可执行或可共享的）&lt;/strong&gt;、&lt;strong&gt;机器类型（如 x86-64）&lt;/strong&gt;、&lt;strong&gt;节头部表（section header table）的文件偏移&lt;/strong&gt;，以及节头部表中条目的大小和数量。不同节的位置和大小都是由节头部表描述的。其中目标文件中的每个节都有一个固定大小的条目（entry）。&lt;/p&gt;
@@ -3356,7 +3357,7 @@ PriorityQueue &lt;span style=&#34;color:#a6e22e&#34;&gt;Merge&lt;/span&gt;(Prior
 &lt;li&gt;&lt;code&gt;.line&lt;/code&gt;：原始 C 源文件中的行号和 &lt;code&gt;.text&lt;/code&gt; 节中的机器指令之间的映射。只有 &lt;code&gt;-g&lt;/code&gt; 选项调用编译器驱动程序时，才会得到这张表。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;.strtab&lt;/code&gt;：一个字符串表，其内容包括 .symtab 和 .debug 节中的符号表，以及节头部表中的节名字。字符串表就是以 null 结尾的字符串的序列。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;heading-2&#34;&gt;位置无关的代码&lt;/h2&gt;
+&lt;h2 id=&#34;heading-3&#34;&gt;位置无关的代码&lt;/h2&gt;
 &lt;p&gt;共享库的一个主要目的就是允许多个正在运行的进程共享内存中相同的库代码，因而节约宝贵的内存资源。那么，多个进程是如何共享程序中的一个副本的呢？一种方法是给每个库分配一个事先预备好的专用的地址空间片，然后要求加载器总是在这个地址加载共享库。虽然这种方法很简单，但是它同时造成了一些严重的问题，它对于地址空间的使用效率不高，因为即使一个进程不使用这个库，那部分空间还是会被分配出来。它也难以管理，我们必须保证没有片重叠。每当一个库修改了以后，我们必须保证分配的空间还依旧合适。更糟的是，对每个系统而言，库在内存中的分配方式都是不同的，这就引起了更多令人头痛的管理问题。&lt;/p&gt;
 &lt;p&gt;要避免这些问题，现在系统以这样一种方式编译共享模块的嗲码段，是的可以把它们加载到内存的任何位置而无需链接器修改。使用这种方法，无限多个进程可以共享一个共享模块的代码段的单一副本。（每个进程仍然有自己的读/写数据块。）&lt;/p&gt;
 &lt;p&gt;可加载而无需重定位的代码被称作 &lt;strong&gt;位置无关代码（Position-Independent Code，PIC）&lt;/strong&gt;。用户可以对 GCC 使用 -fpic 选项指示 GNU 编译系统生成 PIC 代码。共享库的编译必须使用该选项。&lt;/p&gt;
@@ -4101,7 +4102,7 @@ CAN 一共提供了不少于 5 种的错误检测方式，前两种工作在物�
       <link>https://xiahualiu.github.io/posts/2017-12-07-c-pointer/</link>
       <pubDate>Thu, 07 Dec 2017 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/2017-12-07-c-pointer/</guid>
-      <description>&lt;p&gt;语言中，要说什么概念最难理解，那指针当仁不让处于第一的位置，初学者对于指针是叫苦不堪，即使是熟练地程序员在写程序的时候，复杂的指针也会使程序的可读性大大降低。&lt;/p&gt;
+      <description>&lt;p&gt;在 C 语言中，要说什么概念最难理解，那指针当仁不让处于第一的位置，初学者对于指针是叫苦不堪，即使是熟练地程序员在写程序的时候，复杂的指针也会使程序的可读性大大降低。&lt;/p&gt;
 &lt;p&gt;但是指针又是 C 语言的一个特点，使用指针可以使编程更加容易。而且有些任务，譬如动态内存分配，如 &lt;code&gt;malloc&lt;/code&gt; &lt;code&gt;calloc&lt;/code&gt; &lt;code&gt;realloc&lt;/code&gt; 函数的使用又必须依赖指针，所以如果想要成为一个熟练的 C 程序员，理解熟练使用指针是非常必要的。&lt;/p&gt;
 &lt;h2 id=&#34;heading&#34;&gt;什么是指针&lt;/h2&gt;
 &lt;p&gt;首先，在程序运行中，变量都是存在计算机的内存中的。指针是一种变量，它的值是&lt;strong&gt;另外一个变量的地址&lt;/strong&gt;，也就是直接的内存地址，在 32 位系统中，指针的大小为 4 字节（在远古时期的远指针，近指针，巨指针，等不参加讨论），很好理解，一个字节长度为 8 bits，4 bytes = 32 bits，如果在最新的 64 位系统中编译并且运行的话，指针会变成 8 字节的长度，因为对应的地址位宽增加了。&lt;/p&gt;

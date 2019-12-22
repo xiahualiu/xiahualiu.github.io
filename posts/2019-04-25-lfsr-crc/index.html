@@ -62,7 +62,7 @@
   
 </header>
 
-  <p>wadays, cyclic redundancy check (CRC) is widely used on various fields, including data transmission or data integraty check, e.g UART or CAN bus. For many new hardware beginning learners, CRC appears to be a complexed mathematical blackbox which produces a serial of seemingly gibberish binary numbers. But it indeed is a very reliable mechanics which extracts the feature of the data and simple to understand and implement.</p>
+  <p>Nowadays, cyclic redundancy check (CRC) is widely used on various fields, including data transmission or data integraty check, e.g UART or CAN bus. For many new hardware beginning learners, CRC appears to be a complexed mathematical blackbox which produces a serial of seemingly gibberish binary numbers. But it indeed is a very reliable mechanics which extracts the feature of the data and simple to understand and implement.</p>
 <p>First I want to introduce a thing to you, that is LFSR, Linear Feedback Shift Register. LFSR circuit looks just like below:</p>
 <p><img src="/img/2019-4-25-LFSR-CRC/lfsr.png" alt="A 4-bit LFSR"></p>
 <p>If we put D3 D2 D1 D0 in a row, we can have a 4-bit value and every time when the clock edge occurs, the value is renewed by itself with the feedback channel. If only the g0 and g4 were open, LFSR itself transforms into a normal loop shift register.</p>
