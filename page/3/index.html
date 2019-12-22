@@ -45,6 +45,8 @@
 
 
 
+
+
   
   <link rel="stylesheet" href="https://xiahualiu.github.io/css/base.min.a325db5a8beaa47e0541e6117eb67c3bc54cf8945100141e8a9defb2533f7344.css" integrity="sha256-oyXbWovqpH4FQeYRfrZ8O8VM&#43;JRRABQeip3vslM/c0Q=" crossorigin="anonymous">
   
@@ -80,17 +82,21 @@
 <article>
   <header class="Heading">
   <h2 class="Heading-title">
-    <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2018-7-27-sorting/" rel="bookmark">排序知识点</a>
+    <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2017-09-28-s32k144_1/" rel="bookmark">S32K144EVB Notes 1</a>
   </h2>
+  
+  <time datetime="2017-09-28T00:00:00Z">
+    28 September, 2017
+  </time>
   
 </header>
 
   
-  <p>本文的内容是总结数据结构与算法中常见的几种排序算法，算是程序员的基本功之一。首先会从几种简单的排序算法开始，最后会逐渐涉及较为复杂的排序算法。</p>
-<p>在本文中，我们首先要约定，我们要排序的元素个数为 N，元素在数组中并且数组以下标 0 开始放置元素。</p>
+  <h1 id="heading">前言</h1>
+<p>本文主要介绍了本人在学习使用 <a href="https://www.nxp.com/cn/products/microcontrollers-and-processors/arm-processors/s32-arm-processors-microcontrollers/32-bit-automotive-general-purpose-microcontrollers:S32K#overviewExpand?cid=ps_cn_baidu_cpc_B_AUTO_S32K_Phrase_bd20170620002">S32K144EVB</a>中遇到的问题和解决办法，由于本芯片是 <a href="https://www.nxp.com/">NXP</a>(原 freescale) 生产的基于 ARM M4F 内核的32位芯片，主要适用对象是汽车 。目前在网络上该芯片还没有相关的中文学习资料，到笔者写本文目前，网络上能够找到的资料只有开发板的电路图和 Reference Manual 和该芯片配套的 IDE 内置头文件以及给出的 cookbook 例程，笔者也是在一步步摸索学习，故本文为一个记录性质的文章。</p>
   
   <p>
-    <a class="u-clickable" href="https://xiahualiu.github.io/posts/2018-7-27-sorting/">Read More…</a>
+    <a class="u-clickable" href="https://xiahualiu.github.io/posts/2017-09-28-s32k144_1/">Read More…</a>
   </p>
   
   
@@ -108,16 +114,21 @@
 <article>
   <header class="Heading">
   <h2 class="Heading-title">
-    <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2018-8-28-rb-tree/" rel="bookmark">红黑树(RB-Tree) - 思路与实现</a>
+    <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2017-09-29-s32k144_2/" rel="bookmark">S32K144EVB Notes 2</a>
   </h2>
+  
+  <time datetime="2017-09-28T00:00:00Z">
+    28 September, 2017
+  </time>
   
 </header>
 
   
-  <p>红黑树的数据结构已经被研究了多年，最为最广泛应用的数据结构之一，因为其具有优良的特性，即自平衡性，所以无论在最坏或者是最好的输出中，红黑树的高度都十分稳定（<strong>红黑树可以能确保树的最长路径不大于两倍的最短路径的长度</strong>）。</p>
+  <h1 id="heading">本文简介</h1>
+<p>本文主要详细叙述了 S32K144 的时钟模块相关内容。本文代码包含以下内容：</p>
   
   <p>
-    <a class="u-clickable" href="https://xiahualiu.github.io/posts/2018-8-28-rb-tree/">Read More…</a>
+    <a class="u-clickable" href="https://xiahualiu.github.io/posts/2017-09-29-s32k144_2/">Read More…</a>
   </p>
   
   
@@ -135,16 +146,16 @@
 <article>
   <header class="Heading">
   <h2 class="Heading-title">
-    <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2018-7-13-csapp-link/" rel="bookmark">链接（CSAPP 读书笔记）</a>
+    <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2019-01-29-paging/" rel="bookmark">xv6 Chapter 3 - Turn on Paging</a>
   </h2>
   
 </header>
 
   
-  <p>nux LD 程序这样的 <strong>静态链接器（static linker）</strong> 以一组可重定位目标文件和命令行参数作为输入，神成一个完全链接的、可以加载和运行的可执行目标文件作为输出。输入的可重定位目标文件由各种不同的代码和 <strong>数据节</strong> 组成，每一节都是一个连续的字节序列。指令在一节中，初始化了的全局变量在另一节中，而未初始化的变量又在另外一节中。</p>
+  <p>In the last post, we discussed about the C code part of the boot loader, namely <code>bootmain.c</code>. It read 4096 bytes data from the beginning of the disk second sector into the physical address <code>0x10000</code> then parsed the elf file header by a <code>struct elf</code>, read specified fields of <code>struct elf</code> in order to validate elf file and acquire information about the program table. After that our boot loader fetched every corresponding elf body segment (e.g. .text .data) defined by each entry in the program header table and placed them in the written physical address <code>p_addr</code> By the end of boot loader it called <code>p-&gt;entry</code> which is the entry of the elf file, proceeding to the next program, which is <code>main</code>.</p>
   
   <p>
-    <a class="u-clickable" href="https://xiahualiu.github.io/posts/2018-7-13-csapp-link/">Read More…</a>
+    <a class="u-clickable" href="https://xiahualiu.github.io/posts/2019-01-29-paging/">Read More…</a>
   </p>
   
   
