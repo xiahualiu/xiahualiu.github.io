@@ -8,6 +8,1088 @@
     <generator>Hugo -- gohugo.io</generator>
     <atom:link href="https://xiahualiu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Signal Processing Math - Partial Fraction Expansion Strategies</title>
+      <link>https://xiahualiu.github.io/posts/2019-07-28-partial-fraction-expansion/</link>
+      <pubDate>Sun, 28 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>https://xiahualiu.github.io/posts/2019-07-28-partial-fraction-expansion/</guid>
+      <description>&lt;p&gt;2019 07 28 Partial Fraction Expansion&amp;quot;rtial fraction expansion (also known as partial fraction decomposition) is a very basic math operation when we want to simplify a problem involving a fraction with polynomial numerator and denominator. We have some methods to handle the fundamental fraction terms like Laplace transform of a simple exponential signal is:&lt;/p&gt;
+&lt;p&gt;$$F(s)=\frac{1}{a+s}$$&lt;/p&gt;
+&lt;p&gt;And the by inverse Laplace Transform we know the signal is either $e^{-at}u(t)$ or $-e^{-at}u(-t)$, depending on the transform is left-sided or right-sided.&lt;/p&gt;
+&lt;p&gt;But in a more complicated situation, while we are facing the transform like&lt;/p&gt;
+&lt;p&gt;$$F(s)=\frac{s+3}{s^3+7s^2+10s}$$&lt;/p&gt;
+&lt;p&gt;We want to decompose the fraction into a sum of simple fractions:&lt;/p&gt;
+&lt;p&gt;$$F(s)=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{s+5}$$&lt;/p&gt;
+&lt;p&gt;So we can use the basic Laplace transform pairs to get the signal. But we need a way to determine the values of $A_1$ $A_2$ and $A_3$.&lt;/p&gt;
+&lt;h2 id=&#34;a-simple-partial-fraction-expansion&#34;&gt;A Simple Partial Fraction Expansion&lt;/h2&gt;
+&lt;p&gt;The simple situation is the one shown above, there is a simple and straightforward method to determining the unknown coefficients $A_1$ $A_2$ and $A_3$.&lt;/p&gt;
+&lt;p&gt;To find $A_1$, multiply $F(s)$ by $s$.&lt;/p&gt;
+&lt;p&gt;$$\begin{aligned}sF(s)&amp;amp;=s\frac{s+3}{s(s+2)(s+5)} \
+&amp;amp;=A_1+s\frac{A_2}{s+2}+s\frac{A_3}{s+5}\end{aligned}$$&lt;/p&gt;
+&lt;p&gt;and then set $s=0$.&lt;/p&gt;
+&lt;p&gt;$$\begin{aligned}sF(s)|_{s=0}&amp;amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \&lt;br&gt;
+&amp;amp;=\frac{s+3}{s(s+5)}|_{s=0}=\frac{3}{10}\end{aligned}$$&lt;/p&gt;
+&lt;p&gt;Likewise, we can get $A_2$ by setting $s=-2$, get $A_3$ by setting $s=-5$.&lt;/p&gt;
+&lt;h2 id=&#34;special-cases-of-parial-fraction-expansion&#34;&gt;Special Cases of Parial Fraction Expansion&lt;/h2&gt;
+&lt;p&gt;The simple partial fraction expansion can expand fraction into a sum of simpler fractions. However, ther are many situations where the expansion is not so simple.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Order of numerator polynomial is not less than that of the denominator.&lt;/strong&gt;&lt;/em&gt; Partial fraction expansion can only be performed when the order of the denominator polynomial (the bottom term of the fraction) is greater than the order of the numerator (the top term).  If this condition is not met, we must perform an extra step before continuing with the expansion.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;DIstinct Real Roots&lt;/strong&gt;&lt;/em&gt; The problem solved above is described as the case of distinct, real roots.   This means that each term only appears once in the denominator, and the root of each term in the denominator is a distinct real number.  In the example above, the roots were at $0$, $-2$ and $-5$.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Repeated Real Roots&lt;/strong&gt;&lt;/em&gt; Another possibility is a case of repeated roots. For example&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$F(s)=\frac{s+3}{s(s+2)^2(s+5)}$$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;Complex Roots&lt;/strong&gt;&lt;/em&gt; If the denominator cannot be reduced to a product of real roots. For example&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$F(s)=\frac{s+3}{(s+5)(s^2+4s+5)}=\frac{s+3}{(s+5)(s+2+j)(s+2-j)}$$&lt;/p&gt;
+&lt;h4 id=&#34;order-of-numerator-polynomial-is-not-less-than-that-of-the-denominator&#34;&gt;Order of numerator polynomial is not less than that of the denominator&lt;/h4&gt;
+&lt;p&gt;We can use long division to eliminate the high-order terms on the numerater.&lt;/p&gt;
+&lt;h4 id=&#34;distinct-real-roots&#34;&gt;Distinct Real Roots&lt;/h4&gt;
+&lt;p&gt;Like the example done above, In general&lt;/p&gt;
+&lt;p&gt;$$F(s)=\frac{A_1}{s+a_1}+\frac{A_2}{s+a_2}+\cdot\cdot\cdot+\frac{A_n}{s+a_n}$$
+$$A_i=(s+a_i)F(s)|_{s=-a_i}$$&lt;/p&gt;
+&lt;p&gt;When calculation is done by hand, it is easily to use the &amp;ldquo;cover-up&amp;rdquo; method.&lt;/p&gt;
+&lt;h4 id=&#34;repeated-real-roots&#34;&gt;Repeated Real Roots&lt;/h4&gt;
+&lt;p&gt;For example, consider the fraction:&lt;/p&gt;
+&lt;p&gt;$$F(s)=\frac{s+3}{s(s+2)^2(s+5)}$$&lt;/p&gt;
+&lt;p&gt;The expansion for this case is:&lt;/p&gt;
+&lt;p&gt;$$F(s)=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{(s+2)^2}+\frac{A_4}{s+5}$$&lt;/p&gt;
+&lt;p&gt;And we can proof the simple method cannot be used since $(s+2)$ appear twice, and we can only get one value by setting $s=-2$.&lt;/p&gt;
+&lt;p&gt;There are two ways, the most favored by the texbook method uses the relationship&lt;/p&gt;
+&lt;p&gt;$$A_2=\left[\frac{d}{ds}(s+2)^2F(s)\right]_{s=-2}$$&lt;/p&gt;
+&lt;p&gt;so&lt;/p&gt;
+&lt;p&gt;$$A_2=\left.\frac{s(s+5)-(s+3)(2s+5)}{(s(s+5))^2}\right|_{s=-2}$$&lt;/p&gt;
+&lt;p&gt;While this method is elegant (and can be extended to multiply repeated roots), the differentiation of the ratio of polynomials is prone to errors.&lt;/p&gt;
+&lt;h5 id=&#34;example-cross-multiplication&#34;&gt;Example: Cross Multiplication&lt;/h5&gt;
+&lt;p&gt;$$F(s)=\frac{s+3}{s(s+2)^2(s+5)}=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{(s+2)^2}+\frac{A_4}{s+5}$$&lt;/p&gt;
+&lt;p&gt;$$s+3=(s+2)^2(s+5)A_1+s(s+2)(s+5)A_2+s(s+5)A_3+s(s+2^2)A_4$$&lt;/p&gt;
+&lt;p&gt;$$s+3=(A_1+A_2+A_4)s^3+(9A_1+7A_2+A_3+4A_4)s^2+(24A_1+10A_2+5A_3+4A_4)s+20A_1 $$&lt;/p&gt;
+&lt;p&gt;This yields a four-by-four system of equations that can be solved for $A_1$ through $A_4$.&lt;/p&gt;
+&lt;p&gt;$$\begin{aligned}A_1+A_2+A_4&amp;amp;=0 \&lt;br&gt;
+9A_1+7A_2+A_3+4A_4 &amp;amp;=0 \&lt;br&gt;
+24A_1+10A_2+5A_3+4A_4&amp;amp;=1 \&lt;br&gt;
+20A_1&amp;amp;=3\end{aligned}$$&lt;/p&gt;
+&lt;p&gt;Or, in the matrix form&lt;/p&gt;
+&lt;p&gt;$$
+\left[\begin{array}{rrrr}{1} &amp;amp; {1} &amp;amp; {0} &amp;amp; {1} \ {9} &amp;amp; {7} &amp;amp; {1} &amp;amp; {4} \ {24} &amp;amp; {10} &amp;amp; {5} &amp;amp; {4} \ {20} &amp;amp; {0} &amp;amp; {0} &amp;amp; {0}\end{array}\right]\left[\begin{array}{c}{A_{1}} \ {A_{2}} \ {A_{3}} \ {A_{4}}\end{array}\right]=\left[\begin{array}{c}{0} \ {0} \ {1} \ {3}\end{array}\right]
+$$&lt;/p&gt;
+&lt;p&gt;We can combine the cover-up method to get the coefficients that is distinct then use cross multiplication to get the coefficients that corresponds to the repeated roots.&lt;/p&gt;
+&lt;h3 id=&#34;complex-roots&#34;&gt;Complex Roots&lt;/h3&gt;
+&lt;p&gt;Consider the fraction&lt;/p&gt;
+&lt;p&gt;$$
+\begin{aligned} F(s) &amp;amp;=\frac{s+3}{(s+5)\left(s^{2}+4 s+5\right)}=\frac{s+3}{(s+5)(s+2-j)(s+2+j)} \ &amp;amp;=\frac{A_{1}}{(s+5)}+\frac{A_{2}}{(s+2-j)}+\frac{A_{3}}{(s+2+j)} \end{aligned}
+$$&lt;/p&gt;
+&lt;p&gt;where&lt;/p&gt;
+&lt;p&gt;$$
+\begin{array}{l}{A_{1}=(s+5) F(s)|_{s=-5}} \ {A_{2}=(s+2-j) F(s)|_{s=-2+j}} \ {A_{3}=(s+2+j) F(s)|_{s=-2+j}=A_{2}^{*}}\end{array}
+$$&lt;/p&gt;
+&lt;p&gt;Another way to expand the fraction without resorting to complex numbers is to perform the expansion as follows.&lt;/p&gt;
+&lt;p&gt;$$
+F(s)=\frac{s+3}{(s+5)\left(s^{2}+4 s+5\right)}=\frac{A}{s+5}+\frac{B s+C}{s^{2}+4 s+5}
+$$&lt;/p&gt;
+&lt;p&gt;Note that the numerator of the second term is no longer a constant, but is instead a first order polynomial. Use cross-multiplication to get $A$ $B$ $C$.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>How is Linear Feedback Shift Register(LFSR) used on Cyclic Redundancy Check(CRC)</title>
+      <link>https://xiahualiu.github.io/posts/2019-04-25-lfsr-crc/</link>
+      <pubDate>Fri, 26 Apr 2019 00:00:00 +0000</pubDate>
+      <guid>https://xiahualiu.github.io/posts/2019-04-25-lfsr-crc/</guid>
+      <description>&lt;p&gt;wadays, cyclic redundancy check (CRC) is widely used on various fields, including data transmission or data integraty check, e.g UART or CAN bus. For many new hardware beginning learners, CRC appears to be a complexed mathematical blackbox which produces a serial of seemingly gibberish binary numbers. But it indeed is a very reliable mechanics which extracts the feature of the data and simple to understand and implement.&lt;/p&gt;
+&lt;p&gt;First I want to introduce a thing to you, that is LFSR, Linear Feedback Shift Register. LFSR circuit looks just like below:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2019-4-25-LFSR-CRC/lfsr.png&#34; alt=&#34;A 4-bit LFSR&#34;&gt;&lt;/p&gt;
+&lt;p&gt;If we put D3 D2 D1 D0 in a row, we can have a 4-bit value and every time when the clock edge occurs, the value is renewed by itself with the feedback channel. If only the g0 and g4 were open, LFSR itself transforms into a normal loop shift register.&lt;/p&gt;
+&lt;p&gt;The intersting part is that we can acutally define a division calculation rule to describe this iterative process. I do not really understand how it works but it simply works anyway.&lt;/p&gt;
+&lt;p&gt;In the case above, if the last value was $M(x)$ and the new value is $R(x)$. We define the polynomial $M(x)=d_3x^3+d_2x^2+d_1x+d_0$ and $d_3,d_2,d_1,d_0\in{1,0}$, $G(x)=g_4x^4+g_3x^3+g_2x^2+g_1x+g_0$ The $x$ in the polynomial has no value and can be ragarded as a symbol to indicate which $d_x$ digit is. And:&lt;/p&gt;
+&lt;p&gt;$$
+R(x)=M(x)\mod G(x)
+$$&lt;/p&gt;
+&lt;p&gt;How can it be divided? Let us put hands on a simple example:&lt;/p&gt;
+&lt;p&gt;If the last ${d_3,d_2,d_1,d_0}={1,1,1,1}$ and the feedback gates ${g_4,g_3,g_2,g_1,g_0}={1,1,0,0,1}$. We can get new ${d_3,d_2,d_1,d_0}={1,1,1,0}$ by writing down the signal flow on the paper, and let us use the above rule:&lt;/p&gt;
+&lt;p&gt;$$
+R(x)=x \times (x^3+x^2+x+1)\mod(x^4+x^3+1)
+$$&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2019-4-25-LFSR-CRC/cal1.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The rule is simple, we only use the power of $x$ to times the divider and we get a result that has at most $x^3$. The substration procedure is acutally $\oplus$ which is also named XOR. We can now use binary digits to substitute the x. &lt;strong&gt;If you have any academic interest in the algebra part, it is called &lt;em&gt;Galois Field&lt;/em&gt; and we are currently use &lt;em&gt;GF(2)&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Let us continue on the calculation.&lt;/p&gt;
+&lt;p&gt;Now we have $x^2+x+1$, which is ${d_3,d_2,d_1,d_0}={1,1,1,0}$ and the next several states are:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2019-4-25-LFSR-CRC/cal2.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;And by doing so, we get a serial of numbers that loop in circle which length is $x^4 -1$, the only number did not show is $0000$, you can imagine that $0000$ cannot drive these gates so it will always be $0000$. That serial numbers are tested to be a 4-bit pseudo-random number. the initial value is the seed of the random numbers, so we can use LFSR to create random number sequence very easily.&lt;/p&gt;
+&lt;p&gt;But also, the gate values are not used without consideration, the gate polynomial has to be a primitive polynomial which means it cannot be a result of other two polynomials. You can refer to a primitive polynomial table to do so. (Google it, of course there is no link here.)&lt;/p&gt;
+&lt;p&gt;But there is a very minutely chance that the modulo is all zeroes for example we make gates ${1,0,1,0}$ and the seed is ${0,1,0,1}$. That is how we do CRC.&lt;/p&gt;
+&lt;p&gt;All the calculation illustrated above, we did not have an input, this equals to we input a zero every step. Assumed we have a serial of binary data ${1,0,1,1,0,1,0,0,0,&amp;hellip;}$, the length is 1024, and we push them in a 4-bit LFSR one by one, in the end we can get a modulo shorter than 5 bits. And here comes the tricky part, by adding this modulo to the end of the data (the modulo is acutally CRC data), the data now becomes 1028 bits, and also an exact division of the gate polynomial means eventually the LFSR will output all zeroes if we input this data serial.&lt;/p&gt;
+&lt;p&gt;We see that LFSR has a random feature, that means if the data is changed somewhere in the serial, only 1 in 15 chance that we can divide it with LFSR exactly, and this is because we only use 4-bit LFSR, if we use a 32-bit LFSR instead, the error chance becomes extremely little.&lt;/p&gt;
+&lt;p&gt;And we can also see that LFSR consumes very little gates and works very fast, we connect it to the shifter register of the transmitter and the receiver, so CRC process can work meanwhile the data is transmitted, so it is widely used in CRC.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>From SICP - Understand Event Driven Programming</title>
+      <link>https://xiahualiu.github.io/posts/2019-04-04-event-driven/</link>
+      <pubDate>Thu, 04 Apr 2019 00:00:00 +0000</pubDate>
+      <guid>https://xiahualiu.github.io/posts/2019-04-04-event-driven/</guid>
+      <description>&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;I am recently working on the wizard book SICP (The Structure and Interpretation of Computer Programs) that was recommended by one of my friends who study computer science. To be honest, the book is not so simple and naive as it was firstly acknowledged as the introduction book of MIT CS major. It abstracts and reveals essential programming philosophy in a easiest way, by the vehicle that known as the programming language Scheme. At first I thought scheme was a painful language for normal programmers because I only used C/C++  language that is of imperative style. However after reading the book and finishing every exercise all the way down, I gradually learned how to maneuver it and really got it on the right way.&lt;/p&gt;
+&lt;p&gt;In this post I used scheme as the language to illustrate what is event-driven programming, I once worked on a project that required to implement a simple protocal stack on a chip. However at that time I did not know about the event-driven paradigm so I make the processor to process the message packaging and unpackaging in a queue. In fact it worked pretty well (queue is also used in event-driven programming), however because lack of engineering experience, the whole program turned into a really intricate complex, with so many useless parts scattered everywhere. The whole project is difficult to maintain and debug.&lt;/p&gt;
+&lt;p&gt;In Chapter 3, SICP gives a special example in scheme, showing students how to use scheme to implement a small circuit simulator just like verilog. However it did not go into details, just provides a rough sketch. And the codes are in a way that easy for adept programmer to read, not for new programmers like me.&lt;/p&gt;
+&lt;p&gt;So I reiterate the code here, and describe the code segments in a human sequence (compared with SICP&#39;s only-god-know sequence).&lt;/p&gt;
+&lt;h1 id=&#34;full-overview&#34;&gt;Full Overview&lt;/h1&gt;
+&lt;p&gt;First of all, we only implement three basical gates (and or not) as primitives. We can imagine the circuit like the one below: In fact all the digital system can unfold into this three gates. So only 3 primitives is enough.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2019-4-4-Event-Driven/HA.png&#34; alt=&#34;Fig 1. A Half Adder Circuit&#34;&gt;&lt;/p&gt;
+&lt;p&gt;We must know how to we make our program behave like the real circuit. The program must transmit the signal from a node to another node, and changed them according to the gates&amp;rsquo; different input output rules. What&#39;s more, we must know the delay of each gate and make every event happend in the time sequence. We will first go through main event-driven part and ignore the time line.&lt;/p&gt;
+&lt;p&gt;The signals carried on circuit wires vary over time, when a signal changes, we know it causes a sequence of follow wires jumpping from 0 to 1 or 1 to 0 due to the logic gates rules. So we must invent a program mechanics to let a logic gate node able to catch a change on their input parameters and change their output, but how?&lt;/p&gt;
+&lt;p&gt;The answer is add an extra intermedia to hold a state, and let it trigger the event. In this article, the &lt;strong&gt;wire&lt;/strong&gt; object takes this duty, we define wire as below:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-scheme&#34; data-lang=&#34;scheme&#34;&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;get-signal&lt;/span&gt; wire) (&lt;span style=&#34;color:#a6e22e&#34;&gt;wire&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;get-signal&lt;/span&gt;))
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;set-signal!&lt;/span&gt; wire new-value)
+  ((&lt;span style=&#34;color:#a6e22e&#34;&gt;wire&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;set-signal!&lt;/span&gt;) new-value))
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;add-action!&lt;/span&gt; wire action-procedure)
+  ((&lt;span style=&#34;color:#a6e22e&#34;&gt;wire&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;add-action!&lt;/span&gt;) action-procedure))
+
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;make-wire&lt;/span&gt;)
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;let &lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;signal-value&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) (&lt;span style=&#34;color:#a6e22e&#34;&gt;action-procedures&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;()))
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;set-my-signal!&lt;/span&gt; new-value)
+      (&lt;span style=&#34;color:#66d9ef&#34;&gt;if &lt;/span&gt;(not (= signal-value new-value))
+          (&lt;span style=&#34;color:#66d9ef&#34;&gt;begin &lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;set! &lt;/span&gt;signal-value new-value)
+                 (&lt;span style=&#34;color:#a6e22e&#34;&gt;call-each&lt;/span&gt; action-procedures))
+          &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;not-changed&lt;/span&gt;))
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;accept-action-procedure!&lt;/span&gt; proc)
+      (&lt;span style=&#34;color:#66d9ef&#34;&gt;set! &lt;/span&gt;action-procedures
+            (cons proc action-procedures))
+      (&lt;span style=&#34;color:#a6e22e&#34;&gt;proc&lt;/span&gt;))
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;dispatch&lt;/span&gt; m)
+      (&lt;span style=&#34;color:#66d9ef&#34;&gt;cond &lt;/span&gt;((eq? m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;get-signal&lt;/span&gt;) signal-value)
+            ((eq? m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;set-signal!&lt;/span&gt;) set-my-signal!)
+            ((eq? m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;add-action!&lt;/span&gt;) accept-action-procedure!)
+            (&lt;span style=&#34;color:#66d9ef&#34;&gt;else &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Unknown operation on wires&amp;#34;&lt;/span&gt;))))
+    dispatch))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can see that the wire holds a local variable &lt;code&gt;signal-value&lt;/code&gt; and a procedure list &lt;code&gt;action-procedures&lt;/code&gt;. Wire has three interfaces to interact with other part of the program. The interesting part is the &lt;code&gt;set-my-signal!&lt;/code&gt; call, which does not simply change the signal value, but also triggeres the procedures in the list.&lt;/p&gt;
+&lt;p&gt;So think when the state of a wire is changed, it will call the procedure (these procedures are stored internal but defined as global) to change the state of adjacent wires, by calling their &lt;code&gt;set-signal!&lt;/code&gt; calls, and &lt;code&gt;set-signal!&lt;/code&gt; is defined in a particular way that tiggeres internal-stored procedures which affect the next wires and there becomes a chain reaction till processor reaches the output wires where no procedures are stored, all the wires are refreshed.&lt;/p&gt;
+&lt;p&gt;What are the procedures in the list? They are called when the value changes, in this case, they are logic gates. We must define these procedures in a way the connected wires are bound together, because we cannot bind them inside the wire object due to local environment rules. We want to change the connected wires states when called, it is important to construct the procedure environment enclosed in global environment and only in this way the wires state can be changed when internal precedures are called.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;call-each&lt;/code&gt; calls these procedures, which are defined as global procedures (very important) and have no arguments.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-scheme&#34; data-lang=&#34;scheme&#34;&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;call-each&lt;/span&gt; procedures)
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;if &lt;/span&gt;(null? procedures)
+      &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;done&lt;/span&gt;
+      (&lt;span style=&#34;color:#66d9ef&#34;&gt;begin &lt;/span&gt;((car procedures))
+             (&lt;span style=&#34;color:#a6e22e&#34;&gt;call-each&lt;/span&gt; (cdr procedures)))))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;logic-gates&#34;&gt;Logic Gates&lt;/h1&gt;
+&lt;p&gt;The three logic gates are defined below:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-scheme&#34; data-lang=&#34;scheme&#34;&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;inverter&lt;/span&gt; input output)
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;invert-input&lt;/span&gt;)
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;let &lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;new-value&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;logical-not&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;get-signal&lt;/span&gt; input))))
+        (&lt;span style=&#34;color:#a6e22e&#34;&gt;set-signal!&lt;/span&gt; output new-value)))
+  (&lt;span style=&#34;color:#a6e22e&#34;&gt;add-action!&lt;/span&gt; input invert-input) &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ok&lt;/span&gt;)
+
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;logical-not&lt;/span&gt; s)
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;cond &lt;/span&gt;((= s &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+        ((= s &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+        (&lt;span style=&#34;color:#66d9ef&#34;&gt;else &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Invalid signal&amp;#34;&lt;/span&gt; s))))
+
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;and-gate&lt;/span&gt; input1 input2 output)
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;and-input&lt;/span&gt;)
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;let &lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;new-value&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;logical-and&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;get-signal&lt;/span&gt; input1) (&lt;span style=&#34;color:#a6e22e&#34;&gt;get-signal&lt;/span&gt; input2))))
+      (&lt;span style=&#34;color:#a6e22e&#34;&gt;set-signal!&lt;/span&gt; output new-value)))
+  (&lt;span style=&#34;color:#a6e22e&#34;&gt;add-action!&lt;/span&gt; input1 and-input)
+  (&lt;span style=&#34;color:#a6e22e&#34;&gt;add-action!&lt;/span&gt; input2 and-input) &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ok&lt;/span&gt;)
+
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;logical-and&lt;/span&gt; s1 s2)
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;cond &lt;/span&gt;((= (* s1 s2) &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+        ((&lt;span style=&#34;color:#66d9ef&#34;&gt;or &lt;/span&gt;(= (+ s1 s2) &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) (= (+ s1 s2) &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)) &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+        (&lt;span style=&#34;color:#66d9ef&#34;&gt;else &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Invalid signal&amp;#34;&lt;/span&gt; s1 s2))))
+
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;or-gate&lt;/span&gt; input1 input2 output)
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;or-input&lt;/span&gt;)
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;let &lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;new-value&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;logical-or&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;get-signal&lt;/span&gt; input1) (&lt;span style=&#34;color:#a6e22e&#34;&gt;get-signal&lt;/span&gt; input2))))
+      (&lt;span style=&#34;color:#a6e22e&#34;&gt;set-signal!&lt;/span&gt; output new-value)))
+  (&lt;span style=&#34;color:#a6e22e&#34;&gt;add-action!&lt;/span&gt; input1 or-input)
+  (&lt;span style=&#34;color:#a6e22e&#34;&gt;add-action!&lt;/span&gt; input2 or-input) &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;ok&lt;/span&gt;)
+
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;logical-or&lt;/span&gt; s1 s2)
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;cond &lt;/span&gt;((&lt;span style=&#34;color:#66d9ef&#34;&gt;and &lt;/span&gt;(= s1 &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) (= s2 &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)) &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+        ((&lt;span style=&#34;color:#66d9ef&#34;&gt;and &lt;/span&gt;(= s2 &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) (= s1 &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)) &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+        ((&lt;span style=&#34;color:#66d9ef&#34;&gt;and &lt;/span&gt;(= s1 &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) (= s2 &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)) &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+        ((&lt;span style=&#34;color:#66d9ef&#34;&gt;and &lt;/span&gt;(= s1 &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) (= s2 &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)) &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+        (&lt;span style=&#34;color:#66d9ef&#34;&gt;else &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Invalid Signal&amp;#34;&lt;/span&gt; s1 s2))))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;These gates themselves are like injectors, they create the procedures and injected them into the input wires.&lt;/p&gt;
+&lt;h1 id=&#34;probes&#34;&gt;Probes&lt;/h1&gt;
+&lt;p&gt;We just finished the gates and the wires, and the simulation is ready to go, but we need a probe on the wires to tell us the change happended to what wire and from what state to another state.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-scheme&#34; data-lang=&#34;scheme&#34;&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;probe&lt;/span&gt; name wire)
+  (&lt;span style=&#34;color:#a6e22e&#34;&gt;add-action!&lt;/span&gt; wire
+               (&lt;span style=&#34;color:#66d9ef&#34;&gt;lambda &lt;/span&gt;()
+                 (display name) (display &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;)
+                 (display &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34; New-value = &amp;#34;&lt;/span&gt;)
+                 (display (&lt;span style=&#34;color:#a6e22e&#34;&gt;get-signal&lt;/span&gt; wire))
+                 (&lt;span style=&#34;color:#a6e22e&#34;&gt;newline&lt;/span&gt;))))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;go&#34;&gt;Go!&lt;/h1&gt;
+&lt;p&gt;Using the gate primitives defined above, we can implement the &lt;code&gt;half-adder&lt;/code&gt; in picture above:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-scheme&#34; data-lang=&#34;scheme&#34;&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;half-adder&lt;/span&gt; A B S C)
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;D (&lt;span style=&#34;color:#a6e22e&#34;&gt;make-wire&lt;/span&gt;))
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;E (&lt;span style=&#34;color:#a6e22e&#34;&gt;make-wire&lt;/span&gt;))
+  (&lt;span style=&#34;color:#a6e22e&#34;&gt;and-gate&lt;/span&gt; A B C)
+  (&lt;span style=&#34;color:#a6e22e&#34;&gt;or-gate&lt;/span&gt; A B D)
+  (&lt;span style=&#34;color:#a6e22e&#34;&gt;inverter&lt;/span&gt; C E)
+  (&lt;span style=&#34;color:#a6e22e&#34;&gt;and-gate&lt;/span&gt; D E S))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I use DrRacket and SCM to test the program, here is the result of DrRacket:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-racket&#34; data-lang=&#34;racket&#34;&gt;&amp;gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;define&lt;/span&gt; in1 (make-wire))
+&amp;gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;define&lt;/span&gt; in2 (make-wire))
+&amp;gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;define&lt;/span&gt; out1 (make-wire))
+&amp;gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;define&lt;/span&gt; cout1 (make-wire))
+&amp;gt; (probe &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;in1&lt;/span&gt; in1)
+in1  New-value = &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&amp;gt; (probe &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;in2&lt;/span&gt; in2)
+in2  New-value = &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&amp;gt; (probe &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;out1&lt;/span&gt; out1)
+out1  New-value = &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&amp;gt; (probe &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;cout1&lt;/span&gt; cout1)
+cout1  New-value = &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&amp;gt; (half-adder in1 in2 out1 cout1)
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;ok&lt;/span&gt;
+&amp;gt; (set-signal! in1 &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+out1  New-value = &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+in1  New-value = &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;done&lt;/span&gt;
+&amp;gt; (set-signal! in2 &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+out1  New-value = &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+cout1  New-value = &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+in2  New-value = &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;done&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;time-line&#34;&gt;Time Line&lt;/h1&gt;
+&lt;p&gt;We finished the event-driven part. Now I believe you have a basical idea of the program architecture. Now move to another question, the difficulty raised, if we add a delay to all the gates, and want to see both state and time line of the change, how to make it?&lt;/p&gt;
+&lt;p&gt;We need to import a new concept into our program, a time queue. By this case, it is &lt;strong&gt;The Agenda&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;the-agenda&#34;&gt;The Agenda&lt;/h2&gt;
+&lt;p&gt;The agenda is actually a queue, every element in this queue contains a time stamp and the task.&lt;/p&gt;
+&lt;p&gt;We can easily wrote down queue structure in scheme:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-scheme&#34; data-lang=&#34;scheme&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;;;;This file shows how to present queue in scheme (message-passing style)&lt;/span&gt;
+
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;nil &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#39;&lt;/span&gt;())
+
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;empty-queue?&lt;/span&gt; queue)
+  ((&lt;span style=&#34;color:#a6e22e&#34;&gt;queue&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;empty&lt;/span&gt;)))
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;front-queue&lt;/span&gt; queue)
+  ((&lt;span style=&#34;color:#a6e22e&#34;&gt;queue&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;front&lt;/span&gt;)))
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;insert-queue!&lt;/span&gt; queue item)
+  ((&lt;span style=&#34;color:#a6e22e&#34;&gt;queue&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;insert&lt;/span&gt;) item))
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;delete-queue!&lt;/span&gt; queue)
+  ((&lt;span style=&#34;color:#a6e22e&#34;&gt;queue&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;delete&lt;/span&gt;)))
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;print-queue&lt;/span&gt; queue)
+  ((&lt;span style=&#34;color:#a6e22e&#34;&gt;queue&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;print&lt;/span&gt;)))
+
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;make-queue&lt;/span&gt;)
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;let &lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;front-ptr&lt;/span&gt; nil)
+        (&lt;span style=&#34;color:#a6e22e&#34;&gt;rear-ptr&lt;/span&gt; nil))
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;empty-queue?&lt;/span&gt;)
+      (eq? front-ptr nil))
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;front-queue&lt;/span&gt;)
+      (&lt;span style=&#34;color:#66d9ef&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;empty-queue?&lt;/span&gt;)
+          (&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ERROR front-queue called with an empty queue&amp;#34;&lt;/span&gt;)
+          (car front-ptr)))
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;set-front-ptr!&lt;/span&gt; pair)
+      (&lt;span style=&#34;color:#66d9ef&#34;&gt;set! &lt;/span&gt;front-ptr pair))
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;set-rear-ptr!&lt;/span&gt; pair)
+      (&lt;span style=&#34;color:#66d9ef&#34;&gt;set! &lt;/span&gt;rear-ptr pair))
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;insert-queue!&lt;/span&gt; item)
+      (&lt;span style=&#34;color:#66d9ef&#34;&gt;cond &lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;empty-queue?&lt;/span&gt;)
+             (&lt;span style=&#34;color:#a6e22e&#34;&gt;set-front-ptr!&lt;/span&gt; (cons item nil))
+             (&lt;span style=&#34;color:#a6e22e&#34;&gt;set-rear-ptr!&lt;/span&gt; front-ptr)
+             front-ptr)
+            (&lt;span style=&#34;color:#66d9ef&#34;&gt;else &lt;/span&gt;(set-cdr! rear-ptr (cons item nil))
+                  (&lt;span style=&#34;color:#a6e22e&#34;&gt;set-rear-ptr!&lt;/span&gt; (cdr rear-ptr))
+                  front-ptr)))
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;delete-queue!&lt;/span&gt;)
+      (&lt;span style=&#34;color:#66d9ef&#34;&gt;cond &lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;empty-queue?&lt;/span&gt;)
+             (&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ERROR delete-queue called with an empty queue&amp;#34;&lt;/span&gt;))
+            (&lt;span style=&#34;color:#66d9ef&#34;&gt;else &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;set-front-ptr!&lt;/span&gt; (cdr front-ptr))
+                  front-ptr)))
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;print-queue&lt;/span&gt;)
+      front-ptr)
+
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;dispatch&lt;/span&gt; m)
+      (&lt;span style=&#34;color:#66d9ef&#34;&gt;cond &lt;/span&gt;((eq? m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;empty&lt;/span&gt;) empty-queue?)
+            ((eq? m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;front&lt;/span&gt;) front-queue)
+            ((eq? m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;insert&lt;/span&gt;) insert-queue!)
+            ((eq? m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;delete&lt;/span&gt;) delete-queue!)
+            ((eq? m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;print&lt;/span&gt;) print-queue)
+            (&lt;span style=&#34;color:#66d9ef&#34;&gt;else &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Unknown queue operation&amp;#34;&lt;/span&gt;))))
+    dispatch))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;implementing-the-agenda&#34;&gt;Implementing the agenda&lt;/h3&gt;
+&lt;p&gt;Agenda is a list of &lt;em&gt;time segments&lt;/em&gt;. Each time segment is a pair of time and a queue (holds the procedures to be run at that time).&lt;/p&gt;
+&lt;p&gt;Recall the signal process of each node, nodes are registered with events, we can insert a small piece of code in each event to push a &lt;em&gt;time segment&lt;/em&gt; behind the agenda queue, so after all events terminate, by checking the agenda we know when these changes happends.&lt;/p&gt;
+&lt;p&gt;The problem is when we implement the agenda, we only know the delay of gates. Apropos the delay sequence and the exact time of each event, we have to accumulate the former delays and this elicits a formal problem that we have to maintain a current time variable, and &lt;code&gt;set!&lt;/code&gt; it every time when we push a time segment in the agenda structure.&lt;/p&gt;
+&lt;p&gt;First we implememt the agenda structure:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-scheme&#34; data-lang=&#34;scheme&#34;&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;make-agenda&lt;/span&gt;) (list &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;))
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;current-time&lt;/span&gt; agenda) (car agenda))
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;set-current-time!&lt;/span&gt; agenda time)
+(set-car! agenda time))
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;segments&lt;/span&gt; agenda) (cdr agenda))
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;set-segments!&lt;/span&gt; agenda segments)
+(set-cdr! agenda segments))
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;first-segment&lt;/span&gt; agenda) (car (&lt;span style=&#34;color:#a6e22e&#34;&gt;segments&lt;/span&gt; agenda)))
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;rest-segments&lt;/span&gt; agenda) (cdr (&lt;span style=&#34;color:#a6e22e&#34;&gt;segments&lt;/span&gt; agenda)))
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;empty-agenda?&lt;/span&gt; agenda)
+  (null? (&lt;span style=&#34;color:#a6e22e&#34;&gt;segments&lt;/span&gt; agenda)))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To add an action to an agenda, we first check if the agenda is empty. If so, we create a time segment for the action and install this in the agenda. Otherwise, we scan the agenda, examining the time of each segment. If we find a segment for our appointed time, we add the action to the associated queue. If we reach a time later than the one to which we are
+appointed, we insert a new time segment into the agenda just before it. If we reach the end of the agenda, we must ceate a new time segment at the end.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-scheme&#34; data-lang=&#34;scheme&#34;&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;add-to-agenda!&lt;/span&gt; time action agenda)
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;belongs-before?&lt;/span&gt; segments)
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;or &lt;/span&gt;(null? segments)
+        (&amp;lt; time (&lt;span style=&#34;color:#a6e22e&#34;&gt;segment-time&lt;/span&gt; (car segments)))))
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;make-new-time-segment&lt;/span&gt; time action)
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;let &lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;make-queue&lt;/span&gt;)))
+      (&lt;span style=&#34;color:#a6e22e&#34;&gt;insert-queue!&lt;/span&gt; q action)
+      (&lt;span style=&#34;color:#a6e22e&#34;&gt;make-time-segment&lt;/span&gt; time q)))
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;add-to-segments!&lt;/span&gt; segments)
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;if &lt;/span&gt;(= (&lt;span style=&#34;color:#a6e22e&#34;&gt;segment-time&lt;/span&gt; (car segments)) time)
+        (&lt;span style=&#34;color:#a6e22e&#34;&gt;insert-queue!&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;segment-queue&lt;/span&gt; (car segments))
+                       action)
+        (&lt;span style=&#34;color:#66d9ef&#34;&gt;let &lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;rest&lt;/span&gt; (cdr segments)))
+          (&lt;span style=&#34;color:#66d9ef&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;belongs-before?&lt;/span&gt; rest)
+              (&lt;span style=&#34;color:#a6e22e&#34;&gt;set-cdr!&lt;/span&gt;
+               segments
+               (cons (&lt;span style=&#34;color:#a6e22e&#34;&gt;make-new-time-segment&lt;/span&gt; time action)
+                     (cdr segments)))
+              (&lt;span style=&#34;color:#a6e22e&#34;&gt;add-to-segments!&lt;/span&gt; rest)))))
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;let &lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;segments&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;segments&lt;/span&gt; agenda)))
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;belongs-before?&lt;/span&gt; segments)
+        (&lt;span style=&#34;color:#a6e22e&#34;&gt;set-segments!&lt;/span&gt;
+         agenda
+         (cons (&lt;span style=&#34;color:#a6e22e&#34;&gt;make-new-time-segment&lt;/span&gt; time action)
+               segments))
+        (&lt;span style=&#34;color:#a6e22e&#34;&gt;add-to-segments!&lt;/span&gt; segments))))
+
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;remove-first-agenda-item!&lt;/span&gt; agenda)
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;let &lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;segment-queue&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;first-segment&lt;/span&gt; agenda))))
+    (&lt;span style=&#34;color:#a6e22e&#34;&gt;delete-queue!&lt;/span&gt; q)
+    (&lt;span style=&#34;color:#66d9ef&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;empty-queue?&lt;/span&gt; q)
+        (&lt;span style=&#34;color:#a6e22e&#34;&gt;set-segments!&lt;/span&gt; agenda (&lt;span style=&#34;color:#a6e22e&#34;&gt;rest-segments&lt;/span&gt; agenda)))))
+
+(&lt;span style=&#34;color:#66d9ef&#34;&gt;define &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;first-agenda-item&lt;/span&gt; agenda)
+  (&lt;span style=&#34;color:#66d9ef&#34;&gt;if &lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;empty-agenda?&lt;/span&gt; agenda)
+      (&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Agenda is empty: FIRST-AGENDA-ITEM&amp;#34;&lt;/span&gt;)
+      (&lt;span style=&#34;color:#66d9ef&#34;&gt;let &lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;first-seg&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;first-segment&lt;/span&gt; agenda)))
+        (&lt;span style=&#34;color:#a6e22e&#34;&gt;set-current-time!&lt;/span&gt; agenda
+                           (&lt;span style=&#34;color:#a6e22e&#34;&gt;segment-time&lt;/span&gt; first-seg))
+        (&lt;span style=&#34;color:#a6e22e&#34;&gt;front-queue&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;segment-queue&lt;/span&gt; first-seg)))))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>JOS Lab1 My Answers</title>
+      <link>https://xiahualiu.github.io/posts/2019-02-23-jos-lab1/</link>
+      <pubDate>Sat, 23 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>https://xiahualiu.github.io/posts/2019-02-23-jos-lab1/</guid>
+      <description>&lt;p&gt;The &lt;a href=&#34;https://pdos.csail.mit.edu/6.828/2018/labs/lab1/&#34;&gt;xv6 lab1&lt;/a&gt; provides a extern kernel named JOS, it works in the same way as xv6. So student can step in it to explore the world of xv6.&lt;/p&gt;
+&lt;h1 id=&#34;part-2-the-boot-loader&#34;&gt;Part 2: The Boot Loader&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;At what point does the processor start executing 32-bit code? What exactly causes the switch from 16- to 32-bit mode?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;: After opening A20 Gate and loading GDT table that is prepared in &lt;code&gt;boot.S&lt;/code&gt;, we enable protected mode by moving a value with &lt;code&gt;$CR0_PE_ON&lt;/code&gt; bit to &lt;code&gt;CR0&lt;/code&gt; register. But the exact activation event happens during &lt;code&gt;ljmp&lt;/code&gt; instruction, while &lt;code&gt;CS&lt;/code&gt; and &lt;code&gt;IP&lt;/code&gt; registers both update and point to the beginning of 32-bit code (which is, however, at the next memory address). CPU works in 32-bit mode after that.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;What is the last instruction of the boot loader executed, and what is the first instruction of the kernel it just loaded?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;: The boot loader reads kernel in elf file format from disk, then copies each section into the corresponding location in memory. The last job of bootloader is calling the entry address of the kernel &lt;code&gt;*0x10018&lt;/code&gt;(the entry address is stored at the fixed address in memory because its fixed offset in elf file and is &lt;code&gt;0x0010000c&lt;/code&gt; in this case), transferring control to kernel. And the first instruction is: &lt;code&gt;movw $0x1234,0x472&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2019-2-23-JOS-lab1/1.png&#34; alt=&#34;1&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Where is the first instruction of the kernel?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;: Said above, at &lt;code&gt;0x10000c&lt;/code&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;How does the boot loader decide how many sectors it must read in order to fetch the entire kernel from disk? Where does it find this information?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;: The boot loader first reads elf header to get the starting address of program header table &lt;code&gt;ph=ELFHDR + ELFHDR-&amp;gt;e_phoff&lt;/code&gt;, then reads the number of entries in the program header table by &lt;code&gt;ELFHDR-&amp;gt;e_phnum&lt;/code&gt;, then adds it to &lt;code&gt;ph&lt;/code&gt; to acquire the end of the program header table &lt;code&gt;eph&lt;/code&gt;, then loops reading each segment.&lt;/p&gt;
+&lt;h2 id=&#34;exercise-5&#34;&gt;Exercise 5&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Trace through the first few instructions of the boot loader again and identify the first instruction that would &amp;ldquo;break&amp;rdquo; or otherwise do the wrong thing if you were to get the boot loader&#39;s link address wrong. Then change the link address in boot/Makefrag to something wrong, run &lt;code&gt;make clean&lt;/code&gt;, recompile the lab with &lt;code&gt;make&lt;/code&gt;, and trace into the boot loader again to see what happens. Don&#39;t forget to change the link address back and &lt;code&gt;make clean&lt;/code&gt; again afterward!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;: The boot loader&#39;s entry is at &lt;code&gt;0x7c00&lt;/code&gt; if it is changed to &lt;code&gt;0x7c01&lt;/code&gt; or else that are not aligned right, some &lt;code&gt;nop&lt;/code&gt; will be inserted at the top to slide processor to the aligned instructions.&lt;/p&gt;
+&lt;p&gt;After that, the code is executed normally, however, when it comes to the first &lt;code&gt;ljmp&lt;/code&gt;, it crashes immediately. But the real problem happened way ahead, the crash is due to a loading GDT table failure (&lt;code&gt;lgdt&lt;/code&gt; did not complain).&lt;/p&gt;
+&lt;p&gt;As we know, we changed the linker address however the load address of our program stays unchanged. The BIOS works blindly, it just reads 1st sector on disk (no matter what link address is) then jumps to &lt;code&gt;0x7c00&lt;/code&gt;. Thus the actual GDT table has still been put at the old place (GDT is always put at &lt;code&gt;0x7c4c&lt;/code&gt; in xv6 case), but into the bootloader, the &lt;code&gt;lgdt&lt;/code&gt; only accepts linker address, which is wrong. So what &lt;code&gt;lgdt&lt;/code&gt; actually installed was meaningless trash in memory after the modification.&lt;/p&gt;
+&lt;p&gt;So when the &lt;code&gt;ljmp&lt;/code&gt; reads GDT, it gets trash value instead of real GDT entries. Then the program crashes.&lt;/p&gt;
+&lt;h2 id=&#34;exercise-6&#34;&gt;Exercise 6&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We can examine memory using GDB&#39;s &lt;code&gt;x&lt;/code&gt; command. The GDB manual has full details, but for now, it is enough to know that the command &lt;code&gt;x/Nx ADDR&lt;/code&gt; prints N words of memory at ADDR. (Note that both &lt;code&gt;x&lt;/code&gt;s in the command are lowercase.) Warning: The size of a word is not a universal standard. In GNU assembly, a word is two bytes (the &lt;code&gt;w&lt;/code&gt; in xorw, which stands for word, means 2 bytes).
+Reset the machine (exit QEMU/GDB and start them again). Examine the 8 words of memory at &lt;code&gt;0x00100000&lt;/code&gt; at the point the BIOS enters the boot loader, and then again at the point the boot loader enters the kernel. Why are they different? What is there at the second breakpoints? (You do not really need to use QEMU to answer this question. Just think.)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;: During the time from the CPU changed into protected mode and to the bootloader starts, &lt;code&gt;0x100000&lt;/code&gt; and higher addresses are of full zeroes.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2019-2-23-JOS-lab1/2.png&#34; alt=&#34;2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The reason is simple, we haven&#39;t mapped the kernel into memory yet at that time.&lt;/p&gt;
+&lt;h1 id=&#34;part-3-kernel&#34;&gt;Part 3: Kernel&lt;/h1&gt;
+&lt;h2 id=&#34;exercise-7&#34;&gt;Exercise 7&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Use QEMU and GDB to trace into the JOS kernel and stop at the movl %eax, %cr0. Examine memory at 0x00100000 and at 0xf0100000. Now, single step over that instruction using the stepi GDB command. Again, examine memory at 0x00100000 and at 0xf0100000. Make sure you understand what just happened.
+What is the first instruction after the new mapping is established that would fail to work properly if the mapping weren&#39;t in place? Comment out the movl %eax, %cr0 in kern/entry.S, trace into it, and see if you were right.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2019-2-23-JOS-lab1/3.png&#34; alt=&#34;3&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;: After &lt;code&gt;movl %eax %cr0&lt;/code&gt;, Memory at &lt;code&gt;0x0010000&lt;/code&gt; was copied to &lt;code&gt;0xf010000&lt;/code&gt;. But the real fact is that these pages are mapped to the same physical memory page.&lt;/p&gt;
+&lt;p&gt;If the mapping failed, the jump up to the &lt;code&gt;KERNBASE&lt;/code&gt; would definitely fail.&lt;/p&gt;
+&lt;p&gt;We can see that in picture. The program jumped to a null memory, then crashed.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2019-2-23-JOS-lab1/4.png&#34; alt=&#34;4&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;exercise-8&#34;&gt;Exercise 8&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We have omitted a small fragment of code - the code necessary to print octal numbers using patterns of the form &amp;ldquo;%o&amp;rdquo;. Find and fill in this code fragment.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;: Original file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;...
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// (unsigned) octal
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;o&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+    &lt;span style=&#34;color:#75715e&#34;&gt;// Replace this with your code.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        putch(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;X&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;, putdat);
+        putch(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;X&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;, putdat);
+        putch(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;X&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;, putdat);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;New file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;...
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// (unsigned) octal
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;o&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+    &lt;span style=&#34;color:#75715e&#34;&gt;// My code
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        num &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; getuint(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ap,lflag);
+        base &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;goto&lt;/span&gt; number;
+
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Be able to answer the following questions:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Explain the interface between &lt;code&gt;printf.c&lt;/code&gt; and &lt;code&gt;console.c&lt;/code&gt;. Specifically, what function does &lt;code&gt;console.c&lt;/code&gt; export? How is this function used by printf.c?
+&lt;strong&gt;Answer&lt;/strong&gt;: &lt;code&gt;console.c&lt;/code&gt; exports high-level I/O by providing three functions, &lt;code&gt;cputchar&lt;/code&gt; &lt;code&gt;getchar&lt;/code&gt; &lt;code&gt;iscons&lt;/code&gt;.
+The &lt;code&gt;cputchar&lt;/code&gt; function is used for &lt;code&gt;printf.c&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Explain the following from &lt;code&gt;console.c&lt;/code&gt;:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (crt_pos &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; CRT_SIZE) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i;
+    memmove(crt_buf, crt_buf &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; CRT_COLS, (CRT_SIZE &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; CRT_COLS) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;sizeof&lt;/span&gt;(uint16_t));
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; CRT_SIZE &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; CRT_COLS; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; CRT_SIZE; i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;)
+        crt_buf[i] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0700&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;;
+    crt_pos &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; CRT_COLS;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Prevent screen buffer overflow
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (crt_pos &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; CRT_SIZE) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i;
+    &lt;span style=&#34;color:#75715e&#34;&gt;// Move all CRT content a column up, vacating the bottom column
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    memmove(crt_buf, crt_buf &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; CRT_COLS, (CRT_SIZE &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; CRT_COLS) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;sizeof&lt;/span&gt;(uint16_t));
+    &lt;span style=&#34;color:#75715e&#34;&gt;// Loop printing the bottom line with print attribute: &amp;#39;white on black&amp;#39;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; CRT_SIZE &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; CRT_COLS; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; CRT_SIZE; i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;)
+        crt_buf[i] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x0700&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&lt;/span&gt;;
+    crt_pos &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; CRT_COLS;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For the following questions you might wish to consult the notes for Lecture 2. These notes cover GCC&#39;s calling convention on the x86.
+Trace the execution of the following code step-by-step:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;In the call to cprintf(), to what does &lt;code&gt;fmt&lt;/code&gt; point? To what does &lt;code&gt;ap&lt;/code&gt; point?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, z &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;;
+cprintf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;x %d, y %x, z %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, x, y, z);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;I add this code in &lt;code&gt;init.c&lt;/code&gt;, right after the first &lt;code&gt;cprintf&lt;/code&gt;, seen below:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;i386_init&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
+{
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;extern&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; edata[], end[];
+
+	&lt;span style=&#34;color:#75715e&#34;&gt;// Before doing anything else, complete the ELF loading process.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// Clear the uninitialized global data (BSS) section of our program.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// This ensures that all static/global variables start out zero.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;	memset(edata, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, end &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; edata);
+
+	&lt;span style=&#34;color:#75715e&#34;&gt;// Initialize the console.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// Can&amp;#39;t call cprintf until after we do this!
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;	cons_init();
+
+	cprintf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;6828 decimal is %o octal!&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;6828&lt;/span&gt;);
+
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; x &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, y &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, z &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;;
+	cprintf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;x %d, y %x, z %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, x, y, z);
+
+	&lt;span style=&#34;color:#75715e&#34;&gt;// Test the stack backtrace function (lab 1 only)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;	test_backtrace(&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;);
+
+	&lt;span style=&#34;color:#75715e&#34;&gt;// Drop into the kernel monitor.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; (&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+		monitor(NULL);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2019-2-23-JOS-lab1/5.png&#34; alt=&#34;5&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;fmt&lt;/code&gt; points to a memory that is in &lt;code&gt;.rodata&lt;/code&gt; section. And the content is the format string &lt;code&gt;x %d, y %x, z %d\n\0&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2019-2-23-JOS-lab1/6.png&#34; alt=&#34;6&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2019-2-23-JOS-lab1/7.png&#34; alt=&#34;7&#34;&gt;&lt;/p&gt;
+&lt;p&gt;I disassembled the kernel and found out that &lt;code&gt;ap&lt;/code&gt; pointed to the args that had been pushed to stack before calling &lt;code&gt;vcprintf&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;+-------------+
+| 00 00 00 04 |
++-------------+
+| 00 00 00 03 |
++-------------+
+| 00 00 00 01 |
++-------------+ &amp;lt;--- ap
+| f0 10 1a 92 |
++-------------+ &amp;lt;--- fmt
+| f0 10 00 fa |
++-------------+ 
+|             |
++-------------+
+|             | 
+     STACK
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;List (in order of execution) each call to &lt;code&gt;cons_putc&lt;/code&gt;, &lt;code&gt;va_arg&lt;/code&gt;, and &lt;code&gt;vcprintf&lt;/code&gt;. For &lt;code&gt;cons_putc&lt;/code&gt;, list its argument as well. For &lt;code&gt;va_arg&lt;/code&gt;, list what &lt;code&gt;ap&lt;/code&gt; points to before and after the call. For &lt;code&gt;vcprintf&lt;/code&gt; list the values of its two arguments.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;: List: After print &amp;ldquo;x &amp;ldquo;, &lt;code&gt;getint&lt;/code&gt; was called, in which &lt;code&gt;va_arg&lt;/code&gt; was called. Before the calling &lt;code&gt;ap = (va_list) 0xf010ffd4 &amp;quot;\001&amp;quot;&lt;/code&gt;, after the calling &lt;code&gt;ap = (va_list) 0xf010ffd8 &amp;quot;\003&amp;quot;&lt;/code&gt;. Then &lt;code&gt;cons_putc(c=49)&lt;/code&gt; was called, output changed to &amp;ldquo;x 1&amp;rdquo;. Then &lt;code&gt;cons_putc(c=44)&lt;/code&gt; was called, output changed to &amp;ldquo;x 1,&amp;quot;. Then &lt;code&gt;cons_putc(c=32)&lt;/code&gt; was called, output changed to &amp;ldquo;x 1, &amp;ldquo;. Then &lt;code&gt;cons_putc(c=121)&lt;/code&gt; was called, output changed to &amp;ldquo;x 1, y&amp;rdquo;&amp;hellip; It worked in this sequence till finishing printing.&lt;/p&gt;
+&lt;p&gt;For two arguments of &lt;code&gt;vcprintf&lt;/code&gt; see picture above.&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Run the following code.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x00646c72&lt;/span&gt;;
+    cprintf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;H%x Wo%s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;57616&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;i);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;What is the output? Explain how this output is arrived at in the step-by-step manner of the previous exercise.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Output&lt;/strong&gt;: He110 World!&lt;/p&gt;
+&lt;p&gt;Decimal 57616 equals hexadecimal number 0xe110, so the first number was &amp;ldquo;e110&amp;rdquo;. And because i386 use little-endian, &lt;code&gt;0x00646c7c&lt;/code&gt; in little-endian byte order was&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0xf010ffec&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0x72&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x6c&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x64&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x00&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can translate it into string: &lt;code&gt;rld/0&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In the following code, what is going to be printed after &amp;lsquo;y=&amp;rsquo;? (note: the answer is not a specific value.) Why does this happen?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;    cprintf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;x=%d y=%d&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Because we use &lt;code&gt;va_list&lt;/code&gt; pointer &lt;code&gt;ap&lt;/code&gt; to run down stack to acquire args that were pushed beforehand in the order from right to left in &lt;code&gt;cprintf&lt;/code&gt;. When &amp;lsquo;3&amp;rsquo; was read by &lt;code&gt;getint&lt;/code&gt; function, &lt;code&gt;va_arg&lt;/code&gt; moves pointer &lt;code&gt;ap&lt;/code&gt; upwards for the next arg, whereas we do not have another arg, instead it is an &lt;code&gt;ret&lt;/code&gt; address for &lt;code&gt;call &amp;lt;i386_init&amp;gt;&lt;/code&gt;, so the next &lt;code&gt;%d&lt;/code&gt; prints an address value.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;+-------------+
+| 00 00 00 00 |
++-------------+
+| f0 10 ff ec |
++-------------+ &amp;lt;--- ap (y=0xf010ffec)
+| 00 00 00 03 |
++-------------+ &amp;lt;--- ap (x=3)
+| f0 10 1a ce |
++-------------+ &amp;lt;--- fmt
+| f0 10 01 2a |
++-------------+
+|             | 
+     STACK
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To confirm my speculation, I replaced the second &lt;code&gt;y=%d&lt;/code&gt; with &lt;code&gt;y=%x&lt;/code&gt;, and here it goes:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2019-2-23-JOS-lab1/8.png&#34; alt=&#34;8&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Just like above.&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Let&#39;s say that GCC changed its calling convention so that it pushed arguments on the stack in declaration order, so that the last argument is pushed last. How would you have to change cprintf or its interface so that it would still be possible to pass it a variable number of arguments?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;: We can make &lt;code&gt;va_list&lt;/code&gt; pointer &lt;code&gt;ap&lt;/code&gt; points to the highest arg on stack before entering &lt;code&gt;vcprintf&lt;/code&gt;, then modify &lt;code&gt;va_arg&lt;/code&gt; to decrease &lt;code&gt;ap&lt;/code&gt; instead of increase it.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Challenge&lt;/strong&gt; Enhance the console to allow text to be printed in different colors. The traditional way to do this is to make it interpret ANSI escape sequences embedded in the text strings printed to the console, but you may use any mechanism you like. There is plenty of information on the 6.828 reference page and elsewhere on the web on programming the VGA display hardware. If you&#39;re feeling really adventurous, you could try switching the VGA hardware into a graphics mode and making the console draw text onto the graphical frame buffer.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;: &lt;em&gt;Too complex, to be solved.&lt;/em&gt;&lt;/p&gt;
+&lt;h1 id=&#34;the-stack&#34;&gt;The Stack&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Exercise 9&lt;/strong&gt;. Determine where the kernel initializes its stack, and exactly where in memory its stack is located. How does the kernel reserve space for its stack? And at which &amp;ldquo;end&amp;rdquo; of this reserved area is the stack pointer initialized to point to?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;: In file &amp;ldquo;entry.S&amp;rdquo;,&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-x86_asm&#34; data-lang=&#34;x86_asm&#34;&gt;	# Set the stack pointer
+	movl	$(bootstacktop),%esp
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;$(bootstacktop)&lt;/code&gt; is defined the end of &amp;ldquo;entry.S&amp;rdquo;, it is &lt;code&gt;KSTKSIZE&lt;/code&gt; away from the beginning of &lt;code&gt;.data&lt;/code&gt; section.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-x86_asm&#34; data-lang=&#34;x86_asm&#34;&gt;.data
+###################################################################
+# boot stack
+###################################################################
+	.p2align	PGSHIFT		# force page alignment
+	.globl		bootstack
+bootstack:
+	.space		KSTKSIZE
+	.globl		bootstacktop   
+bootstacktop:
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Exercise 10&lt;/strong&gt;. To become familiar with the C calling conventions on the x86, find the address of the test_backtrace function in obj/kern/kernel.asm, set a breakpoint there, and examine what happens each time it gets called after the kernel starts. How many 32-bit words does each recursive nesting level of test_backtrace push on the stack, and what are those words?
+Note that, for this exercise to work properly, you should be using the patched version of QEMU available on the tools page or on Athena. Otherwise, you&#39;ll have to manually translate all breakpoint and memory addresses to linear addresses.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Answer&lt;/strong&gt;: Every level of nesting, push 8 words on stack.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2019-2-23-JOS-lab1/9.png&#34; alt=&#34;9&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>xv6 Basics - Page Tables</title>
+      <link>https://xiahualiu.github.io/posts/2019-02-06-xv6-paging-table/</link>
+      <pubDate>Wed, 06 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>https://xiahualiu.github.io/posts/2019-02-06-xv6-paging-table/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Paging tables are the mechanism through which the operating system controls what memory address means.&lt;/strong&gt; They allow xv6 to multiplex the address spaces of different processes onto a single physical memory, and to protect the memories of different processes. The level of indirection provided by page tables allows many neat tricks. xv6 uses page tables primarily to multiplex address spaces and to protect memory.&lt;/p&gt;
+&lt;p&gt;It also uses a few simple page-table tricks:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Mapping the same memory (the kernel) in several address spaces.&lt;/li&gt;
+&lt;li&gt;Mapping the same memory more than once in one address space. (Each user page is also mapped into the kernel&#39;s physical view of memory)&lt;/li&gt;
+&lt;li&gt;Guarding a user stack with an ummapped page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;paging-hardware&#34;&gt;Paging hardware&lt;/h1&gt;
+&lt;p&gt;As a reminder, x86 instructions (both user and kernel) manipulate virtual addresses. The mechine&#39;s RAM, or physical memory, is indexed with physical addresses.&lt;/p&gt;
+&lt;p&gt;The x86 page table hardware connects these two kinds of addresses, by mapping each virtual address to a physical address.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;   10      10          12          |     PPN     | Offset |  
+|-------|---------|----------|            ^
+|  Dir  |  Table  |  Offset  |        20  |          12
+|-------|----|----|----------|     |------|------|-------|
+    |        |--------------------&amp;gt;|     PPN     | Flags |
+    |                              |-------------|-------|
+    |         20       10          |             |       |
+    |     |---------|-------|      |-------------|-------|
+    |     |         |       |      |             |       |
+    |     |---------|-------|      |-------------|-------|
+    |----&amp;gt;|   PPN   | Flags |-------&amp;gt;     Page Table
+          |---------|-------|         2^10(1024) entries
+          |         |       |              (PTEs)
+          |---------|-------|
+ |CR3|---&amp;gt;   Page Directory
+           2^10(1024) entries
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;According to CSAPP, xv6 uses paging harware that support 2-level paging.&lt;/p&gt;
+&lt;p&gt;We use first top 10 bits to index page directory, and fetch the 20 bits PPN to index the Page table, and use the second 10 bits to index PPN in page table.&lt;/p&gt;
+&lt;p&gt;An x86 page table is logically an array of 2^20 (1,048,576) page table entries. Thus a page table gives table gives the operating system control over virtual-to-physical address translations at the granularity of aligned chunks of 4096 (2^12) bytes. Such a chunk is called a page.&lt;/p&gt;
+&lt;p&gt;Each PTE contains &lt;strong&gt;flag bits&lt;/strong&gt; that tell the paging hardware how the associated virtual address is allowed to be used:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;|31                    |12   |8   |6  |5  |4   |3   |2  |1  |0  |
+|----------------------|-----|----|---|---|----|----|---|---|---|
+| Physical Page Number | AVL |    | D | A | CD | WT | U | W | P |
+                          |         |   |   |    |    |    |   |---- P - Present
+                          |         |   |   |    |    |    |-------- W - Writable
+                          |         |   |   |    |    |------------- U - User
+                          |         |   |   |    |----------------- WT - 1=Write-through, 0=Write-back
+                          |         |   |   |---------------------- CD - Cache Disabled
+                          |         |   |--------------------------- A - Accessed
+                          |         |------------------------------- D - Dirty (0 in page directory)
+                          |--------------------------------------- AVL - Available for system use
+
+Page table and page directory entries are identical except for the D bits
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;PTE_P&lt;/code&gt; indicates whether the PTE is present: if it is not set, a reference to the page causes a fault.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PTE_W&lt;/code&gt; controls whether instructions are allows to issue writes to the page; if not set, only reads and instructions fetches are allowed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PTE_U&lt;/code&gt; controls whether the user programs are allowed to use the page; if clear, only kernel is allowed to use the page.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The flags and all other page hardware related structures are defined in &lt;code&gt;mmu.h&lt;/code&gt;.&lt;/p&gt;
+&lt;h1 id=&#34;process-address-space&#34;&gt;Process address space&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://xiahua.blog/2019/01/29/2019-1-29-paging/&#34;&gt;The &lt;code&gt;entry.S&lt;/code&gt; provided a primal memory layout for the kernel&lt;/a&gt;. The two entries we created map virtual address &lt;code&gt;0:0x400000&lt;/code&gt; to physical address &lt;code&gt;0:0x400000&lt;/code&gt; as well as &lt;code&gt;KERNBASE:KERNBASE+0x400000&lt;/code&gt; to &lt;code&gt;0:0x400000&lt;/code&gt;. It is quite elaborately designed because the bootloader can only get access to physical addresses, whereas the kernel only uses virtual addresses. To prevent the &lt;code&gt;entry.S&lt;/code&gt; program breaking down, we assigned two different virtual address pages to the same physical address page. So the &lt;code&gt;jmp&lt;/code&gt; need to be an indirect jump.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;memory_layout.png&#34; alt=&#34;Figure 2-2. Layout of the virtual address space of a process and the layout of the physical address space. Note that if a machine has more than 2 Gbyte of physical memory, xv6 can use only the memory that fits between KERNBASE and 0xFE00000.&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;define KERNBASE 0x80000000&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;But once we start the process, a more elaborate plan for describing process address space is required. And this turns to be the standard memory layout of the xv6 system. As we can see in the Figure 2-2.&lt;/p&gt;
+&lt;h2 id=&#34;0kernbase&#34;&gt;0:KERNBASE&lt;/h2&gt;
+&lt;p&gt;This area which addressed up to 2 gigabytes is reserved for the user process. That means one process can use 2 gigabytes of memory for the most. The structure of this area is familiar to the most programmers, including user text, user data, user stack, etc. The user programs use
+them to do tasks on computer.&lt;/p&gt;
+&lt;p&gt;This area is not mapped to physical memory at first because the entries are dynamically created, which means only when the program needs to use memory, the corresponding entries are created by kernel and linking the virtual pages with vacant physical pages. At first, there is no process being, so there is no entry in this area.&lt;/p&gt;
+&lt;h2 id=&#34;kernbase0xffffffff&#34;&gt;KERNBASE:0xFFFFFFFF&lt;/h2&gt;
+&lt;p&gt;Above &lt;code&gt;KERNBASE&lt;/code&gt; sits the kernel. And in this area, entries are all created with a simple mapping rule, which shown in &lt;code&gt;memlayout.h&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;define V2P_WO(x) ((x) - KERNBASE)    &lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// same as V2P, but without casts
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That means, in this area, virtual pages and physical pages are 1:1 mapped except for an offset &lt;code&gt;KERNBASE&lt;/code&gt;. Why?&lt;/p&gt;
+&lt;p&gt;The advantage of this is that the kernel can manipulate the physical memory easily. The kernal can see the whole world including all processes&amp;rsquo; page tables.&lt;/p&gt;
+&lt;p&gt;Xv6 does not set the PTE_U flag in the PTEs above KERNBASE, so only the kernel can use them.&lt;/p&gt;
+&lt;p&gt;Having every process’s page table contain mappings for both user memory and the entire kernel is convenient when switching from user code to kernel code during system calls and interrupts: such switches do not require page table switches. For the most part the kernel does not have its own page table; it is almost always borrowing some process’s page table.&lt;/p&gt;
+&lt;p&gt;To review, xv6 ensures that each process can use only its own memory. And, each process sees its memory as having contiguous virtual addresses starting at zero, while the process’s physical memory can be non-contiguous. xv6 implements the first by setting the PTE_U bit only on PTEs of virtual addresses that refer to the process’s own memory. It implements the second using the ability of page tables to translate successive virtual addresses to whatever physical pages happen to be allocated to the process.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;PHYSTOP&lt;/code&gt; in the physical memory show the maximum address of the physical address. However, the memory-mapped I/O devices occupy the addresses from &lt;code&gt;0xFE000000&lt;/code&gt; to &lt;code&gt;0xFFFFFFFF&lt;/code&gt;. Memory in between &lt;code&gt;PHYSTOP&lt;/code&gt; and &lt;code&gt;0xFE000000&lt;/code&gt; does not exist, and cannot be accessed.&lt;/p&gt;
+&lt;h1 id=&#34;code-comments&#34;&gt;Code comments&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;main&lt;/code&gt; calls &lt;code&gt;kvmalloc&lt;/code&gt; to create and switch to a page table with the mappings above &lt;code&gt;KERNBASE&lt;/code&gt; required for the kernel to run.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Do remember the &lt;code&gt;%esp&lt;/code&gt; pointer is well prepared right a moment ago. In &lt;code&gt;entry.S&lt;/code&gt; we allocated a per-process kernel stack (4096 bytes) in the kernel. So the next call will store address in the kernel stack, just like an process that just has been trapped in the kernel.&lt;/p&gt;
+&lt;p&gt;Jump into &lt;code&gt;kvmalloc&lt;/code&gt;: &lt;code&gt;vm.c.138:145&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Allocate one page table for the machine for the kernel address
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// space for scheduler processes.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;kvmalloc&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
+{
+  kpgdir &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; setupkvm();
+  switchkvm();
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;kpgdir&lt;/code&gt; is the directory of kernel program pages. It is defined above in &lt;code&gt;vm.c&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;typedef&lt;/span&gt; uint pde_t;
+pde_t &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;kpgdir;  &lt;span style=&#34;color:#75715e&#34;&gt;// for use in scheduler()
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;As far we don&#39;t know what is a &lt;code&gt;scheduler&lt;/code&gt;, but we just know &lt;code&gt;kpgdir&lt;/code&gt; is an entry pointer and  it is global in kernel.&lt;/p&gt;
+&lt;p&gt;Jump into &lt;code&gt;setupkvm&lt;/code&gt;, where the most work is done.&lt;code&gt;vm.c.117:136&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Set up kernel part of a page table.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;pde_t&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;setupkvm&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
+{
+  pde_t &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;pgdir;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; kmap &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;k;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;((pgdir &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (pde_t&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)kalloc()) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+  memset(pgdir, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, PGSIZE);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (P2V(PHYSTOP) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)DEVSPACE)
+    panic(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;PHYSTOP too high&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt;(k &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; kmap; k &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;kmap[NELEM(kmap)]; k&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(mappages(pgdir, k&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;virt, k&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;phys_end &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; k&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;phys_start,
+                (uint)k&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;phys_start, k&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;perm) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) {
+      freevm(pgdir);
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+    }
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; pgdir;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;first we allocate a 4096 bytes page in physical memory, and clear it totally.&lt;/p&gt;
+&lt;p&gt;Then xv6 uses a static &lt;code&gt;struct kmap&lt;/code&gt; array to represent the layout of the kernel virtual pages: &lt;code&gt;vm.c.103:115&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// This table defines the kernel&amp;#39;s mappings, which are present in
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// every process&amp;#39;s page table.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; kmap {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;virt;
+  uint phys_start;
+  uint phys_end;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; perm;
+} kmap[] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+ { (&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)KERNBASE, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,             EXTMEM,    PTE_W}, &lt;span style=&#34;color:#75715e&#34;&gt;// I/O space
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt; { (&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)KERNLINK, V2P(KERNLINK), V2P(data), &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;},     &lt;span style=&#34;color:#75715e&#34;&gt;// kern text+rodata
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt; { (&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)data,     V2P(data),     PHYSTOP,   PTE_W}, &lt;span style=&#34;color:#75715e&#34;&gt;// kern data+memory
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt; { (&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)DEVSPACE, DEVSPACE,      &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,         PTE_W}, &lt;span style=&#34;color:#75715e&#34;&gt;// more devices
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The four entries in &lt;code&gt;kmap[]&lt;/code&gt; correspond to the 4 areas  above &lt;code&gt;KERNBASE&lt;/code&gt; in Figure 2.2.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mappages&lt;/code&gt; installs the translations that are described in &lt;code&gt;kmap&lt;/code&gt; array in page directory. &lt;code&gt;vm.c.57:80&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Create PTEs for virtual addresses starting at va that refer to
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// physical addresses starting at pa. va and size might not
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// be page-aligned.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;mappages&lt;/span&gt;(pde_t &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;pgdir, &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;va, uint size, uint pa, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; perm)
+{
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;a, &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;last;
+  pte_t &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;pte;
+
+  a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)PGROUNDDOWN((uint)va);
+  last &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)PGROUNDDOWN(((uint)va) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; size &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt;(;;){
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;((pte &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; walkpgdir(pgdir, a, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;pte &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; PTE_P)
+      panic(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;remap&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);
+    &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;pte &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pa &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; perm &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; PTE_P;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; last)
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+    a &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; PGSIZE;
+    pa &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; PGSIZE;
+  }
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In &lt;code&gt;mappages&lt;/code&gt;, we use &lt;code&gt;walkpgdir&lt;/code&gt; function to find the right page of given virtual address (needs to be rounded down to page borders). &lt;code&gt;vm.c.32:55&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Return the address of the PTE in page table pgdir
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// that corresponds to virtual address va.  If alloc!=0,
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// create any required page table pages.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; pte_t &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;walkpgdir&lt;/span&gt;(pde_t &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;pgdir, &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;va, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; alloc)
+{
+  pde_t &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;pde;
+  pte_t &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;pgtab;
+
+  pde &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;pgdir[PDX(va)];  &lt;span style=&#34;color:#75715e&#34;&gt;// Get first 10 bits of va, and index page directory entry
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;pde &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; PTE_P){ &lt;span style=&#34;color:#75715e&#34;&gt;// If the page directory entry present
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    pgtab &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (pte_t&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)P2V(PTE_ADDR(&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;pde)); &lt;span style=&#34;color:#75715e&#34;&gt;// Get the first 20 bits of *pde, and index page table
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;alloc &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; (pgtab &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (pte_t&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)kalloc()) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+    &lt;span style=&#34;color:#75715e&#34;&gt;// Make sure all those PTE_P bits are zero.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    memset(pgtab, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, PGSIZE);
+    &lt;span style=&#34;color:#75715e&#34;&gt;// The permissions here are overly generous, but they can
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// be further restricted by the permissions in the page table
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// entries, if necessary.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;pde &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; V2P(pgtab) &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; PTE_P &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; PTE_W &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; PTE_U;
+  }
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;pgtab[PTX(va)];
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The interesting part is in &lt;code&gt;walkpgdir&lt;/code&gt;, it mimics the actions of the x86 paging hardware as it looks up the PTE for a virtual address. walkpgdir uses the upper 10 bits of the virtual address to find the page directory entry. If the page directory entry isn’t present, then the required page table page hasn’t yet been allocated; if the &lt;code&gt;alloc&lt;/code&gt; argument is set, walkpgdir allocates it and puts its physical address in the page directory. Finally it uses the next 10 bits of the virtual address to find the address of the PTE in the page table page.&lt;/p&gt;
+&lt;h1 id=&#34;physical-memory-allocation&#34;&gt;Physical memory allocation&lt;/h1&gt;
+&lt;p&gt;We said &lt;code&gt;kalloc&lt;/code&gt; again and again. When the xv6 works, we need to allocate and free physical memory dynamically.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The kernel must allocate and free physical memory at run-time for page tables, process user memory, kernel stacks, and pipe buffers.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The way &lt;code&gt;kalloc&lt;/code&gt; manages memory does not involve with a lot of optimization here. There is a list of all the physical memory pages and &lt;code&gt;kalloc&lt;/code&gt; keeps track of them.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;There is a bootstrap problem: all of physical memory must be mapped in order for the allocator to initialize the free list, but creating a page table with those mappings involves allocating page-table pages. xv6 solves this problem by using a separate page allocator during entry, which allocates memory just after the end of the kernel’s data segment. This allocator does not support freeing and is limited by the 4 MB mapping in the &lt;code&gt;entrypgdir&lt;/code&gt;, but that is sufficient to allocate the first kernel page table.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;code-physical-memory-allocator&#34;&gt;Code: Physical memory allocator&lt;/h2&gt;
+&lt;p&gt;This part is a little difficult to understand, xv6 use a &lt;em&gt;free list&lt;/em&gt; to implement allocation, which is the simplest way. &lt;code&gt;kalloc.c.79:95&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Allocate one 4096-byte page of physical memory.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Returns a pointer that the kernel can use.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Returns 0 if the memory cannot be allocated.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;kalloc&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
+{
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; run &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;r;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(kmem.use_lock)
+    acquire(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;kmem.lock);
+  r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; kmem.freelist;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(r)
+    kmem.freelist &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; r&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;next;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(kmem.use_lock)
+    release(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;kmem.lock);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)r;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Free list strategy does not have the best allocation performance, however it is the simplest way.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The function main calls &lt;code&gt;kinit1&lt;/code&gt; and &lt;code&gt;kinit2&lt;/code&gt; to initialize the allocator. The reason for having two calls is that for much of main one cannot use locks or memory above 4 megabytes. The call to &lt;code&gt;kinit1&lt;/code&gt; sets up for lock-less allocation in the first 4 megabytes, and the call to kinit2 enables locking and arranges for more memory to be allocatable. main ought to determine how much physical memory is available, but this turns out to be difficult on the x86. Instead it assumes that the machine has 224 megabytes (PHYSTOP) of physical memory, and uses all the memory between the end of the kernel and &lt;code&gt;PHYSTOP&lt;/code&gt; as the initial pool of free memory. &lt;code&gt;kinit1&lt;/code&gt; and &lt;code&gt;kinit2&lt;/code&gt; call &lt;code&gt;freerange&lt;/code&gt; to add memory to the free list via per-page calls to &lt;code&gt;kfree&lt;/code&gt;. A PTE can only refer to a physical address that is aligned on a 4096-byte boundary (is a multiple of 4096), so &lt;code&gt;freerange&lt;/code&gt; uses &lt;code&gt;PGROUNDUP&lt;/code&gt; to ensure that it frees only aligned physical addresses. The allocator starts with no memory; these calls to &lt;code&gt;kfree&lt;/code&gt; give it some to manage.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;kalloc.c.26:44&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Initialization happens in two phases.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 1. main() calls kinit1() while still using entrypgdir to place just
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// the pages mapped by entrypgdir on free list.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 2. main() calls kinit2() with the rest of the physical pages
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// after installing a full page table that maps them on all cores.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;kinit1&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;vstart, &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;vend)
+{
+  initlock(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;kmem.lock, &lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;kmem&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);
+  kmem.use_lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+  freerange(vstart, vend);
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;kinit2&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;vstart, &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;vend)
+{
+  freerange(vstart, vend);
+  kmem.use_lock &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The function &lt;code&gt;kfree&lt;/code&gt; begins by setting every byte in the memory being freed
+to the value 1. This will cause code that uses memory after freeing it (uses ‘‘dangling
+references’’) to read garbage instead of the old valid contents; hopefully that will cause
+such code to break faster. &lt;code&gt;kalloc.c.54:77&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//PAGEBREAK: 21
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Free the page of physical memory pointed at by v,
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// which normally should have been returned by a
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// call to kalloc().  (The exception is when
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// initializing the allocator; see kinit above.)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;kfree&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;v)
+{
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; run &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;r;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;((uint)v &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; PGSIZE &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; v &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; end &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; V2P(v) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; PHYSTOP)
+    panic(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;kfree&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;// Fill with junk to catch dangling refs.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  memset(v, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, PGSIZE);
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(kmem.use_lock)
+    acquire(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;kmem.lock);
+  r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; run&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)v;
+  r&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;next &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; kmem.freelist;
+  kmem.freelist &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; r;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(kmem.use_lock)
+    release(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;kmem.lock);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;user-address-space&#34;&gt;User address space&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;user.png&#34; alt=&#34;Figure 2-3. Memory layout of a user process with its initial stack.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The program text and data segment start at virtual address 0 and end with a guard page. The guard page is not mapped so when the stack runs out, the hardware will throw an exception.&lt;/p&gt;
+&lt;p&gt;The initial content of stack is created by &lt;code&gt;exec&lt;/code&gt;.&lt;/p&gt;
+&lt;h1 id=&#34;code-sbrk&#34;&gt;Code: sbrk&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;sbrk&lt;/code&gt; is the system call for a process to shrink or grow its memory. The system call is implemented by the function &lt;code&gt;growproc&lt;/code&gt;. If &lt;code&gt;n&lt;/code&gt; is postive, &lt;code&gt;growproc&lt;/code&gt; allocates one or more physical pages and maps them at the top of the process’s address space. If &lt;code&gt;n&lt;/code&gt; is negative, &lt;code&gt;growproc&lt;/code&gt; unmaps one or more pages from the process’s address space and frees the corresponding physical pages. To make these changes, xv6 modifies the process’s page table. The process’s page table is stored in memory, and so the kernel can update the table with ordinary assignment statements, which is what &lt;code&gt;allocuvm&lt;/code&gt; and &lt;code&gt;deallocuvm&lt;/code&gt; do.&lt;/p&gt;
+&lt;p&gt;The x86 hardware caches page table entries in a Translation Lookaside Buffer (TLB), and when xv6 changes the page tables, it must invalidate the cached entries. If it didn’t invalidate the cached entries, then at some point later the TLB might use an old mapping, pointing to a physical page that in the mean time has been allocated to another process, and as a result, a process might be able to scribble on some other process’s memory. Xv6 invalidates stale cached entries, by reloading &lt;code&gt;cr3&lt;/code&gt;, the register that holds the address of the current page table.&lt;/p&gt;
+&lt;h1 id=&#34;code-exec&#34;&gt;Code: exec&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;exec&lt;/code&gt; allocates a new page table with no user mappings with &lt;code&gt;setupkvm&lt;/code&gt;, allocates memory for each ELF segment with &lt;code&gt;allocuvm&lt;/code&gt;, and loads each segment into
+memory with &lt;code&gt;loaduvm&lt;/code&gt;. &lt;code&gt;allocuvm&lt;/code&gt; checks that the virtual addresses requested is
+below &lt;code&gt;KERNBASE&lt;/code&gt;. &lt;code&gt;loaduvm&lt;/code&gt; uses &lt;code&gt;walkpgdir&lt;/code&gt; to find the physical address of the allocated memory at which to write each page of the ELF segment, and &lt;code&gt;readi&lt;/code&gt; to read
+from the file.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;During the preparation of the new memory image, if exec detects an error like an invalid program segment, it jumps to the label bad, frees the new image, and returns –1. Exec must wait to free the old image until it is sure that the system call will succeed: if the old image is gone, the system call cannot return –1 to it. The only error cases in exec happen during the creation of the image. Once the image is complete, exec can install the new image (6701) and free the old one (6702). Finally, exec returns 0.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;real-world&#34;&gt;Real World&lt;/h1&gt;
+&lt;p&gt;The following content come directly from xv6 textbook, which is worth reading.&lt;/p&gt;
+&lt;p&gt;Like most operating systems, xv6 uses the paging hardware for memory protection and mapping. Most operating systems use x86’s 64-bit paging hardware (which has 3 levels of translation). 64-bit address spaces allow for a less restrictive memory layout than xv6’s; for example, it would be easy to remove xv6’s limit of 2 gigabytes for physical memory. Most operating systems make far more sophisticated use of paging than xv6; for example, xv6 lacks demand paging from disk, copy-on-write fork, shared memory, lazily-allocated pages, and automatically extending stacks. The x86 supports address translation using segmentation (see Appendix B), but xv6 uses segments only for the common trick of implementing per-cpu variables such as proc that are at a fixed address but have different values on different CPUs (see seginit). Implementations of per-CPU (or per-thread) storage on non-segment architectures would dedicate a register to holding a pointer to the per-CPU data area, but the x86 has so few general registers that the extra effort required to use segmentation is worthwhile.&lt;/p&gt;
+&lt;p&gt;Xv6 maps the kernel in the address space of each user process but sets it up so that the kernel part of the address space is inaccessible when the processor is in user mode. This setup is convenient because after a process switches from user space to kernel space, the kernel can easily access user memory by reading memory locations directly. It is probably better for security, however, to have a separate page table for the kernel and switch to that page table when entering the kernel from user mode, so that the kernel and user processes are more separated from each other. This design, for example, would help mitigating side-channels that are exposed by the Meltdown vulnerability and that allow a user process to read arbitrary kernel memory.&lt;/p&gt;
+&lt;p&gt;On machines with lots of memory it might make sense to use the x86’s 4-megabytes ‘‘super pages.’’ Small pages make sense when physical memory is small, to allow allocation and page-out to disk with fine granularity. For example, if a program uses only 8 kilobytes of memory, giving it a 4 megabytes physical page is wasteful. Larger pages make sense on machines with lots of RAM, and may reduce overhead for page-table manipulation. Xv6 uses super pages in one place: the initial page table. The array initialization sets two of the 1024 PDEs, at indices zero and 512 (&lt;code&gt;KERNBASE&amp;gt;&amp;gt;PDXSHIFT&lt;/code&gt;), leaving the other PDEs zero. Xv6 sets the PTE_PS bit in these two PDEs to mark them as super pages. The kernel also tells the paging hardware to allow super pages by setting the &lt;code&gt;CR_PSE&lt;/code&gt; bit (Page Size Extension) in &lt;code&gt;%cr4&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Xv6 should determine the actual RAM configuration, instead of assuming 224 MB. On the x86, there are at least three common algorithms: the first is to probe the physical address space looking for regions that behave like memory, preserving the values written to them; the second is to read the number of kilobytes of memory out of a known 16-bit location in the PC’s non-volatile RAM; and the third is to look in BIOS memory for a memory layout table left as part of the multiprocessor tables. Reading the memory layout table is complicated.&lt;/p&gt;
+&lt;p&gt;Memory allocation was a hot topic a long time ago, the basic problems being efficient use of limited memory and preparing for unknown future requests; see Knuth. Today people care more about speed than space-efficiency. In addition, a more elaborate kernel would likely allocate many different sizes of small blocks, rather than (as in xv6) just 4096-byte blocks; a real kernel allocator would need to handle small allocations as well as large ones.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>2019 2 3 Xv6 First Proces</title>
+      <link>https://xiahualiu.github.io/posts/2019-02-03-xv6-first-process/</link>
+      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>https://xiahualiu.github.io/posts/2019-02-03-xv6-first-process/</guid>
+      <description>&lt;p&gt;There goes the main part of xv6. Xv6 souce code provided a really clear view of each component of the kernel. All parts are shown below: &lt;code&gt;main.c:14-38&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;In this chapter, we will go through the sub-function &lt;code&gt;userinit&lt;/code&gt;, in which we initialize the memory for a user process, and create the first process.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Bootstrap processor starts running C code here.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Allocate a real stack and switch to it, first
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// doing some setup required for memory allocator to work.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
+{
+  kinit1(end, P2V(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1024&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1024&lt;/span&gt;)); &lt;span style=&#34;color:#75715e&#34;&gt;// phys page allocator
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  kvmalloc();      &lt;span style=&#34;color:#75715e&#34;&gt;// kernel page table
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  mpinit();        &lt;span style=&#34;color:#75715e&#34;&gt;// detect other processors
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  lapicinit();     &lt;span style=&#34;color:#75715e&#34;&gt;// interrupt controller
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  seginit();       &lt;span style=&#34;color:#75715e&#34;&gt;// segment descriptors
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  picinit();       &lt;span style=&#34;color:#75715e&#34;&gt;// disable pic
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  ioapicinit();    &lt;span style=&#34;color:#75715e&#34;&gt;// another interrupt controller
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  consoleinit();   &lt;span style=&#34;color:#75715e&#34;&gt;// console hardware
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  uartinit();      &lt;span style=&#34;color:#75715e&#34;&gt;// serial port
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  pinit();         &lt;span style=&#34;color:#75715e&#34;&gt;// process table
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  tvinit();        &lt;span style=&#34;color:#75715e&#34;&gt;// trap vectors
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  binit();         &lt;span style=&#34;color:#75715e&#34;&gt;// buffer cache
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  fileinit();      &lt;span style=&#34;color:#75715e&#34;&gt;// file table
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  ideinit();       &lt;span style=&#34;color:#75715e&#34;&gt;// disk 
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  startothers();   &lt;span style=&#34;color:#75715e&#34;&gt;// start other processors
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  kinit2(P2V(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1024&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1024&lt;/span&gt;), P2V(PHYSTOP)); &lt;span style=&#34;color:#75715e&#34;&gt;// must come after startothers()
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  userinit();      &lt;span style=&#34;color:#75715e&#34;&gt;// first user process
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  mpmain();        &lt;span style=&#34;color:#75715e&#34;&gt;// finish this processor&amp;#39;s setup
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;userinit&lt;/code&gt;&#39;s first action is to call &lt;code&gt;allocproc&lt;/code&gt;. Go to the definition of it, we can see &lt;code&gt;allocproc&lt;/code&gt; do several things:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;allocating a slot (&lt;code&gt;struct proc&lt;/code&gt;) in process table. &lt;code&gt;allocproc&lt;/code&gt; scans the proc table for a slot with state &lt;code&gt;UNUSED&lt;/code&gt;. &lt;code&gt;proc.c:69-83&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Look in the process table for an UNUSED proc.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// If found, change state to EMBRYO and initialize
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// state required to run in the kernel.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Otherwise return 0.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; proc&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;allocproc&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
+{
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; proc &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;p;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;sp;
+
+  acquire(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ptable.lock);
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt;(p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ptable.proc; p &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ptable.proc[NPROC]; p&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(p&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;state &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; UNUSED)
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;goto&lt;/span&gt; found;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;initializing the parts of process&#39;s state required for its kernel thread to execute. It sets the state to &lt;code&gt;EMBRYO&lt;/code&gt; to mark it as used and give the process a unique pid. &lt;code&gt;proc.c:88-92&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;found:
+  p&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;state &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; EMBRYO;
+  p&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;pid &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nextpid&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;;
+
+  release(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;ptable.lock);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Next, it allocate a kernel stack for the process&#39;s kernel thread. If failed, labeled the &lt;code&gt;struct proc&lt;/code&gt; with &lt;code&gt;UNUSED&lt;/code&gt;, return 0. &lt;code&gt;proc.c:94-99&lt;/code&gt; (kernel thread is the thread when a process is trapped in kernel).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// Allocate kernel stack.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;((p&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;kstack &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; kalloc()) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;){
+    p&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;state &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; UNUSED;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+  }
+  sp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; p&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;kstack &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; KSTACKSIZE;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here we meet a new function called &lt;code&gt;kalloc&lt;/code&gt;. Go to its definition, &lt;code&gt;kalloc.c:79-95&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Allocate one 4096-byte page of physical memory.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Returns a pointer that the kernel can use.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Returns 0 if the memory cannot be allocated.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;kalloc&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt;)
+{
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; run &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;r;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(kmem.use_lock)
+    acquire(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;kmem.lock);
+  r &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; kmem.freelist;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(r)
+    kmem.freelist &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; r&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;next;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt;(kmem.use_lock)
+    release(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;kmem.lock);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)r;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;kalloc&lt;/code&gt; is used to allocate one 4096-byte page physical memory. We can infer from the above usage that &lt;code&gt;kalloc&lt;/code&gt; return a pointer that can point to a stack space.&lt;/p&gt;
+&lt;p&gt;In &lt;code&gt;allocproc&lt;/code&gt;, we assign &lt;code&gt;sp&lt;/code&gt; at the top of the kernel stack.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;kernel_stack.png&#34; alt=&#34;Figure 1-4. A new kernel stack&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Next &lt;code&gt;allocproc&lt;/code&gt; use &lt;code&gt;sp&lt;/code&gt; to form the stack like the picture above, and assign the various pointer like &lt;code&gt;p-&amp;gt;tf&lt;/code&gt; &lt;code&gt;p-&amp;gt;context&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;What is trapframe and context? Well, trapframe is used for the code to return from the kernel back to the process&#39;s user code. All the registers and the porgram counter value (in &lt;code&gt;%eip&lt;/code&gt;) are freezed before entering kernel and stored in trapframe through trap entry code. After exiting, all the registers are restored and the processor executes from the freezed program counter value. Then exit process is in &lt;code&gt;trapret&lt;/code&gt; function. &lt;code&gt;trapasm.S:23-32&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The trapframe structure is defined in &lt;code&gt;x86.h:148-183&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Layout of the trap frame built on the stack by the
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// hardware and by trapasm.S, and passed to trap().
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; trapframe {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// registers as pushed by pusha
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  uint edi;
+  uint esi;
+  uint ebp;
+  uint oesp;      &lt;span style=&#34;color:#75715e&#34;&gt;// useless &amp;amp; ignored
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  uint ebx;
+  uint edx;
+  uint ecx;
+  uint eax;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;// rest of trap frame
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  ushort gs;
+  ushort padding1;
+  ushort fs;
+  ushort padding2;
+  ushort es;
+  ushort padding3;
+  ushort ds;
+  ushort padding4;
+  uint trapno;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;// below here defined by x86 hardware
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  uint err;
+  uint eip;
+  ushort cs;
+  ushort padding5;
+  uint eflags;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;// below here only when crossing rings, such as from user to kernel
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  uint esp;
+  ushort ss;
+  ushort padding6;
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The trapframe is built by hardware and by &lt;code&gt;trapasm.S&lt;/code&gt;: &lt;code&gt;trapasm.S:5-21&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-x86asm&#34; data-lang=&#34;x86asm&#34;&gt;alltraps:
+  # Build trap frame.
+  pushl %ds
+  pushl %es
+  pushl %fs
+  pushl %gs
+  pushal
+  
+  # Set up data segments.
+  movw $(SEG_KDATA&amp;lt;&amp;lt;3), %ax
+  movw %ax, %ds
+  movw %ax, %es
+
+  # Call trap(tf), where tf=%esp
+  pushl %esp
+  call trap
+  addl $4, %esp
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;trapret&lt;/code&gt; is also defined in &lt;code&gt;trapasm.S:23-32&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-x86asm&#34; data-lang=&#34;x86asm&#34;&gt;  # Return falls through to trapret...
+.globl trapret
+trapret:
+  popal
+  popl %gs
+  popl %fs
+  popl %es
+  popl %ds
+  addl $0x8, %esp  # trapno and errcode
+  iret
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The context works similar with trapframe, but it is used by context control system. The kernel switches processor from a process to another, so we also need to store the context frame into kernel stack for switching.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;allocproc&lt;/code&gt; function is called not only in &lt;code&gt;userinit&lt;/code&gt;, but also every time when a new process is forked. So it is delicately designed for both two conditions. It sets the context frame&#39;s &lt;code&gt;%eip&lt;/code&gt; value right at &lt;code&gt;forkret&lt;/code&gt;, so when the processor switches to this process, &lt;code&gt;forkret&lt;/code&gt; will be executed. Unlike &lt;code&gt;trapret&lt;/code&gt;, &lt;code&gt;forkret&lt;/code&gt; only does a simple thing, returning to whatever on the bottom of the kernel stack. At that time, the context frame has already poped, what at the stack bottom is the &lt;code&gt;trapret&lt;/code&gt; entrance. So the processor assumes the process just return from kernel, &lt;code&gt;trapret&lt;/code&gt; then restores the trapframe.&lt;/p&gt;
+&lt;p&gt;However when the process was first allocated, we will deliberately set trapframe&#39;s &lt;code&gt;%eip&lt;/code&gt; to 0x0, so when &lt;code&gt;trapret&lt;/code&gt; returns, the user code will be executed at 0x0. &lt;code&gt;proc.c:101-106&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// Leave room for trap frame.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  sp &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;sizeof&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;p&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;tf;
+  p&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;tf &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; trapframe&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)sp;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;// Set up new context to start executing at forkret,
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// which returns to trapret.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  sp &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;;
+  &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(uint&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)sp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (uint)trapret;
+
+  sp &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;sizeof&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;p&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;context;
+  p&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;context &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; context&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)sp;
+  memset(p&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;context, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;sizeof&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;p&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;context);
+  p&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;context&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;eip &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (uint)forkret;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; p;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When the &lt;code&gt;allocproc&lt;/code&gt; finish, we called &lt;code&gt;setupkvm&lt;/code&gt; to prepare the memory page for our first process code, and manipulate the trapframe to let it return right to the beginning of the user code. (&lt;code&gt;allocproc&lt;/code&gt; only modified the value of context and &lt;code&gt;forkret&lt;/code&gt; part) We will discuss &lt;code&gt;setupkvm&lt;/code&gt; in the near future, but at high level it creates a address space as the Figure 1-2.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;address_space.png&#34; alt=&#34;Figure 1-2. Layout of a virtual address space&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The initial contents of the first process’s user-space memory are the compiled form of &lt;code&gt;initcode.S&lt;/code&gt;; as part of the kernel build process, the linker embeds that binary in the kernel and defines two special symbols, &lt;code&gt;_binary_initcode_start&lt;/code&gt; and &lt;code&gt;_binary_initcode_size&lt;/code&gt;, indicating the location and size of the binary. Userinit copies that binary into the new process’s memory by calling inituvm, which allocates one page of physical memory, maps virtual address zero to that memory, and copies the binary to that page.&lt;/p&gt;
+&lt;p&gt;Then userinit sets up the trap frame with the initial user mode state: the %cs register contains a segment selector for the &lt;code&gt;SEG_UCODE&lt;/code&gt; segment running at privilege level &lt;code&gt;DPL_USER&lt;/code&gt; (i.e., user mode rather than kernel mode), and similarly &lt;code&gt;%ds&lt;/code&gt;, &lt;code&gt;%es&lt;/code&gt;, and &lt;code&gt;%ss&lt;/code&gt; use &lt;code&gt;SEG_UDATA&lt;/code&gt; with privilege &lt;code&gt;DPL_USER&lt;/code&gt;. The &lt;code&gt;%eflags&lt;/code&gt; &lt;code&gt;FL_IF&lt;/code&gt; bit is set to allow hardware interrupts; we will re-examine this in Chapter 3.&lt;/p&gt;
+&lt;p&gt;The stack pointer &lt;code&gt;%esp&lt;/code&gt; is set to the process’s largest valid virtual address, &lt;code&gt;p-&amp;gt;sz&lt;/code&gt;. The instruction pointer is set to the entry point for the initcode, address 0. The function userinit sets &lt;code&gt;p-&amp;gt;name&lt;/code&gt; to initcode mainly for debugging. Setting &lt;code&gt;p-&amp;gt;cwd&lt;/code&gt; sets the process’s current working directory; we will examine namei in detail in Chapter 6.&lt;/p&gt;
+&lt;p&gt;Once the process is initialized, userinit marks it available for scheduling by setting &lt;code&gt;p-&amp;gt;state&lt;/code&gt; to &lt;code&gt;RUNNABLE&lt;/code&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>xv6 Chapter 3 - Turn on Paging</title>
       <link>https://xiahualiu.github.io/posts/2019-01-29-paging/</link>
       <pubDate>Tue, 29 Jan 2019 00:00:00 +0000</pubDate>
@@ -570,7 +1652,7 @@ note: Program header table is called
 &lt;/blockquote&gt;</description>
     </item>
     <item>
-      <title>RB-Tree - STL Understanding</title>
+      <title>RB-Tree - Reading STL Source Code</title>
       <link>https://xiahualiu.github.io/posts/2018-08-28-rb-tree/</link>
       <pubDate>Tue, 28 Aug 2018 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/2018-08-28-rb-tree/</guid>
