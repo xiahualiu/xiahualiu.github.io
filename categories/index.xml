@@ -1090,7 +1090,7 @@ trapret:
 &lt;p&gt;Once the process is initialized, userinit marks it available for scheduling by setting &lt;code&gt;p-&amp;gt;state&lt;/code&gt; to &lt;code&gt;RUNNABLE&lt;/code&gt;.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>xv6 Chapter 3 - Turn on Paging</title>
+      <title>xv6 Chapter 3 - Turning on Paging</title>
       <link>https://xiahualiu.github.io/posts/2019-01-29-paging/</link>
       <pubDate>Tue, 29 Jan 2019 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/2019-01-29-paging/</guid>
