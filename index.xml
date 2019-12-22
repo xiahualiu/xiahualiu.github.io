@@ -7,12 +7,12 @@
     <description>Recent content on Xiahua</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 21 Dec 2019 15:02:54 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 21 Dec 2019 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://xiahualiu.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hello World</title>
       <link>https://xiahualiu.github.io/posts/hello-world/</link>
-      <pubDate>Sat, 21 Dec 2019 15:02:54 -0500</pubDate>
+      <pubDate>Sat, 21 Dec 2019 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/hello-world/</guid>
       <description>&lt;p&gt;This is the test post for hugo.&lt;/p&gt;
 &lt;p&gt;Equation:&lt;/p&gt;
