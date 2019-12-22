@@ -122,6 +122,37 @@
 <article>
   <header class="Heading">
   <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2019-01-29-paging/" rel="bookmark">xv6 Chapter 3 - Turn on Paging</a>
+  </h2>
+  
+  <time datetime="2019-01-29T00:00:00Z">
+    29 January, 2019
+  </time>
+  
+</header>
+
+  
+  <p>In the last post, we discussed about the C code part of the boot loader, namely <code>bootmain.c</code>. It read 4096 bytes data from the beginning of the disk second sector into the physical address <code>0x10000</code> then parsed the elf file header by a <code>struct elf</code>, read specified fields of <code>struct elf</code> in order to validate elf file and acquire information about the program table. After that our boot loader fetched every corresponding elf body segment (e.g. .text .data) defined by each entry in the program header table and placed them in the written physical address <code>p_addr</code> By the end of boot loader it called <code>p-&gt;entry</code> which is the entry of the elf file, proceeding to the next program, which is <code>main</code>.</p>
+  
+  <p>
+    <a class="u-clickable" href="https://xiahualiu.github.io/posts/2019-01-29-paging/">Read More…</a>
+  </p>
+  
+  
+  
+
+
+
+
+
+
+
+</article>
+<div class="Divider"></div>
+
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
     <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2019-01-26-xv6-boot1/" rel="bookmark">xv6 Chapter 1 - Bootstrap</a>
   </h2>
   
@@ -387,37 +418,6 @@
   
   <p>
     <a class="u-clickable" href="https://xiahualiu.github.io/posts/2018-07-13-csapp-link/">Read More…</a>
-  </p>
-  
-  
-  
-
-
-
-
-
-
-
-</article>
-<div class="Divider"></div>
-
-<article>
-  <header class="Heading">
-  <h2 class="Heading-title">
-    <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2018-07-05-optimize-your-c-code/" rel="bookmark">Program Low Level Optimization (CSAPP Reading Notes)</a>
-  </h2>
-  
-  <time datetime="2018-07-05T00:00:00Z">
-    5 July, 2018
-  </time>
-  
-</header>
-
-  
-  <p>写出一个不管在任何情况下都能够正确运行的程序是作为一个程序员的基本技能，在此之上，作为一个程序员，也应该写出一个清晰而简洁的代码，这样做不仅仅是为了自己能够在调试的时候看懂代码，也是为了在未来检查代码和今后需要修改代码的时候，其他人能哦过读懂和理解自己的代码。</p>
-  
-  <p>
-    <a class="u-clickable" href="https://xiahualiu.github.io/posts/2018-07-05-optimize-your-c-code/">Read More…</a>
   </p>
   
   
