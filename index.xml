@@ -6,12 +6,12 @@
     <link>https://xiahualiu.github.io/</link>
     <description>Recent content on Xiahua</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 12 Dec 2017 20:51:58 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 12 Dec 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://xiahualiu.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>CAN 协议解读</title>
+      <title>CAN Protocol Tuturial</title>
       <link>https://xiahualiu.github.io/posts/2017-12-12-can_bus/</link>
-      <pubDate>Tue, 12 Dec 2017 20:51:58 -0500</pubDate>
+      <pubDate>Tue, 12 Dec 2017 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/2017-12-12-can_bus/</guid>
       <description>&lt;p&gt;本文的首要目标是帮助记忆一下有关 CAN 总线上面的知识，并且也帮助一下感兴趣的同学，从浅入深的了解一下 CAN 总线的一些知识，相比其他的教程，我的初衷是将本文写的尽量接地气，简单明了，因为自己也啃过不少的技术文章，但是从一个读者的角度，有些 CAN 协议内容相当晦涩难懂。如果本文出现错误（肯定有错误），大家可以在下边的评论栏中回复具体内容，以便于我及时更改。&lt;/p&gt;
 &lt;h1 id=&#34;heading&#34;&gt;简介&lt;/h1&gt;
@@ -212,9 +212,247 @@ CAN 一共提供了不少于 5 种的错误检测方式，前两种工作在物�
 &lt;/blockquote&gt;</description>
     </item>
     <item>
-      <title>FT_Write 命令备忘</title>
+      <title>Deep understanding of C pointers</title>
+      <link>https://xiahualiu.github.io/posts/2017-12-07-c-pointer/</link>
+      <pubDate>Thu, 07 Dec 2017 00:00:00 +0000</pubDate>
+      <guid>https://xiahualiu.github.io/posts/2017-12-07-c-pointer/</guid>
+      <description>&lt;p&gt;语言中，要说什么概念最难理解，那指针当仁不让处于第一的位置，初学者对于指针是叫苦不堪，即使是熟练地程序员在写程序的时候，复杂的指针也会使程序的可读性大大降低。&lt;/p&gt;
+&lt;p&gt;但是指针又是 C 语言的一个特点，使用指针可以使编程更加容易。而且有些任务，譬如动态内存分配，如 &lt;code&gt;malloc&lt;/code&gt; &lt;code&gt;calloc&lt;/code&gt; &lt;code&gt;realloc&lt;/code&gt; 函数的使用又必须依赖指针，所以如果想要成为一个熟练的 C 程序员，理解熟练使用指针是非常必要的。&lt;/p&gt;
+&lt;h2 id=&#34;heading&#34;&gt;什么是指针&lt;/h2&gt;
+&lt;p&gt;首先，在程序运行中，变量都是存在计算机的内存中的。指针是一种变量，它的值是&lt;strong&gt;另外一个变量的地址&lt;/strong&gt;，也就是直接的内存地址，在 32 位系统中，指针的大小为 4 字节（在远古时期的远指针，近指针，巨指针，等不参加讨论），很好理解，一个字节长度为 8 bits，4 bytes = 32 bits，如果在最新的 64 位系统中编译并且运行的话，指针会变成 8 字节的长度，因为对应的地址位宽增加了。&lt;/p&gt;
+&lt;p&gt;运行以下的内容就可以发现, 打印的是 8 个 16 进制的字符，也就是 4 个字节。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; () {
+
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;  var1;
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; var2[&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;];
+
+   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Address of var1 variable: %x&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;var1  );
+   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Address of var2 variable: %x&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;var2  );
+
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行结果：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$gcc -o main *.c
+$main
+Address of var1 variable: 9f98435c
+Address of var2 variable: 9f984352
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在上边的例子中，&lt;code&gt;var1&lt;/code&gt; 就是一个指针，它内部存有一个 &lt;code&gt;int&lt;/code&gt; 型变量的地址， 而 &lt;code&gt;var2&lt;/code&gt; 存着一个 &lt;code&gt;char[10]&lt;/code&gt; 数组的地址。在平常描述中，通常使用『&lt;strong&gt;指向&lt;/strong&gt;』这个动词来描述指针与对应变量的关系，我们可以说 &lt;code&gt;var1&lt;/code&gt; 指针指向某个（因为还未定义哪个） &lt;code&gt;int&lt;/code&gt; 型的变量。通过这个例子的打印结果我们可以看到，不管指针指向什么类型的变量，它的本身长度，始终都是固定的值，在本例中为 4bytes，不同指针唯一的不同就是指针变量内部存的值的不同，也即是指针所对应的地址不同。&lt;/p&gt;
+&lt;h2 id=&#34;heading-1&#34;&gt;如何使用指针&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;指针的操作符很少，只有 &lt;code&gt;&amp;amp;&lt;/code&gt; &lt;code&gt;*&lt;/code&gt; 两种。&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;amp;&lt;/code&gt; 是引用符号，对一个普通的变量，数组，结构，等类型使用可以取得其地址。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;*&lt;/code&gt; 是解除引用符号，对于指针使用可以返回其指向的值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; () {
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;  var &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;;   &lt;span style=&#34;color:#75715e&#34;&gt;/* 整形变量声明定义 */&lt;/span&gt;
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ip;        &lt;span style=&#34;color:#75715e&#34;&gt;/* 指针声明 */&lt;/span&gt;
+   ip &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;var;  &lt;span style=&#34;color:#75715e&#34;&gt;/* 将 var 变量的值赋给 ip*/&lt;/span&gt;
+
+   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;var 的地址是: %x&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;var  );
+   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;ip 中储存的地址是: %x&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, ip );
+   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;原本 *ip 的值是: %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ip );
+   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;原本 var 的值是: %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, var );
+
+   &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ip&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+
+   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;*ip 现在的值是: %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ip );
+   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;var 现在的值是: %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, var );
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行结果:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$gcc -o main *.c
+$main
+var 的地址是: f977beb4
+ip 中储存的地址是: f977beb4
+原本 *ip 的值是: &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;
+原本 var 的值是: &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;
+*ip 现在的值是: &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+var 现在的值是: &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以看到，当我修改 &lt;code&gt;*ip&lt;/code&gt; 的值的时候， &lt;code&gt;var&lt;/code&gt; 整形变量的值也发生了变化，这是因为我们是通过 &lt;code&gt;ip&lt;/code&gt; 这个指针修改的，程序通过这个指针中的地址找到了对应的内存（var 所在），然后将这段内存修改成为了 10 ，这个过程相当于直接修改了在内存中 &lt;code&gt;var&lt;/code&gt; 对应的值。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请不要直接将变量的值直接赋值给指针本身！&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;错误用法：&lt;code&gt;ip = (int)10;&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;warning: assignment makes pointer from integer without a cast &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-Wint-conversion&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+    ip&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;int&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;10;
+      ^
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;指针变量的类型和一般的变量不同，直接这样赋值会导致编译错误，而且这种操作毫无意义。&lt;/p&gt;
+&lt;p&gt;指针是可以赋给另外一个指针的，这样两个指针指向了同一个地方，但是这种一个地址对应两个指针的操作在某种意义上是比较危险的，因为这样对应的值很有可能被误修改，或者内存被释放后导致&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E8%BF%B7%E9%80%94%E6%8C%87%E9%92%88&#34;&gt;迷途指针&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;null-&#34;&gt;NULL 指针&lt;/h2&gt;
+&lt;p&gt;又名&lt;strong&gt;空指针&lt;/strong&gt;，指针内的值为 NULL，指针还没有分配指向的实体，NULL 指针会出现在指针的声明时，也就是我们第一个例子中的两个指针，只声明了对应的类型，没有实际赋予其地址，又称没有被初始化。&lt;/p&gt;
+&lt;p&gt;空指针中的值是 4 个字节的 0，而在计算机系统结构中，0 地址的内存一般情况下是被保留给操作系统运行的，里面已经有了一些操作系统运行中所需要的值，所以利用 NULL 指针修改对应的内存的话，后果可想而知。&lt;/p&gt;
+&lt;p&gt;解决空指针的办法就是在指针声明后，进行赋值，将指针变成一个指向固定地址的变量。&lt;/p&gt;
+&lt;h2 id=&#34;heading-2&#34;&gt;指针运算&lt;/h2&gt;
+&lt;p&gt;指针的运算符有以下几种：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;++&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;+&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们主要就 +/- 运算进行讲解，因为 ++/&amp;ndash; 不就是 +1/-1 么。&lt;/p&gt;
+&lt;p&gt;如果我们定义了一个指针指向一个 int 型变量（4 字节长度），请在脑中构思这个创建指针和定义的过程，然后我们对这个指针加 1。&lt;/p&gt;
+&lt;p&gt;实际上，指针内部的地址并不是简单的加 1，而是加了 4，也就是在内存中移动到了 4 个字节后的下一个 int 变量。&lt;/p&gt;
+&lt;p&gt;这个特性使得我们不用去注意一些非常底层的概念，最普遍的使用地点就是在一串同类数据中切换数据，也就是在数组中使用指针。&lt;/p&gt;
+&lt;p&gt;在使用这个的过程中，请保证自己不会将指针移动到未声明的内存空间中，譬如上述单个 int 变量的指针偏移，否则将有大几率损坏其他变量数据。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; MAX &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; () {
+
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;  var[] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;};
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;  i, &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ptr;
+    
+   ptr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; var;
+
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ( i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; MAX; i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;) {
+
+      printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;var[%d] 地址 = %x&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, i, ptr );
+      printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;var[%d] 值 = %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, i, &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ptr );
+
+      ptr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ptr&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;      &lt;span style=&#34;color:#75715e&#34;&gt;//等于 ptr++
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;   }
+	
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行结果:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$gcc -o main *.c
+$main
+var&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;0&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 地址 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 220fe454
+var&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;0&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 值 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+var&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 地址 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 220fe458
+var&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 值 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
+var&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;2&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 地址 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 220fe45c
+var&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;2&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 值 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以看到地址每次增加的值是 4。在这个例子中，如果你仔细读代码则会发现，我们使用了如下的代码&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;   ptr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; var;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;而在编译运行的过程中并没有错误产生，这是应为它本身就没有错误，在 c 语言中，数组的名字会被当做一个指针处理，其中的 var 可以被看做 &lt;code&gt;int * const var_name = &amp;amp;var[0];&lt;/code&gt; 中的 &lt;code&gt;var_name&lt;/code&gt;，也就是说，数组名其实是一个指针，而它对应的地址就是 var[0] 的地址。&lt;/p&gt;
+&lt;p&gt;由于这是一个常量指针，其特点是指针内的地址不可以变动，也就意味着这个指针不能够指向其他的 int 变量了。也就是:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; var_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;var[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;];
+var_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;是错误的:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;error: assignment of read-only variable ‘var_name’
+    var_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;int *&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;10;
+             ^
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我试了直接给 var = 另外的指针，但是显示错误不是这个，显示的是 &lt;code&gt;error: assignment to expression with array type&lt;/code&gt; ，但是原理是一样的。&lt;/p&gt;
+&lt;p&gt;还有一种数组，叫做字符数组，其主要形式是以下形式：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; ch[&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;{&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;hello world&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这句话，定义了一个具有 20 个元素的数组，元素的类型为 char 型，也就是字符型，数组的第一个元素是 h，第二个是 e，数组被依次填入&amp;quot;hello world\0&amp;rdquo;，其中 &lt;code&gt;\0&lt;/code&gt; 为终止符。&lt;/p&gt;
+&lt;p&gt;在 C 语言中，&amp;ldquo;hello world&amp;rdquo; 这样的字符串其实本质是一个指针，指向字符串开头的地址。在赋值或者打印的时候，C 语言会使用这个指针自动的将字符串从头读取到终止符。&lt;/p&gt;
+&lt;p&gt;从下边这个例子来解释：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; MAX &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;;
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; () {
+
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ptr&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Hello world&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;;
+   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;,ptr);
+
+   &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行结果是打印了 Hello world，在这个地方，我们直接用字符串给一个指针赋值了，但是编译器并没有报错。&lt;/p&gt;
+&lt;h2 id=&#34;heading-3&#34;&gt;二级指针&lt;/h2&gt;
+&lt;p&gt;因为指针是一个变量，故其在内存中也有一个储存的地址，而这个地址可以赋值给另外一个指针。当一个指针指向另外一个指针的时候，此指针就是二级指针。&lt;/p&gt;
+&lt;p&gt;二级指针的声明如下:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;var;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果你觉得之前的内容很简单，指针现在的恐怖之处才体现出来，对于二级指针的解除引用 &lt;code&gt;*&lt;/code&gt; 一次之后还是指针，只有解除两次之后才能成为真正的指向的数值变量。&lt;/p&gt;
+&lt;h2 id=&#34;heading-4&#34;&gt;函数指针&lt;/h2&gt;
+&lt;p&gt;在 C 语言中，函数指针一直就是一个很神奇的东西，因为它有很多违反常规的设定，函数其实和变量一样，都储存在内存中，只不过这部分内存存的是一些命令而不是值，函数名就像是数组名一样对应着它的入口地址，所以我们可以用一个指针指向函数，这样指针就能代表函数了。&lt;/p&gt;
+&lt;p&gt;函数指针和普通指针不同的是，函数指针声明的是函数的&lt;strong&gt;返回值&lt;/strong&gt;和&lt;strong&gt;参数&lt;/strong&gt;，而不是仅仅变量类型。&lt;/p&gt;
+&lt;p&gt;譬如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;p)(&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;声明了这个指针指向的是一个函数，该函数具有 int 返回值和 const char * （在 C 中遇到它，99% 对应字符串）的参数。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;string_print&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;s){
+    printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;,s);
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(){
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; a;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;p)(&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;);
+    
+    p&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;string_print;
+
+    a&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;string_print(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;WINNER WINNER CHIKEN DINNER!&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);
+    a&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;p(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;WINNER WINNER CHIKEN DINNER!&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行结果：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$gcc -o main *.c
+$main
+WINNER WINNER CHIKEN DINNER!
+WINNER WINNER CHIKEN DINNER!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;看，这个指针指向函数后，用指针名就可以直接调用这个函数，如果有很多函数，我们就可以在运行的时候动态的调用不同的函数了。&lt;/p&gt;
+&lt;p&gt;如果你眼睛够尖，或者你认真看了我上面的所有内容的话，会发现一个问题，我这个地方给指针赋值用的是:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;    p&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;string_print;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;函数名不就是地址么？再取地址不就是二级指针了么？你想的不错，这个地方其实说明了一个问题，如果函数名是地址的话，我们调用就要用 &lt;code&gt;*&lt;/code&gt; 来解除引用后才能声明和定义函数，但是 C 为了使大家使用方便就去掉了函数调用定义时加 &lt;code&gt;*&lt;/code&gt; 的过程，也就是说使用函数名其实就已经是解除引用后的地址了，这样说可能看起来比较难受，其实，&lt;code&gt;p=&amp;amp;string_print;&lt;/code&gt; 和 &lt;code&gt;p=string_print;&lt;/code&gt; 这两句话在这里是完全一样的，哈哈，不信你试试，输出结果完全一样，编译也不会报错。也就是说函数名既可以看做是一个实际的实体，也可以看做是一个地址，但是在定义以及声明函数的时候，不能定义函数名前面加 &lt;code&gt;*&lt;/code&gt;，因为这样就变成函数指针了。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;string_print)(&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;s){
+    printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;,s);
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;是错误的，无法通过编译，因为这样的 &lt;code&gt;string_print&lt;/code&gt; 就是函数指针了哦。&lt;/p&gt;
+&lt;h2 id=&#34;heading-5&#34;&gt;指针结合&lt;/h2&gt;
+&lt;p&gt;到此为止，一般的指针类型都已经介绍完毕了，但是这仅仅是指针的基础知识，有时候我们需要的是一些更加复杂的指针类型，譬如我想让 &lt;code&gt;p&lt;/code&gt; 是一个指向数组的指针，在数组中的元素均为指向 &lt;code&gt;int&lt;/code&gt; 的指针。那这个指针该怎么声明呢？&lt;/p&gt;
+&lt;p&gt;我们介绍了函数指针，在上个章节，有人会发现我在声明指针时，用小括号圈起来了指针（&lt;code&gt;int (*p)(const char *);&lt;/code&gt;）,可能你会想为什么要多次一举的加上一个括号呢，这个地方就牵涉到了指针中运算符的优先级的问题。（这个括号是必须的，没有就不是函数指针了，而是返回指针的函数了）&lt;/p&gt;
+&lt;p&gt;在学习指针结合的开始，我们要首先了解 C 语言中的运算符的结合优先级，指针结合的优先级使用 C 语言中规定的运算符优先级。&lt;/p&gt;
+&lt;p&gt;参阅&lt;a href=&#34;http://zh.cppreference.com/w/cpp/language/operator_precedence&#34;&gt;C++ 运算符优先级&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;大概浏览一下就可以咯，下面让我们先从简单的类型开始慢慢分析吧:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;int ptr;&lt;/code&gt; 这是一个普通的整型变量。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int *ptr;&lt;/code&gt; 从 ptr 处开始，先与 * 结合，说明 ptr 是一个指针，然后再与 int 结合，说明指针所指向的内容的类型为 int 型。所以 ptr 是一个返回整型数据的指针。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int ptr[3];&lt;/code&gt;  从 ptr 处开始，先与 [] 结合，说明 ptr 是一个数组，然后与 int 结合，说明数组里面的元素类型是整型的，所以 ptr 是一个由整型数据组成的数组。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int *ptr[3];&lt;/code&gt; 从 ptr 开始，左边是 * 运算，右边是 [] 运算，由于 [] 运算符的优先级比 * 高，所以先与 [] 结合，说明 ptr 是一个数组，然后再与 * 结合，说明数组元素的类型是指针类型，最后与 int 结合，说明指针所指向的内容的类型是整型数据。
+所以 ptr 是一个&lt;strong&gt;整型数据的指针&lt;/strong&gt;所组成的&lt;strong&gt;数组&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int (*ptr)[3];&lt;/code&gt; 从 ptr 开始，首先与 * 结合，() 是为了提高 * 相对于 [] 的优先级，所以 ptr 是一个指针，然后与 [] 结合，说明 ptr 是指针，指向的内容是一个数组，最后与 int 结合，说明数组里的元素是整型的。
+所以 ptr 是一个&lt;strong&gt;指向由整型数据组成的数组&lt;/strong&gt;的&lt;strong&gt;指针&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int **ptr;&lt;/code&gt; 从 ptr 开始，先与 * 结合，说是 ptr 是一个指针，然后再与 * 结合，说明指针所指向的元素是指针，然后再与 int 结合，说明该指针所指向的元素是整型数据。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int ptr(int);&lt;/code&gt; 从 ptr 处起，先与 () 结合，说明 ptr 是一个函数，然后进入 () 里分析，说明该函数有一个整型变量的参数，然后再与外面的 int 结合，说明函数的返回值是一个整型数据。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int (*ptr)(int);&lt;/code&gt; 从 ptr 处开始，先与指针结合，说明 ptr 是一个指针，然后与 () 结合，说明指针指向的是一个函数，然后再与 () 里的 int 结合，说明函数有一个 int 型的参数，再与最外层的 int 结合,说明函数的返回类型是整型。
+所以 ptr 是一个指向&lt;strong&gt;有一个整型参数且返回类型为整型的函数&lt;/strong&gt;的指针。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int *ptr(int);&lt;/code&gt; 从 ptr 处开始，先与 () 结合，说明 ptr 是一个函数，然后与 * 结合，说明函数返回值是一个指针，然后再与 int 结合，说明函数返回指针指向 int。
+所以 ptr 是一个&lt;strong&gt;有一个整型参数且返回类型为指向整型的指针&lt;/strong&gt;的&lt;strong&gt;函数&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int *(*ptr(int))[3];&lt;/code&gt; 难度 MAX，从 ptr 开始，先与 () 结合，说明 ptr 是一个函数,然后进入 () 里面，与 int 结合，说明函数有一个整型变量参数，然后再与外面的 * 结合，说明函数返回的是一个指针（参考上边的第9条），然后到最外面一层，先与 [] 结合，说明返回的指针指向的是一个数组，然后再与 * 结合，说明数组里的元素是指针，然后再与 int 结合，说明指针指向的内容是整型数据。
+所以 ptr 是一个指向&lt;strong&gt;参数为一个 int 且返回一个指向由整型指针变量组成的数组的指针变量&lt;/strong&gt;的&lt;strong&gt;函数&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;上列中的 &lt;strong&gt;4. 5.&lt;/strong&gt; 是很多考试的考点，其中 &lt;code&gt;int *ptr[3];&lt;/code&gt; 中 ptr 有个称号叫做 &lt;strong&gt;指针数组&lt;/strong&gt; ，&lt;code&gt;int (*ptr)[3];&lt;/code&gt; 中 ptr 有个称号叫做 &lt;strong&gt;数组指针&lt;/strong&gt;，连名字都几乎一模一样，新手大多头疼这两个的判断，其实按照上述的方法来处理指针结合的话，两种类型的区别还是很好判断的。&lt;/p&gt;
+&lt;p&gt;数组指针，是一个指向数组的指针，注意这里的指针不等同与数组名指针，这个指针指向的，是一个整体数组，而数组名指针指向的是数组中的元素。数组指针加 1 后，会跨过整个数组长度总和，而数组名加 1 只会增加一个元素的长度。举个例子就是：数组指针是班号，加 1 后移动到下个班，数组名是班级内的学号，加 1 后移动到下个学生。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2017-12-7-C-pointer/ap&amp;amp;pa.png&#34; alt=&#34;ap&amp;pa.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;其中 p 为普通函数名指针，ptr 为数组指针。
+我们可以看到数组指针可以跳过一整个行数组，用途在哪里最普遍？二维数组中。&lt;/p&gt;
+&lt;p&gt;指针数组不用多介绍了，就是个普通数组，里面装的全是指针而已。&lt;/p&gt;
+&lt;h2 id=&#34;--&#34;&gt;常量指针 &amp;amp; 指针常量&lt;/h2&gt;
+&lt;p&gt;我们在介绍数组名是指针的时候用到了一个指针类型，叫做“指针常量”，也就是 &lt;code&gt;int * const var_name = &amp;amp;var[0];&lt;/code&gt; 中的指针，这种指针内部的地址不能变动，只能在声明的时候定义一次，也就是不能指向别的变量了。&lt;strong&gt;指针本身是一个常量&lt;/strong&gt;就称作&lt;strong&gt;指针常量&lt;/strong&gt;我们称，数组名就是一种指针常量。字符串，也是一种指针常量。&lt;/p&gt;
+&lt;p&gt;还有一种指针，它本身不是常量，但它指向的是常量，大家想一想，这个指针的声明该怎么写？&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; c&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ptr&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;c;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;或者：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; c&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ptr&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;c;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;是一样的。但是要清楚一点，这个常量的定义，是指不能通过 ptr 这个指针来修改 c 中的值了（&lt;code&gt;*ptr=20;&lt;/code&gt; 会提示错误），但是 c 本身不是常量，用其他的指针或者，直接通过 &lt;code&gt;c=20;&lt;/code&gt; 都是可以修改 c 的值的。这种&lt;strong&gt;指向常量的指针&lt;/strong&gt;就叫做&lt;strong&gt;常量指针&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;指针常量/常量指针&lt;/strong&gt; 这两种是不是特别容易搞混啊？考试就考这个了！其实按照我们的结合律来判断也非常好判断，如果指针名先跟 const 结合了，这个指针内的地址就不能变了，那就是指针常量，而如果指针名先跟 * 结合了，这就说明指针是可变的，然后遇到了 const 和某种类型，那就说明指针指向了某种常量，是常量指针。&lt;/p&gt;
+&lt;p&gt;来一个难一点的判断：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;test)();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;首先从名字入手，&lt;code&gt;(*test)&lt;/code&gt; 说明 test 是一个指针，然后向外，() 优先级较高，先判断后面的小括号，说名 test 指针指向一个没有参数的函数，其返回值目前未知，然后向前判断，首先遇到了一个 *，说明返回值也是一个指针，指向了前面的 &lt;code&gt;(int * const)&lt;/code&gt; ，接着跟 const 结合，返回指针为指针常量，接着是 &lt;code&gt;(int *)&lt;/code&gt; 说明这个指针常量是一个二级指针，它指向了一个指向 int 型的指针。&lt;/p&gt;
+&lt;p&gt;也就是说 &lt;code&gt;test&lt;/code&gt; 是一个指针，指向了一个函数，函数不接受参数，并且返回一个二级指针，这个二级指针是个指针常量，解除引用一次后的指针，指向一个 int 型变量。&lt;/p&gt;
+&lt;p&gt;当然 “常量指针常量” 这种变态也是存在的，这种指针不能修改地址，其对应的变量也不能通过此指针改变。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; ptr&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果你之前写过程序，或者看我上文的函数指针例子中，发现很多字符串处理函数的字符串参数都是 &lt;code&gt;const char *&lt;/code&gt; 这种类型，你就应该明白了，字符串譬如 &lt;code&gt;&amp;quot;Hello world&amp;quot;&lt;/code&gt; 本质其实就是一个常量指针，&lt;code&gt;const char *&lt;/code&gt; 的存在是为了保证内部的字符不会因为这个指针而发生改变。注意，如果你用一个字符串给指针赋值的话，这个指针是不能修改字符串的内容的，否则会报错哦。&lt;/p&gt;
+&lt;p&gt;所以常量指针的存在意义其实是为了保护数据，在操作的过程中不会因为一些错误修改而改变了内存中对应的数据的值。其意义还是十分重大的！&lt;/p&gt;
+&lt;p&gt;到此为止，如果你全部掌握了以上的内容，恭喜，你已经熟练掌握指针的操作了！&lt;/p&gt;
+&lt;p&gt;最后留一个问题，如果本文最后的 test 指针，我想让他的返回值是一个二级指针，但这个二级指针的解引用一次之后才是一个常量指针该怎么改写这个声明呢？非常简单啊哈哈！&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>FT_Write Commands</title>
       <link>https://xiahualiu.github.io/posts/2017-11-28-ft232h-command/</link>
-      <pubDate>Tue, 28 Nov 2017 10:48:30 +0000</pubDate>
+      <pubDate>Tue, 28 Nov 2017 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/2017-11-28-ft232h-command/</guid>
       <description>&lt;p&gt;在使用 &lt;code&gt;FT_Write&lt;/code&gt; 发送命令的时候应该注意，一个标准的命令包含一个操作字节（OPCODE）和几个从属的字节，所有的命令都是以字节为单位发送的。&lt;/p&gt;
 &lt;h1 id=&#34;heading&#34;&gt;数据发送命令&lt;/h1&gt;
@@ -705,9 +943,9 @@ Byte65536 (max)
 &lt;/table&gt;</description>
     </item>
     <item>
-      <title>FT232H 配合单片机使用指南</title>
+      <title>FT232H Notes</title>
       <link>https://xiahualiu.github.io/posts/2017-11-13-ft232h-1/</link>
-      <pubDate>Mon, 13 Nov 2017 10:48:30 +0000</pubDate>
+      <pubDate>Mon, 13 Nov 2017 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/2017-11-13-ft232h-1/</guid>
       <description>&lt;p&gt;好久不见了朋友们。&lt;/p&gt;
 &lt;p&gt;这段时间忙于项目设计上面的问题，前一段时间在 S32K144 上面进行了针对 W5500 以太网模块的适配，结果不尽人意，速度最快也只能到达 520KB/s 的速度（在 20MHz 的 LPSPI 时钟频率下），由于项目要求至少能够达到 1Mb/s 的速度，所以只能换一个芯片，于是我发现了这一块芯片，英国 FTDI 半导体公司生产的 FT232H 芯片，主要是实现了 USB 到各个单片机其他协议的转换功能，根据其官方数据，其 SPI 端口最多可以支持 30MHz 的时钟频率，这个速度相当可观，因为在大部分情况下，SPI 的时钟频率都不会超过这个值，相当于 SPI 的物理极限了。但是这块芯片的资料实在是少之又少，大部分人使用这块芯片都是在 FPGA 上设计 FIFO 转 USB 功能的，所以又回到了最艰苦奋斗的状态————读文档，幸好本渣英语好，加上 S32K144 2000 页的文档都搞定了，这个几百页的基本上不算问题了。&lt;/p&gt;
@@ -1501,9 +1739,9 @@ FT_Close(ftHandle); &lt;span style=&#34;color:#75715e&#34;&gt;/* 关闭 USB 端�
 &lt;/section&gt;</description>
     </item>
     <item>
-      <title>S32K144EVB的学习历程（八）Systick</title>
+      <title>S32K144EVB Notes 8 Systick</title>
       <link>https://xiahualiu.github.io/posts/2017-10-26-s32k144_8/</link>
-      <pubDate>Thu, 26 Oct 2017 10:48:30 +0000</pubDate>
+      <pubDate>Thu, 26 Oct 2017 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/2017-10-26-s32k144_8/</guid>
       <description>&lt;p&gt;本章的内容是关于 Cortex M4F 内核中的 SysTick 时钟的运用，这是一个非常有用的模块，可以实现高精度的延时和快速中断的功能，但是这个内核功能在 MCU OEM 厂商的 Reference Manual 中一般都没有给出具体的实现方法，今天我们针对内核来进行分析。&lt;/p&gt;
 &lt;p&gt;SysTick 在参考手册中提到的就是有关中断优先级的那一章，SysTick 类似于 LPIT 计时器，但是直接使用的是内核的时钟进行计数，中断优先级在内核中是最低的，但是相对于外围是高的。这个模块的使用主要集中在 4 个寄存器内。&lt;/p&gt;
@@ -1626,86 +1864,9 @@ uint32_t Systok &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;spa
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     <item>
-      <title>S32K144EVB的学习历程（三）</title>
-      <link>https://xiahualiu.github.io/posts/2017-10-02-s32k144_3/</link>
-      <pubDate>Sat, 21 Oct 2017 00:00:00 +0000</pubDate>
-      <guid>https://xiahualiu.github.io/posts/2017-10-02-s32k144_3/</guid>
-      <description>&lt;p&gt;让我们继续上一节的内容&lt;/p&gt;
-&lt;h3 id=&#34;fast-irc-control-status-register-scg-firccsr&#34;&gt;Fast IRC Control Status Register (SCG_FIRCCSR)&lt;/h3&gt;
-&lt;p&gt;这个寄存器展示并且控制 FIRC 的工作状态&lt;/p&gt;
-&lt;h3 id=&#34;fast-irc-divide-register-scg-fircdiv&#34;&gt;Fast IRC Divide Register (SCG_FIRCDIV)&lt;/h3&gt;
-&lt;p&gt;这个寄存器控制 FIRC 的分频器的值&lt;/p&gt;
-&lt;h3 id=&#34;fast-irc-configuration-register-scg-firccfg&#34;&gt;Fast IRC Configuration Register (SCG_FIRCCFG)&lt;/h3&gt;
-&lt;p&gt;这个寄存器控制 FIRC 的基础设置，不能在 FIRC 开启的时候修改&lt;/p&gt;
-&lt;h3 id=&#34;system-pll-control-status-register-scg-spllcsr&#34;&gt;System PLL Control Status Register (SCG_SPLLCSR)&lt;/h3&gt;
-&lt;h3 id=&#34;system-pll-divide-register-scg-splldiv&#34;&gt;System PLL Divide Register (SCG_SPLLDIV)&lt;/h3&gt;
-&lt;h3 id=&#34;system-pll-configuration-register-scg-spllcfg&#34;&gt;System PLL Configuration Register (SCG_SPLLCFG)&lt;/h3&gt;
-&lt;p&gt;以上的几个寄存器基本设置都类似，但是具体到写程序的时候，一定要对照寄存器的表来写，因为他们之间都有一些不同&lt;/p&gt;
-&lt;h2 id=&#34;-scg-&#34;&gt;不同工作模式中 SCG 的工作流程&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;启动的时候，’Reset’ 会直接传递给 Run 模式下的 FIRC，Run 模式下 FIRC，SOSC，SPLL，SIRC 共同工作，可以互相传递时钟&lt;/li&gt;
-&lt;li&gt;启动完成后，如果单片机进入 &lt;strong&gt;High Speed Mode&lt;/strong&gt; 则会直接将 FIRC 时钟和 SPLL 相互传递&lt;/li&gt;
-&lt;li&gt;启动完成后，如果单片机进入 &lt;strong&gt;Very Slow Power Mode&lt;/strong&gt; 则只启用 SIRC 时钟。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h1 id=&#34;heading&#34;&gt;查看代码对应的时钟寄存器&lt;/h1&gt;
-&lt;h4 id=&#34;void-sosc-init-8mhzvoid-&#34;&gt;&lt;code&gt;void SOSC_init_8MHz(void)&lt;/code&gt; :&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;SCG-&amp;gt;SOSCDIV=0x00000101;&lt;/code&gt; 设置对应的两路 DIV&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;SCG-&amp;gt;SOSCCFG=0x00000024;&lt;/code&gt; 设置SOSC的硬件属性，晶振频率选择，可以看出来 1MHz ~ 8Mhz 是中频的范围，这个值在 Reference Manual 中并未给出。HGO 中高增益意味着高功率，在这里我们不需要高增益。&lt;/li&gt;
-&lt;li&gt;循环，等 &lt;code&gt;SOSCCSR&lt;/code&gt; 状态寄存器解锁&lt;/li&gt;
-&lt;li&gt;设置 &lt;code&gt;SOSCCSR&lt;/code&gt;  状态寄存器，这里什么都没有开启，只给了使能。&lt;/li&gt;
-&lt;li&gt;循环，等待 &lt;code&gt;SOSCCSR&lt;/code&gt; 有效&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;注意，这个函数应该在启用 &lt;strong&gt;锁相环&lt;/strong&gt; 前设定完成，而且要保证使能步骤在函数内部的最后一步完成。&lt;/p&gt;
-&lt;h4 id=&#34;void-spll-init-160mhzvoid-&#34;&gt;&lt;code&gt;void SPLL_init_160MHz(void)&lt;/code&gt; :&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;循环，等 &lt;code&gt;SPLLCSR&lt;/code&gt; 状态寄存器解锁&lt;/li&gt;
-&lt;li&gt;设置 &lt;code&gt;SPLLCSR&lt;/code&gt; 先关闭锁相环，&lt;code&gt;SPLLDIV&lt;/code&gt; 设置两路 DIV，&lt;code&gt;SPLLCFG&lt;/code&gt; 设置 MULT 和 PREDIV 。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2017-10-02-S32K144_3/SPLLCalculation.png&#34; alt=&#34;1&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;循环，等待 &lt;code&gt;SPLLCSR&lt;/code&gt; 状态寄存器 解锁&lt;/li&gt;
-&lt;li&gt;使能&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;void-normalrunmode-80mhz-void-&#34;&gt;&lt;code&gt;void NormalRUNmode_80MHz (void)&lt;/code&gt; :&lt;/h4&gt;
-&lt;p&gt;这个其实就是设置 SCG_RCCR 的值，这个值在 RUN 模式下是用于设定一些分频器（&lt;code&gt;DIVSLOW&lt;/code&gt; &lt;code&gt;DIVBUS&lt;/code&gt; &lt;code&gt;DIVCORE&lt;/code&gt;） 和选择时钟源（&lt;code&gt;SCS&lt;/code&gt;）的。&lt;/p&gt;
-&lt;h1 id=&#34;lpit&#34;&gt;低功率中断计时器（LPIT）设置&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;S32K144中有一个 LPIT 模块 &lt;code&gt;LPIT0&lt;/code&gt; 和四个通道，低泄露模式和等待模式不被该芯片支持，修改 LPIT 在其功能时钟在关闭的时候会导致赋值错误。&lt;/li&gt;
-&lt;li&gt;LPIT 每个通道会给 DMAMUX 周期性触发&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;LPIT 被设计为捕捉脉冲在其输入引脚，并不需要和其时钟频率有关，但是为了保证可靠性，连续的触发操作应该至少间隔 10 个 LPIT 总线时钟周期。&lt;/p&gt;
-&lt;h3 id=&#34;tval-&#34;&gt;TVAL 是初值寄存器：&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;在 LPIT 比较模式中&lt;/strong&gt;：其中储存的值会逐渐减少到 0，之后会产生中断并且将初值恢复，写入一个新的值不会立刻修改初值，必须要到当前的值到零重装才能生效，如果想要立即生效请在 TCRTL 寄存器中关闭该模块再重新打开。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;在 LPIT 捕捉模式中&lt;/strong&gt;：其中储存的值是计数值的相反值。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;tctrl-&#34;&gt;TCTRL 是控制寄存器：&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;工作模式有：
-&lt;ul&gt;
-&lt;li&gt;32-bit 周期计数&lt;/li&gt;
-&lt;li&gt;双 16-bit 周期计数&lt;/li&gt;
-&lt;li&gt;32-bit 触发积累&lt;/li&gt;
-&lt;li&gt;32-bit 输入捕捉&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;TSOT（Timer Start On Trigger），TROT（Timer Reset On Trigger） 和 TSOI（Timer Stop On Interrupt） ，CHAIN 设置请参考 Reference Manual，不难，根据名字就可以理解。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;lpit-&#34;&gt;LPIT 使用的步骤：&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;PCC 选择 LPIT 的时钟源，然后使用 &lt;code&gt;PCC_PCCn_CGC_MASK&lt;/code&gt; 取或打开 LPIT 。&lt;/li&gt;
-&lt;li&gt;首先使用 LPIT0 指针赋值 MCR 寄存器，默认赋值 &lt;code&gt;0x00000001&lt;/code&gt; 即可，仅仅打开 &lt;code&gt;M_CEN&lt;/code&gt; 开关，此开关未打开前后续的寄存器处于锁定状态，赋值以及读取均会报错。&lt;/li&gt;
-&lt;li&gt;LPIT0 指针赋值 &lt;code&gt;TMR[n].TVAL&lt;/code&gt; 和 &lt;code&gt;TMR[n].TCTRL&lt;/code&gt;, TVAL 控制 timeout 周期，TCTRL 控制开启对应的通道。并且确定工作模式。&lt;/li&gt;
-&lt;li&gt;检测 MSR 寄存器中的 TIFn 是否产生 flag（1）。&lt;/li&gt;
-&lt;/ol&gt;</description>
-    </item>
-    <item>
-      <title>S32K144EVB的学习历程（七）SPI</title>
+      <title>S32K144EVB Notes 7 SPI</title>
       <link>https://xiahualiu.github.io/posts/2017-10-20-s32k144_7/</link>
-      <pubDate>Fri, 20 Oct 2017 10:48:30 +0000</pubDate>
+      <pubDate>Fri, 20 Oct 2017 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/2017-10-20-s32k144_7/</guid>
       <description>&lt;p&gt;本节针对了我在工程上需要亟待着手解决的一个方面也就是使用外接 SPI 网卡进行高速传输的一个问题，在这里打算进行仔细的解读一下有关 SPI 协议使用的部分。但是还是老样子，我们根据例程进行分析相关的寄存器和使用方法。&lt;/p&gt;
 &lt;p&gt;本例程来自 NXP 官方给出的 AN5413 Cookbook 上面的程序。&lt;/p&gt;
@@ -2271,9 +2432,9 @@ LPSPI1&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#3
 &lt;p&gt;还有一些乱七八糟的寄存器像是 RDR 什么的，都和上面的类似，很好理解，就没有再给出了。&lt;/p&gt;</description>
     </item>
     <item>
-      <title>S32K144EVB的学习历程（六）DMA</title>
+      <title>S32K144EVB Notes 6 DMA</title>
       <link>https://xiahualiu.github.io/posts/2017-10-19-s32k144_6/</link>
-      <pubDate>Thu, 19 Oct 2017 16:20:30 +0000</pubDate>
+      <pubDate>Thu, 19 Oct 2017 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/2017-10-19-s32k144_6/</guid>
       <description>&lt;p&gt;这一节的内容是根据对于例程的探索，了解 S32K 上的 DMA 功能的使用方法。&lt;/p&gt;
 &lt;h3 id=&#34;heading&#34;&gt;本章的代码涉及的内容:&lt;/h3&gt;
@@ -3040,10 +3201,10 @@ DMA 只要发出指令后，CPU 是不需要任何操作的，可以看到在主
 &lt;p&gt;到这个时候，再看看例程，是不是觉得十分简单呢？&lt;/p&gt;</description>
     </item>
     <item>
-      <title>S32K144EVB的学习历程（五）NVIC 中断</title>
-      <link>https://xiahualiu.github.io/posts/2017-10-02-s32k144_5/</link>
-      <pubDate>Tue, 17 Oct 2017 16:20:30 +0000</pubDate>
-      <guid>https://xiahualiu.github.io/posts/2017-10-02-s32k144_5/</guid>
+      <title>S32K144EVB Notes 5 NVIC</title>
+      <link>https://xiahualiu.github.io/posts/2017-10-17-s32k144_5/</link>
+      <pubDate>Tue, 17 Oct 2017 00:00:00 +0000</pubDate>
+      <guid>https://xiahualiu.github.io/posts/2017-10-17-s32k144_5/</guid>
       <description>&lt;p&gt;这一节的内容是根据对于例程的探索，了解 S32K 上的 ADC 模块的使用方法&lt;/p&gt;
 &lt;h1 id=&#34;heading&#34;&gt;本节程序包含的步骤：&lt;/h1&gt;
 &lt;ul&gt;
@@ -3298,10 +3459,10 @@ adc_result&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;ADC0&lt;span s
 &lt;p&gt;读取 ADC ，如果没有中断的话就是等待对应的配置 COCO 位变成 1 之后再读取对应的 &lt;code&gt;R[n]&lt;/code&gt; 里面的数值，如果有中断的话就可以直接在中断服务程序中取下对应的 &lt;code&gt;R[n]&lt;/code&gt; 值。&lt;/p&gt;</description>
     </item>
     <item>
-      <title>S32K144EVB的学习历程（四）</title>
-      <link>https://xiahualiu.github.io/posts/2017-10-02-s32k144_4/</link>
-      <pubDate>Mon, 16 Oct 2017 12:05:30 +0000</pubDate>
-      <guid>https://xiahualiu.github.io/posts/2017-10-02-s32k144_4/</guid>
+      <title>S32K144EVB Notes 4</title>
+      <link>https://xiahualiu.github.io/posts/2017-10-16-s32k144_4/</link>
+      <pubDate>Mon, 16 Oct 2017 00:00:00 +0000</pubDate>
+      <guid>https://xiahualiu.github.io/posts/2017-10-16-s32k144_4/</guid>
       <description>&lt;p&gt;这一节的主要内容是在（三）的基础上实现 NVIC 中断控制和处理&lt;/p&gt;
 &lt;h1 id=&#34;heading&#34;&gt;本节程序包含的步骤：&lt;/h1&gt;
 &lt;ol&gt;
@@ -3601,242 +3762,81 @@ SCG&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;c
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;之前找内核那几个中断的 IRQn 找的好久，最后在头文件里面发现了这个表，在这里就先记录下来方便以后的查阅。&lt;/p&gt;</description>
     </item>
     <item>
-      <title>C 指针疑难杂谈</title>
-      <link>https://xiahualiu.github.io/posts/2017-12-7-c-pointer/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://xiahualiu.github.io/posts/2017-12-7-c-pointer/</guid>
-      <description>&lt;p&gt;语言中，要说什么概念最难理解，那指针当仁不让处于第一的位置，初学者对于指针是叫苦不堪，即使是熟练地程序员在写程序的时候，复杂的指针也会使程序的可读性大大降低。&lt;/p&gt;
-&lt;p&gt;但是指针又是 C 语言的一个特点，使用指针可以使编程更加容易。而且有些任务，譬如动态内存分配，如 &lt;code&gt;malloc&lt;/code&gt; &lt;code&gt;calloc&lt;/code&gt; &lt;code&gt;realloc&lt;/code&gt; 函数的使用又必须依赖指针，所以如果想要成为一个熟练的 C 程序员，理解熟练使用指针是非常必要的。&lt;/p&gt;
-&lt;h2 id=&#34;heading&#34;&gt;什么是指针&lt;/h2&gt;
-&lt;p&gt;首先，在程序运行中，变量都是存在计算机的内存中的。指针是一种变量，它的值是&lt;strong&gt;另外一个变量的地址&lt;/strong&gt;，也就是直接的内存地址，在 32 位系统中，指针的大小为 4 字节（在远古时期的远指针，近指针，巨指针，等不参加讨论），很好理解，一个字节长度为 8 bits，4 bytes = 32 bits，如果在最新的 64 位系统中编译并且运行的话，指针会变成 8 字节的长度，因为对应的地址位宽增加了。&lt;/p&gt;
-&lt;p&gt;运行以下的内容就可以发现, 打印的是 8 个 16 进制的字符，也就是 4 个字节。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; () {
-
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;  var1;
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; var2[&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;];
-
-   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Address of var1 variable: %x&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;var1  );
-   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Address of var2 variable: %x&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;var2  );
-
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行结果：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$gcc -o main *.c
-$main
-Address of var1 variable: 9f98435c
-Address of var2 variable: 9f984352
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在上边的例子中，&lt;code&gt;var1&lt;/code&gt; 就是一个指针，它内部存有一个 &lt;code&gt;int&lt;/code&gt; 型变量的地址， 而 &lt;code&gt;var2&lt;/code&gt; 存着一个 &lt;code&gt;char[10]&lt;/code&gt; 数组的地址。在平常描述中，通常使用『&lt;strong&gt;指向&lt;/strong&gt;』这个动词来描述指针与对应变量的关系，我们可以说 &lt;code&gt;var1&lt;/code&gt; 指针指向某个（因为还未定义哪个） &lt;code&gt;int&lt;/code&gt; 型的变量。通过这个例子的打印结果我们可以看到，不管指针指向什么类型的变量，它的本身长度，始终都是固定的值，在本例中为 4bytes，不同指针唯一的不同就是指针变量内部存的值的不同，也即是指针所对应的地址不同。&lt;/p&gt;
-&lt;h2 id=&#34;heading-1&#34;&gt;如何使用指针&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;指针的操作符很少，只有 &lt;code&gt;&amp;amp;&lt;/code&gt; &lt;code&gt;*&lt;/code&gt; 两种。&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;&amp;amp;&lt;/code&gt; 是引用符号，对一个普通的变量，数组，结构，等类型使用可以取得其地址。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;*&lt;/code&gt; 是解除引用符号，对于指针使用可以返回其指向的值。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; () {
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;  var &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;;   &lt;span style=&#34;color:#75715e&#34;&gt;/* 整形变量声明定义 */&lt;/span&gt;
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ip;        &lt;span style=&#34;color:#75715e&#34;&gt;/* 指针声明 */&lt;/span&gt;
-   ip &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;var;  &lt;span style=&#34;color:#75715e&#34;&gt;/* 将 var 变量的值赋给 ip*/&lt;/span&gt;
-
-   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;var 的地址是: %x&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;var  );
-   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;ip 中储存的地址是: %x&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, ip );
-   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;原本 *ip 的值是: %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ip );
-   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;原本 var 的值是: %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, var );
-
-   &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ip&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
-
-   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;*ip 现在的值是: %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ip );
-   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;var 现在的值是: %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, var );
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行结果:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$gcc -o main *.c
-$main
-var 的地址是: f977beb4
-ip 中储存的地址是: f977beb4
-原本 *ip 的值是: &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;
-原本 var 的值是: &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;
-*ip 现在的值是: &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
-var 现在的值是: &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以看到，当我修改 &lt;code&gt;*ip&lt;/code&gt; 的值的时候， &lt;code&gt;var&lt;/code&gt; 整形变量的值也发生了变化，这是因为我们是通过 &lt;code&gt;ip&lt;/code&gt; 这个指针修改的，程序通过这个指针中的地址找到了对应的内存（var 所在），然后将这段内存修改成为了 10 ，这个过程相当于直接修改了在内存中 &lt;code&gt;var&lt;/code&gt; 对应的值。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;请不要直接将变量的值直接赋值给指针本身！&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;错误用法：&lt;code&gt;ip = (int)10;&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;warning: assignment makes pointer from integer without a cast &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;-Wint-conversion&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
-    ip&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;int&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;10;
-      ^
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;指针变量的类型和一般的变量不同，直接这样赋值会导致编译错误，而且这种操作毫无意义。&lt;/p&gt;
-&lt;p&gt;指针是可以赋给另外一个指针的，这样两个指针指向了同一个地方，但是这种一个地址对应两个指针的操作在某种意义上是比较危险的，因为这样对应的值很有可能被误修改，或者内存被释放后导致&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E8%BF%B7%E9%80%94%E6%8C%87%E9%92%88&#34;&gt;迷途指针&lt;/a&gt;。&lt;/p&gt;
-&lt;h2 id=&#34;null-&#34;&gt;NULL 指针&lt;/h2&gt;
-&lt;p&gt;又名&lt;strong&gt;空指针&lt;/strong&gt;，指针内的值为 NULL，指针还没有分配指向的实体，NULL 指针会出现在指针的声明时，也就是我们第一个例子中的两个指针，只声明了对应的类型，没有实际赋予其地址，又称没有被初始化。&lt;/p&gt;
-&lt;p&gt;空指针中的值是 4 个字节的 0，而在计算机系统结构中，0 地址的内存一般情况下是被保留给操作系统运行的，里面已经有了一些操作系统运行中所需要的值，所以利用 NULL 指针修改对应的内存的话，后果可想而知。&lt;/p&gt;
-&lt;p&gt;解决空指针的办法就是在指针声明后，进行赋值，将指针变成一个指向固定地址的变量。&lt;/p&gt;
-&lt;h2 id=&#34;heading-2&#34;&gt;指针运算&lt;/h2&gt;
-&lt;p&gt;指针的运算符有以下几种：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;++&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;--&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;+&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;我们主要就 +/- 运算进行讲解，因为 ++/&amp;ndash; 不就是 +1/-1 么。&lt;/p&gt;
-&lt;p&gt;如果我们定义了一个指针指向一个 int 型变量（4 字节长度），请在脑中构思这个创建指针和定义的过程，然后我们对这个指针加 1。&lt;/p&gt;
-&lt;p&gt;实际上，指针内部的地址并不是简单的加 1，而是加了 4，也就是在内存中移动到了 4 个字节后的下一个 int 变量。&lt;/p&gt;
-&lt;p&gt;这个特性使得我们不用去注意一些非常底层的概念，最普遍的使用地点就是在一串同类数据中切换数据，也就是在数组中使用指针。&lt;/p&gt;
-&lt;p&gt;在使用这个的过程中，请保证自己不会将指针移动到未声明的内存空间中，譬如上述单个 int 变量的指针偏移，否则将有大几率损坏其他变量数据。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; MAX &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; () {
-
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;  var[] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;};
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;  i, &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ptr;
-    
-   ptr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; var;
-
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ( i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; MAX; i&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;) {
-
-      printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;var[%d] 地址 = %x&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, i, ptr );
-      printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;var[%d] 值 = %d&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, i, &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ptr );
-
-      ptr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ptr&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;      &lt;span style=&#34;color:#75715e&#34;&gt;//等于 ptr++
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;   }
-	
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行结果:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$gcc -o main *.c
-$main
-var&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;0&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 地址 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 220fe454
-var&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;0&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 值 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
-var&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 地址 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 220fe458
-var&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 值 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;
-var&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;2&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 地址 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 220fe45c
-var&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;2&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; 值 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以看到地址每次增加的值是 4。在这个例子中，如果你仔细读代码则会发现，我们使用了如下的代码&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;   ptr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; var;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;而在编译运行的过程中并没有错误产生，这是应为它本身就没有错误，在 c 语言中，数组的名字会被当做一个指针处理，其中的 var 可以被看做 &lt;code&gt;int * const var_name = &amp;amp;var[0];&lt;/code&gt; 中的 &lt;code&gt;var_name&lt;/code&gt;，也就是说，数组名其实是一个指针，而它对应的地址就是 var[0] 的地址。&lt;/p&gt;
-&lt;p&gt;由于这是一个常量指针，其特点是指针内的地址不可以变动，也就意味着这个指针不能够指向其他的 int 变量了。也就是:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; var_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;var[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;];
-var_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;是错误的:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;error: assignment of read-only variable ‘var_name’
-    var_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;int *&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;10;
-             ^
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我试了直接给 var = 另外的指针，但是显示错误不是这个，显示的是 &lt;code&gt;error: assignment to expression with array type&lt;/code&gt; ，但是原理是一样的。&lt;/p&gt;
-&lt;p&gt;还有一种数组，叫做字符数组，其主要形式是以下形式：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; ch[&lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;{&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;hello world&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;};
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这句话，定义了一个具有 20 个元素的数组，元素的类型为 char 型，也就是字符型，数组的第一个元素是 h，第二个是 e，数组被依次填入&amp;quot;hello world\0&amp;rdquo;，其中 &lt;code&gt;\0&lt;/code&gt; 为终止符。&lt;/p&gt;
-&lt;p&gt;在 C 语言中，&amp;ldquo;hello world&amp;rdquo; 这样的字符串其实本质是一个指针，指向字符串开头的地址。在赋值或者打印的时候，C 语言会使用这个指针自动的将字符串从头读取到终止符。&lt;/p&gt;
-&lt;p&gt;从下边这个例子来解释：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; MAX &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;;
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; () {
-
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ptr&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Hello world&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;;
-   printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;,ptr);
-
-   &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行结果是打印了 Hello world，在这个地方，我们直接用字符串给一个指针赋值了，但是编译器并没有报错。&lt;/p&gt;
-&lt;h2 id=&#34;heading-3&#34;&gt;二级指针&lt;/h2&gt;
-&lt;p&gt;因为指针是一个变量，故其在内存中也有一个储存的地址，而这个地址可以赋值给另外一个指针。当一个指针指向另外一个指针的时候，此指针就是二级指针。&lt;/p&gt;
-&lt;p&gt;二级指针的声明如下:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;var;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果你觉得之前的内容很简单，指针现在的恐怖之处才体现出来，对于二级指针的解除引用 &lt;code&gt;*&lt;/code&gt; 一次之后还是指针，只有解除两次之后才能成为真正的指向的数值变量。&lt;/p&gt;
-&lt;h2 id=&#34;heading-4&#34;&gt;函数指针&lt;/h2&gt;
-&lt;p&gt;在 C 语言中，函数指针一直就是一个很神奇的东西，因为它有很多违反常规的设定，函数其实和变量一样，都储存在内存中，只不过这部分内存存的是一些命令而不是值，函数名就像是数组名一样对应着它的入口地址，所以我们可以用一个指针指向函数，这样指针就能代表函数了。&lt;/p&gt;
-&lt;p&gt;函数指针和普通指针不同的是，函数指针声明的是函数的&lt;strong&gt;返回值&lt;/strong&gt;和&lt;strong&gt;参数&lt;/strong&gt;，而不是仅仅变量类型。&lt;/p&gt;
-&lt;p&gt;譬如：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;p)(&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;声明了这个指针指向的是一个函数，该函数具有 int 返回值和 const char * （在 C 中遇到它，99% 对应字符串）的参数。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;string_print&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;s){
-    printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;,s);
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-}
-
-&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(){
-
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; a;
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;p)(&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;);
-    
-    p&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;string_print;
-
-    a&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;string_print(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;WINNER WINNER CHIKEN DINNER!&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);
-    a&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;p(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;WINNER WINNER CHIKEN DINNER!&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;);
-
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;运行结果：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$gcc -o main *.c
-$main
-WINNER WINNER CHIKEN DINNER!
-WINNER WINNER CHIKEN DINNER!
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;看，这个指针指向函数后，用指针名就可以直接调用这个函数，如果有很多函数，我们就可以在运行的时候动态的调用不同的函数了。&lt;/p&gt;
-&lt;p&gt;如果你眼睛够尖，或者你认真看了我上面的所有内容的话，会发现一个问题，我这个地方给指针赋值用的是:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;    p&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;string_print;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;函数名不就是地址么？再取地址不就是二级指针了么？你想的不错，这个地方其实说明了一个问题，如果函数名是地址的话，我们调用就要用 &lt;code&gt;*&lt;/code&gt; 来解除引用后才能声明和定义函数，但是 C 为了使大家使用方便就去掉了函数调用定义时加 &lt;code&gt;*&lt;/code&gt; 的过程，也就是说使用函数名其实就已经是解除引用后的地址了，这样说可能看起来比较难受，其实，&lt;code&gt;p=&amp;amp;string_print;&lt;/code&gt; 和 &lt;code&gt;p=string_print;&lt;/code&gt; 这两句话在这里是完全一样的，哈哈，不信你试试，输出结果完全一样，编译也不会报错。也就是说函数名既可以看做是一个实际的实体，也可以看做是一个地址，但是在定义以及声明函数的时候，不能定义函数名前面加 &lt;code&gt;*&lt;/code&gt;，因为这样就变成函数指针了。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;string_print)(&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;s){
-    printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;,s);
-    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;是错误的，无法通过编译，因为这样的 &lt;code&gt;string_print&lt;/code&gt; 就是函数指针了哦。&lt;/p&gt;
-&lt;h2 id=&#34;heading-5&#34;&gt;指针结合&lt;/h2&gt;
-&lt;p&gt;到此为止，一般的指针类型都已经介绍完毕了，但是这仅仅是指针的基础知识，有时候我们需要的是一些更加复杂的指针类型，譬如我想让 &lt;code&gt;p&lt;/code&gt; 是一个指向数组的指针，在数组中的元素均为指向 &lt;code&gt;int&lt;/code&gt; 的指针。那这个指针该怎么声明呢？&lt;/p&gt;
-&lt;p&gt;我们介绍了函数指针，在上个章节，有人会发现我在声明指针时，用小括号圈起来了指针（&lt;code&gt;int (*p)(const char *);&lt;/code&gt;）,可能你会想为什么要多次一举的加上一个括号呢，这个地方就牵涉到了指针中运算符的优先级的问题。（这个括号是必须的，没有就不是函数指针了，而是返回指针的函数了）&lt;/p&gt;
-&lt;p&gt;在学习指针结合的开始，我们要首先了解 C 语言中的运算符的结合优先级，指针结合的优先级使用 C 语言中规定的运算符优先级。&lt;/p&gt;
-&lt;p&gt;参阅&lt;a href=&#34;http://zh.cppreference.com/w/cpp/language/operator_precedence&#34;&gt;C++ 运算符优先级&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;大概浏览一下就可以咯，下面让我们先从简单的类型开始慢慢分析吧:&lt;/p&gt;
+      <title>S32K144EVB Notes 3</title>
+      <link>https://xiahualiu.github.io/posts/2017-10-02-s32k144_3/</link>
+      <pubDate>Mon, 02 Oct 2017 00:00:00 +0000</pubDate>
+      <guid>https://xiahualiu.github.io/posts/2017-10-02-s32k144_3/</guid>
+      <description>&lt;p&gt;让我们继续上一节的内容&lt;/p&gt;
+&lt;h3 id=&#34;fast-irc-control-status-register-scg-firccsr&#34;&gt;Fast IRC Control Status Register (SCG_FIRCCSR)&lt;/h3&gt;
+&lt;p&gt;这个寄存器展示并且控制 FIRC 的工作状态&lt;/p&gt;
+&lt;h3 id=&#34;fast-irc-divide-register-scg-fircdiv&#34;&gt;Fast IRC Divide Register (SCG_FIRCDIV)&lt;/h3&gt;
+&lt;p&gt;这个寄存器控制 FIRC 的分频器的值&lt;/p&gt;
+&lt;h3 id=&#34;fast-irc-configuration-register-scg-firccfg&#34;&gt;Fast IRC Configuration Register (SCG_FIRCCFG)&lt;/h3&gt;
+&lt;p&gt;这个寄存器控制 FIRC 的基础设置，不能在 FIRC 开启的时候修改&lt;/p&gt;
+&lt;h3 id=&#34;system-pll-control-status-register-scg-spllcsr&#34;&gt;System PLL Control Status Register (SCG_SPLLCSR)&lt;/h3&gt;
+&lt;h3 id=&#34;system-pll-divide-register-scg-splldiv&#34;&gt;System PLL Divide Register (SCG_SPLLDIV)&lt;/h3&gt;
+&lt;h3 id=&#34;system-pll-configuration-register-scg-spllcfg&#34;&gt;System PLL Configuration Register (SCG_SPLLCFG)&lt;/h3&gt;
+&lt;p&gt;以上的几个寄存器基本设置都类似，但是具体到写程序的时候，一定要对照寄存器的表来写，因为他们之间都有一些不同&lt;/p&gt;
+&lt;h2 id=&#34;-scg-&#34;&gt;不同工作模式中 SCG 的工作流程&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;code&gt;int ptr;&lt;/code&gt; 这是一个普通的整型变量。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;int *ptr;&lt;/code&gt; 从 ptr 处开始，先与 * 结合，说明 ptr 是一个指针，然后再与 int 结合，说明指针所指向的内容的类型为 int 型。所以 ptr 是一个返回整型数据的指针。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;int ptr[3];&lt;/code&gt;  从 ptr 处开始，先与 [] 结合，说明 ptr 是一个数组，然后与 int 结合，说明数组里面的元素类型是整型的，所以 ptr 是一个由整型数据组成的数组。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;int *ptr[3];&lt;/code&gt; 从 ptr 开始，左边是 * 运算，右边是 [] 运算，由于 [] 运算符的优先级比 * 高，所以先与 [] 结合，说明 ptr 是一个数组，然后再与 * 结合，说明数组元素的类型是指针类型，最后与 int 结合，说明指针所指向的内容的类型是整型数据。
-所以 ptr 是一个&lt;strong&gt;整型数据的指针&lt;/strong&gt;所组成的&lt;strong&gt;数组&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;int (*ptr)[3];&lt;/code&gt; 从 ptr 开始，首先与 * 结合，() 是为了提高 * 相对于 [] 的优先级，所以 ptr 是一个指针，然后与 [] 结合，说明 ptr 是指针，指向的内容是一个数组，最后与 int 结合，说明数组里的元素是整型的。
-所以 ptr 是一个&lt;strong&gt;指向由整型数据组成的数组&lt;/strong&gt;的&lt;strong&gt;指针&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;int **ptr;&lt;/code&gt; 从 ptr 开始，先与 * 结合，说是 ptr 是一个指针，然后再与 * 结合，说明指针所指向的元素是指针，然后再与 int 结合，说明该指针所指向的元素是整型数据。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;int ptr(int);&lt;/code&gt; 从 ptr 处起，先与 () 结合，说明 ptr 是一个函数，然后进入 () 里分析，说明该函数有一个整型变量的参数，然后再与外面的 int 结合，说明函数的返回值是一个整型数据。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;int (*ptr)(int);&lt;/code&gt; 从 ptr 处开始，先与指针结合，说明 ptr 是一个指针，然后与 () 结合，说明指针指向的是一个函数，然后再与 () 里的 int 结合，说明函数有一个 int 型的参数，再与最外层的 int 结合,说明函数的返回类型是整型。
-所以 ptr 是一个指向&lt;strong&gt;有一个整型参数且返回类型为整型的函数&lt;/strong&gt;的指针。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;int *ptr(int);&lt;/code&gt; 从 ptr 处开始，先与 () 结合，说明 ptr 是一个函数，然后与 * 结合，说明函数返回值是一个指针，然后再与 int 结合，说明函数返回指针指向 int。
-所以 ptr 是一个&lt;strong&gt;有一个整型参数且返回类型为指向整型的指针&lt;/strong&gt;的&lt;strong&gt;函数&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;int *(*ptr(int))[3];&lt;/code&gt; 难度 MAX，从 ptr 开始，先与 () 结合，说明 ptr 是一个函数,然后进入 () 里面，与 int 结合，说明函数有一个整型变量参数，然后再与外面的 * 结合，说明函数返回的是一个指针（参考上边的第9条），然后到最外面一层，先与 [] 结合，说明返回的指针指向的是一个数组，然后再与 * 结合，说明数组里的元素是指针，然后再与 int 结合，说明指针指向的内容是整型数据。
-所以 ptr 是一个指向&lt;strong&gt;参数为一个 int 且返回一个指向由整型指针变量组成的数组的指针变量&lt;/strong&gt;的&lt;strong&gt;函数&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;启动的时候，’Reset’ 会直接传递给 Run 模式下的 FIRC，Run 模式下 FIRC，SOSC，SPLL，SIRC 共同工作，可以互相传递时钟&lt;/li&gt;
+&lt;li&gt;启动完成后，如果单片机进入 &lt;strong&gt;High Speed Mode&lt;/strong&gt; 则会直接将 FIRC 时钟和 SPLL 相互传递&lt;/li&gt;
+&lt;li&gt;启动完成后，如果单片机进入 &lt;strong&gt;Very Slow Power Mode&lt;/strong&gt; 则只启用 SIRC 时钟。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;上列中的 &lt;strong&gt;4. 5.&lt;/strong&gt; 是很多考试的考点，其中 &lt;code&gt;int *ptr[3];&lt;/code&gt; 中 ptr 有个称号叫做 &lt;strong&gt;指针数组&lt;/strong&gt; ，&lt;code&gt;int (*ptr)[3];&lt;/code&gt; 中 ptr 有个称号叫做 &lt;strong&gt;数组指针&lt;/strong&gt;，连名字都几乎一模一样，新手大多头疼这两个的判断，其实按照上述的方法来处理指针结合的话，两种类型的区别还是很好判断的。&lt;/p&gt;
-&lt;p&gt;数组指针，是一个指向数组的指针，注意这里的指针不等同与数组名指针，这个指针指向的，是一个整体数组，而数组名指针指向的是数组中的元素。数组指针加 1 后，会跨过整个数组长度总和，而数组名加 1 只会增加一个元素的长度。举个例子就是：数组指针是班号，加 1 后移动到下个班，数组名是班级内的学号，加 1 后移动到下个学生。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2017-12-7-C-pointer/ap&amp;amp;pa.png&#34; alt=&#34;ap&amp;pa.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;其中 p 为普通函数名指针，ptr 为数组指针。
-我们可以看到数组指针可以跳过一整个行数组，用途在哪里最普遍？二维数组中。&lt;/p&gt;
-&lt;p&gt;指针数组不用多介绍了，就是个普通数组，里面装的全是指针而已。&lt;/p&gt;
-&lt;h2 id=&#34;--&#34;&gt;常量指针 &amp;amp; 指针常量&lt;/h2&gt;
-&lt;p&gt;我们在介绍数组名是指针的时候用到了一个指针类型，叫做“指针常量”，也就是 &lt;code&gt;int * const var_name = &amp;amp;var[0];&lt;/code&gt; 中的指针，这种指针内部的地址不能变动，只能在声明的时候定义一次，也就是不能指向别的变量了。&lt;strong&gt;指针本身是一个常量&lt;/strong&gt;就称作&lt;strong&gt;指针常量&lt;/strong&gt;我们称，数组名就是一种指针常量。字符串，也是一种指针常量。&lt;/p&gt;
-&lt;p&gt;还有一种指针，它本身不是常量，但它指向的是常量，大家想一想，这个指针的声明该怎么写？&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; c&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ptr&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;c;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;或者：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; c&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;ptr&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;c;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;是一样的。但是要清楚一点，这个常量的定义，是指不能通过 ptr 这个指针来修改 c 中的值了（&lt;code&gt;*ptr=20;&lt;/code&gt; 会提示错误），但是 c 本身不是常量，用其他的指针或者，直接通过 &lt;code&gt;c=20;&lt;/code&gt; 都是可以修改 c 的值的。这种&lt;strong&gt;指向常量的指针&lt;/strong&gt;就叫做&lt;strong&gt;常量指针&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;指针常量/常量指针&lt;/strong&gt; 这两种是不是特别容易搞混啊？考试就考这个了！其实按照我们的结合律来判断也非常好判断，如果指针名先跟 const 结合了，这个指针内的地址就不能变了，那就是指针常量，而如果指针名先跟 * 结合了，这就说明指针是可变的，然后遇到了 const 和某种类型，那就说明指针指向了某种常量，是常量指针。&lt;/p&gt;
-&lt;p&gt;来一个难一点的判断：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;test)();
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;首先从名字入手，&lt;code&gt;(*test)&lt;/code&gt; 说明 test 是一个指针，然后向外，() 优先级较高，先判断后面的小括号，说名 test 指针指向一个没有参数的函数，其返回值目前未知，然后向前判断，首先遇到了一个 *，说明返回值也是一个指针，指向了前面的 &lt;code&gt;(int * const)&lt;/code&gt; ，接着跟 const 结合，返回指针为指针常量，接着是 &lt;code&gt;(int *)&lt;/code&gt; 说明这个指针常量是一个二级指针，它指向了一个指向 int 型的指针。&lt;/p&gt;
-&lt;p&gt;也就是说 &lt;code&gt;test&lt;/code&gt; 是一个指针，指向了一个函数，函数不接受参数，并且返回一个二级指针，这个二级指针是个指针常量，解除引用一次后的指针，指向一个 int 型变量。&lt;/p&gt;
-&lt;p&gt;当然 “常量指针常量” 这种变态也是存在的，这种指针不能修改地址，其对应的变量也不能通过此指针改变。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; ptr&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果你之前写过程序，或者看我上文的函数指针例子中，发现很多字符串处理函数的字符串参数都是 &lt;code&gt;const char *&lt;/code&gt; 这种类型，你就应该明白了，字符串譬如 &lt;code&gt;&amp;quot;Hello world&amp;quot;&lt;/code&gt; 本质其实就是一个常量指针，&lt;code&gt;const char *&lt;/code&gt; 的存在是为了保证内部的字符不会因为这个指针而发生改变。注意，如果你用一个字符串给指针赋值的话，这个指针是不能修改字符串的内容的，否则会报错哦。&lt;/p&gt;
-&lt;p&gt;所以常量指针的存在意义其实是为了保护数据，在操作的过程中不会因为一些错误修改而改变了内存中对应的数据的值。其意义还是十分重大的！&lt;/p&gt;
-&lt;p&gt;到此为止，如果你全部掌握了以上的内容，恭喜，你已经熟练掌握指针的操作了！&lt;/p&gt;
-&lt;p&gt;最后留一个问题，如果本文最后的 test 指针，我想让他的返回值是一个二级指针，但这个二级指针的解引用一次之后才是一个常量指针该怎么改写这个声明呢？非常简单啊哈哈！&lt;/p&gt;</description>
+&lt;h1 id=&#34;heading&#34;&gt;查看代码对应的时钟寄存器&lt;/h1&gt;
+&lt;h4 id=&#34;void-sosc-init-8mhzvoid-&#34;&gt;&lt;code&gt;void SOSC_init_8MHz(void)&lt;/code&gt; :&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SCG-&amp;gt;SOSCDIV=0x00000101;&lt;/code&gt; 设置对应的两路 DIV&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SCG-&amp;gt;SOSCCFG=0x00000024;&lt;/code&gt; 设置SOSC的硬件属性，晶振频率选择，可以看出来 1MHz ~ 8Mhz 是中频的范围，这个值在 Reference Manual 中并未给出。HGO 中高增益意味着高功率，在这里我们不需要高增益。&lt;/li&gt;
+&lt;li&gt;循环，等 &lt;code&gt;SOSCCSR&lt;/code&gt; 状态寄存器解锁&lt;/li&gt;
+&lt;li&gt;设置 &lt;code&gt;SOSCCSR&lt;/code&gt;  状态寄存器，这里什么都没有开启，只给了使能。&lt;/li&gt;
+&lt;li&gt;循环，等待 &lt;code&gt;SOSCCSR&lt;/code&gt; 有效&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;注意，这个函数应该在启用 &lt;strong&gt;锁相环&lt;/strong&gt; 前设定完成，而且要保证使能步骤在函数内部的最后一步完成。&lt;/p&gt;
+&lt;h4 id=&#34;void-spll-init-160mhzvoid-&#34;&gt;&lt;code&gt;void SPLL_init_160MHz(void)&lt;/code&gt; :&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;循环，等 &lt;code&gt;SPLLCSR&lt;/code&gt; 状态寄存器解锁&lt;/li&gt;
+&lt;li&gt;设置 &lt;code&gt;SPLLCSR&lt;/code&gt; 先关闭锁相环，&lt;code&gt;SPLLDIV&lt;/code&gt; 设置两路 DIV，&lt;code&gt;SPLLCFG&lt;/code&gt; 设置 MULT 和 PREDIV 。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/2017-10-02-S32K144_3/SPLLCalculation.png&#34; alt=&#34;1&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;循环，等待 &lt;code&gt;SPLLCSR&lt;/code&gt; 状态寄存器 解锁&lt;/li&gt;
+&lt;li&gt;使能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;void-normalrunmode-80mhz-void-&#34;&gt;&lt;code&gt;void NormalRUNmode_80MHz (void)&lt;/code&gt; :&lt;/h4&gt;
+&lt;p&gt;这个其实就是设置 SCG_RCCR 的值，这个值在 RUN 模式下是用于设定一些分频器（&lt;code&gt;DIVSLOW&lt;/code&gt; &lt;code&gt;DIVBUS&lt;/code&gt; &lt;code&gt;DIVCORE&lt;/code&gt;） 和选择时钟源（&lt;code&gt;SCS&lt;/code&gt;）的。&lt;/p&gt;
+&lt;h1 id=&#34;lpit&#34;&gt;低功率中断计时器（LPIT）设置&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;S32K144中有一个 LPIT 模块 &lt;code&gt;LPIT0&lt;/code&gt; 和四个通道，低泄露模式和等待模式不被该芯片支持，修改 LPIT 在其功能时钟在关闭的时候会导致赋值错误。&lt;/li&gt;
+&lt;li&gt;LPIT 每个通道会给 DMAMUX 周期性触发&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;LPIT 被设计为捕捉脉冲在其输入引脚，并不需要和其时钟频率有关，但是为了保证可靠性，连续的触发操作应该至少间隔 10 个 LPIT 总线时钟周期。&lt;/p&gt;
+&lt;h3 id=&#34;tval-&#34;&gt;TVAL 是初值寄存器：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;在 LPIT 比较模式中&lt;/strong&gt;：其中储存的值会逐渐减少到 0，之后会产生中断并且将初值恢复，写入一个新的值不会立刻修改初值，必须要到当前的值到零重装才能生效，如果想要立即生效请在 TCRTL 寄存器中关闭该模块再重新打开。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在 LPIT 捕捉模式中&lt;/strong&gt;：其中储存的值是计数值的相反值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;tctrl-&#34;&gt;TCTRL 是控制寄存器：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;工作模式有：
+&lt;ul&gt;
+&lt;li&gt;32-bit 周期计数&lt;/li&gt;
+&lt;li&gt;双 16-bit 周期计数&lt;/li&gt;
+&lt;li&gt;32-bit 触发积累&lt;/li&gt;
+&lt;li&gt;32-bit 输入捕捉&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;TSOT（Timer Start On Trigger），TROT（Timer Reset On Trigger） 和 TSOI（Timer Stop On Interrupt） ，CHAIN 设置请参考 Reference Manual，不难，根据名字就可以理解。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;lpit-&#34;&gt;LPIT 使用的步骤：&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;PCC 选择 LPIT 的时钟源，然后使用 &lt;code&gt;PCC_PCCn_CGC_MASK&lt;/code&gt; 取或打开 LPIT 。&lt;/li&gt;
+&lt;li&gt;首先使用 LPIT0 指针赋值 MCR 寄存器，默认赋值 &lt;code&gt;0x00000001&lt;/code&gt; 即可，仅仅打开 &lt;code&gt;M_CEN&lt;/code&gt; 开关，此开关未打开前后续的寄存器处于锁定状态，赋值以及读取均会报错。&lt;/li&gt;
+&lt;li&gt;LPIT0 指针赋值 &lt;code&gt;TMR[n].TVAL&lt;/code&gt; 和 &lt;code&gt;TMR[n].TCTRL&lt;/code&gt;, TVAL 控制 timeout 周期，TCTRL 控制开启对应的通道。并且确定工作模式。&lt;/li&gt;
+&lt;li&gt;检测 MSR 寄存器中的 TIFn 是否产生 flag（1）。&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     <item>
       <title>FPGA 通过 I2C 总线与 EEPROM 元件交互实例（一）</title>
@@ -4535,7 +4535,7 @@ WINNER WINNER CHIKEN DINNER!
 &lt;p&gt;至此，我们完成了对于 EEPROM 读写器的模型建立过程，在未来我们将会对于这个模型使用我们写好的 EEPROM 模块进行测试。&lt;/p&gt;</description>
     </item>
     <item>
-      <title>S32K144EVB的学习历程（一）</title>
+      <title>S32K144EVB Notes 1</title>
       <link>https://xiahualiu.github.io/posts/2017-09-28-s32k144_1/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/2017-09-28-s32k144_1/</guid>
@@ -5196,10 +5196,10 @@ PCC 模块给芯片上面每一个外围模块都设置了独自的 PCC 内部�
 &lt;/table&gt;</description>
     </item>
     <item>
-      <title>S32K144EVB的学习历程（二）</title>
-      <link>https://xiahualiu.github.io/posts/2017-9-29-s32k144_2/</link>
+      <title>S32K144EVB Notes 2</title>
+      <link>https://xiahualiu.github.io/posts/2017-09-29-s32k144_2/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://xiahualiu.github.io/posts/2017-9-29-s32k144_2/</guid>
+      <guid>https://xiahualiu.github.io/posts/2017-09-29-s32k144_2/</guid>
       <description>&lt;h1 id=&#34;heading&#34;&gt;本文简介&lt;/h1&gt;
 &lt;p&gt;本文主要详细叙述了 S32K144 的时钟模块相关内容。本文代码包含以下内容：&lt;/p&gt;
 &lt;ol&gt;
