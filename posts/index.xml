@@ -908,7 +908,7 @@ from the file.&lt;/p&gt;
 &lt;p&gt;Memory allocation was a hot topic a long time ago, the basic problems being efficient use of limited memory and preparing for unknown future requests; see Knuth. Today people care more about speed than space-efficiency. In addition, a more elaborate kernel would likely allocate many different sizes of small blocks, rather than (as in xv6) just 4096-byte blocks; a real kernel allocator would need to handle small allocations as well as large ones.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>2019 2 3 Xv6 First Proces</title>
+      <title>xv6 Chapter 4 - Creating the First Process</title>
       <link>https://xiahualiu.github.io/posts/2019-02-03-xv6-first-process/</link>
       <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/2019-02-03-xv6-first-process/</guid>
