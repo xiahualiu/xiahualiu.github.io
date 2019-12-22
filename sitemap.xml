@@ -18,6 +18,26 @@
   </url>
   
   <url>
+    <loc>https://xiahualiu.github.io/posts/2017-12-12-can_bus/</loc>
+    <lastmod>2017-12-12T10:48:30+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/posts/2017-11-28-ft232h_command/</loc>
+    <lastmod>2017-11-28T10:48:30+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/posts/2017-11-13-ft232h_1/</loc>
+    <lastmod>2017-11-13T10:48:30+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/posts/2017-10-26-s32k144_8/</loc>
+    <lastmod>2017-10-26T10:48:30+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://xiahualiu.github.io/posts/2017-10-20-s32k144_7/</loc>
     <lastmod>2017-10-20T10:48:30+00:00</lastmod>
   </url>
@@ -53,11 +73,59 @@
   </url>
   
   <url>
+    <loc>https://xiahualiu.github.io/posts/2017-12-7-c-pointer/</loc>
+  </url>
+  
+  <url>
     <loc>https://xiahualiu.github.io/categories/</loc>
   </url>
   
   <url>
+    <loc>https://xiahualiu.github.io/posts/2018-8-9-fpga-eeprom/</loc>
+  </url>
+  
+  <url>
     <loc>https://xiahualiu.github.io/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/posts/2019-1-26-xv6-boot1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/posts/2019-1-26-xv6-boot2/</loc>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/posts/2019-1-29-paging/</loc>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/posts/2018-8-8-verilog-example/</loc>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/posts/2018-7-24-priority_queue/</loc>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/posts/2018-7-5-optimize-your-c-code/</loc>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/posts/2018-8-7-claa/</loc>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/posts/2018-7-27-sorting/</loc>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/posts/2018-8-28-rb-tree/</loc>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/posts/2018-7-13-csapp-link/</loc>
   </url>
   
 </urlset>

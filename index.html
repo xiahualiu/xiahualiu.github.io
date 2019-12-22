@@ -75,6 +75,18 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
   
   <link rel="stylesheet" href="https://xiahualiu.github.io/css/base.min.50883c9e7cc6f561db1dcd2089b6b895c60df8d10b9e71a90cbc10e59c8bfc40.css" integrity="sha256-UIg8nnzG9WHbHc0giba4lcYN&#43;NELnnGpDLwQ5ZyL/EA=" crossorigin="anonymous">
   
@@ -139,6 +151,132 @@
   
   <p>
     <a class="u-clickable" href="https://xiahualiu.github.io/posts/hello-world/">Read More…</a>
+  </p>
+  
+  
+  
+
+
+
+
+
+
+
+</article>
+<div class="Divider"></div>
+
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2017-12-12-can_bus/" rel="bookmark">CAN 协议解读</a>
+  </h2>
+  
+  <time datetime="2017-12-12T10:48:30Z">
+    12 December, 2017
+  </time>
+  
+</header>
+
+  
+  <p>本文的首要目标是帮助记忆一下有关 CAN 总线上面的知识，并且也帮助一下感兴趣的同学，从浅入深的了解一下 CAN 总线的一些知识，相比其他的教程，我的初衷是将本文写的尽量接地气，简单明了，因为自己也啃过不少的技术文章，但是从一个读者的角度，有些 CAN 协议内容相当晦涩难懂。如果本文出现错误（肯定有错误），大家可以在下边的评论栏中回复具体内容，以便于我及时更改。</p>
+  
+  <p>
+    <a class="u-clickable" href="https://xiahualiu.github.io/posts/2017-12-12-can_bus/">Read More…</a>
+  </p>
+  
+  
+  
+
+
+
+
+
+
+
+</article>
+<div class="Divider"></div>
+
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2017-11-28-ft232h_command/" rel="bookmark">FT_Write 命令备忘</a>
+  </h2>
+  
+  <time datetime="2017-11-28T10:48:30Z">
+    28 November, 2017
+  </time>
+  
+</header>
+
+  
+  <p>在使用 <code>FT_Write</code> 发送命令的时候应该注意，一个标准的命令包含一个操作字节（OPCODE）和几个从属的字节，所有的命令都是以字节为单位发送的。</p>
+  
+  <p>
+    <a class="u-clickable" href="https://xiahualiu.github.io/posts/2017-11-28-ft232h_command/">Read More…</a>
+  </p>
+  
+  
+  
+
+
+
+
+
+
+
+</article>
+<div class="Divider"></div>
+
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2017-11-13-ft232h_1/" rel="bookmark">FT232H 配合单片机使用指南</a>
+  </h2>
+  
+  <time datetime="2017-11-13T10:48:30Z">
+    13 November, 2017
+  </time>
+  
+</header>
+
+  
+  <p>好久不见了朋友们。</p>
+<p>这段时间忙于项目设计上面的问题，前一段时间在 S32K144 上面进行了针对 W5500 以太网模块的适配，结果不尽人意，速度最快也只能到达 520KB/s 的速度（在 20MHz 的 LPSPI 时钟频率下），由于项目要求至少能够达到 1Mb/s 的速度，所以只能换一个芯片，于是我发现了这一块芯片，英国 FTDI 半导体公司生产的 FT232H 芯片，主要是实现了 USB 到各个单片机其他协议的转换功能，根据其官方数据，其 SPI 端口最多可以支持 30MHz 的时钟频率，这个速度相当可观，因为在大部分情况下，SPI 的时钟频率都不会超过这个值，相当于 SPI 的物理极限了。但是这块芯片的资料实在是少之又少，大部分人使用这块芯片都是在 FPGA 上设计 FIFO 转 USB 功能的，所以又回到了最艰苦奋斗的状态————读文档，幸好本渣英语好，加上 S32K144 2000 页的文档都搞定了，这个几百页的基本上不算问题了。</p>
+  
+  <p>
+    <a class="u-clickable" href="https://xiahualiu.github.io/posts/2017-11-13-ft232h_1/">Read More…</a>
+  </p>
+  
+  
+  
+
+
+
+
+
+
+
+</article>
+<div class="Divider"></div>
+
+<article>
+  <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2017-10-26-s32k144_8/" rel="bookmark">S32K144EVB的学习历程（八）Systick</a>
+  </h2>
+  
+  <time datetime="2017-10-26T10:48:30Z">
+    26 October, 2017
+  </time>
+  
+</header>
+
+  
+  <p>本章的内容是关于 Cortex M4F 内核中的 SysTick 时钟的运用，这是一个非常有用的模块，可以实现高精度的延时和快速中断的功能，但是这个内核功能在 MCU OEM 厂商的 Reference Manual 中一般都没有给出具体的实现方法，今天我们针对内核来进行分析。</p>
+<p>SysTick 在参考手册中提到的就是有关中断优先级的那一章，SysTick 类似于 LPIT 计时器，但是直接使用的是内核的时钟进行计数，中断优先级在内核中是最低的，但是相对于外围是高的。这个模块的使用主要集中在 4 个寄存器内。</p>
+  
+  <p>
+    <a class="u-clickable" href="https://xiahualiu.github.io/posts/2017-10-26-s32k144_8/">Read More…</a>
   </p>
   
   
@@ -308,70 +446,13 @@
 </article>
 <div class="Divider"></div>
 
-<article>
-  <header class="Heading">
-  <h2 class="Heading-title">
-    <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2017-9-29-s32k144_2/" rel="bookmark">S32K144EVB的学习历程（二）</a>
-  </h2>
-  
-  <time datetime="2017-09-29T00:30:30Z">
-    29 September, 2017
-  </time>
-  
-</header>
 
+<nav>
   
-  <h1 id="heading">本文简介</h1>
-<p>本文主要详细叙述了 S32K144 的时钟模块相关内容。本文代码包含以下内容：</p>
-  
-  <p>
-    <a class="u-clickable" href="https://xiahualiu.github.io/posts/2017-9-29-s32k144_2/">Read More…</a>
-  </p>
+  <a class="Pagination u-clickable" href="https://xiahualiu.github.io/page/2/" rel="prev">« Previous</a>
   
   
-  
-
-
-
-
-
-
-
-</article>
-<div class="Divider"></div>
-
-<article>
-  <header class="Heading">
-  <h2 class="Heading-title">
-    <a class="Heading-link u-clickable" href="https://xiahualiu.github.io/posts/2017-09-28-s32k144_1/" rel="bookmark">S32K144EVB的学习历程（一）</a>
-  </h2>
-  
-  <time datetime="2017-09-28T09:30:30Z">
-    28 September, 2017
-  </time>
-  
-</header>
-
-  
-  <h1 id="heading">前言</h1>
-<p>本文主要介绍了本人在学习使用 <a href="https://www.nxp.com/cn/products/microcontrollers-and-processors/arm-processors/s32-arm-processors-microcontrollers/32-bit-automotive-general-purpose-microcontrollers:S32K#overviewExpand?cid=ps_cn_baidu_cpc_B_AUTO_S32K_Phrase_bd20170620002">S32K144EVB</a>中遇到的问题和解决办法，由于本芯片是 <a href="https://www.nxp.com/">NXP</a>(原 freescale) 生产的基于 ARM M4F 内核的32位芯片，主要适用对象是汽车 。目前在网络上该芯片还没有相关的中文学习资料，到笔者写本文目前，网络上能够找到的资料只有开发板的电路图和 Reference Manual 和该芯片配套的 IDE 内置头文件以及给出的 cookbook 例程，笔者也是在一步步摸索学习，故本文为一个记录性质的文章。</p>
-  
-  <p>
-    <a class="u-clickable" href="https://xiahualiu.github.io/posts/2017-09-28-s32k144_1/">Read More…</a>
-  </p>
-  
-  
-  
-
-
-
-
-
-
-
-</article>
-<div class="Divider"></div>
-
+</nav>
 
 
 
