@@ -3,37 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://xiahualiu.github.io/posts/hello-world2/</loc>
-    <lastmod>2019-12-21T21:11:22-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xiahualiu.github.io/</loc>
-    <lastmod>2019-12-21T21:11:22-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xiahualiu.github.io/posts/</loc>
-    <lastmod>2019-12-21T20:51:58-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://xiahualiu.github.io/posts/hello-world/</loc>
-    <lastmod>2019-12-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://xiahualiu.github.io/posts/2017-12-12-can_bus/</loc>
     <lastmod>2017-12-12T20:51:58-05:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xiahualiu.github.io/posts/2017-11-28-ft232h_command/</loc>
+    <loc>https://xiahualiu.github.io/posts/</loc>
+    <lastmod>2017-12-12T20:51:58-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/</loc>
+    <lastmod>2017-12-12T20:51:58-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://xiahualiu.github.io/posts/2017-11-28-ft232h-command/</loc>
     <lastmod>2017-11-28T10:48:30+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://xiahualiu.github.io/posts/2017-11-13-ft232h_1/</loc>
+    <loc>https://xiahualiu.github.io/posts/2017-11-13-ft232h-1/</loc>
     <lastmod>2017-11-13T10:48:30+00:00</lastmod>
   </url>
   
