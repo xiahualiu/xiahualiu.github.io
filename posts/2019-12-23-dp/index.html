@@ -71,8 +71,8 @@
 <p>In the rest of the article, some notations will appear more than once and I do not want to confuse any of you about the notations, what they mean.</p>
 <p>The first two is state and policy:</p>
 <p>Dynamic programming is suitable for solving problems that contain a series of decisions and states.</p>
-<p>For example, if you are a postman and today your job is to deliver some packages in an area, a common postman will stick to the same route everyday or randomly drive the van. But a clever postman like you will try to find a path that can visit all the package addresses meanwhile has the shortest distance among all viable routes.</p>
-<p>And for your information, This problem has an another name, called <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem">Traveling Salesman Problem (TSP)</a>.</p>
+<p>For example, if you are a postman and today your job is to deliver some packages in an area, a common postman will stick to the same route everyday or randomly drives the van. But a clever postman like you will try to find a path that can visit all the package addresses meanwhile has the shortest distance among all viable routes.</p>
+<p>And for your information, This problem has another name, called <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem">Traveling Salesman Problem (TSP)</a>.</p>
 <p>We can tear the problem into a series of decisions, i.e. which address to visit first, then, after you finish the first delivery, at the first address, you have to decide which address to visit next.</p>
 <p>So here the states here, at first glance (not right though), are the different addresses, in other words, different outcomes of your decision. And the policy is like a GPS navigation system installed on your car, it tells you what is your next decision once you reach a state (address). So if your policy is optimal, you can follow the policy and traverse these addresses and finish the given task in the shortest path (and use less gas!). So</p>
 <p>Policy:</p>
@@ -91,7 +91,7 @@
 <p>You may think, while, that is easy, we only need to find the optimal path from State #1 to State #2 and the optimal path from State #1 to State #3. Then we find State #1 to State #n.</p>
 <p>Yes, that is the gist of the dynamic programming. However, the hidden difficulty in the process is, once you get the optimal path from State #1 to State #2, how do you get the optimal path from State #1 to State #3.</p>
 <p>In some simple problems, like <a href="https://en.wikipedia.org/wiki/Knapsack_problem">Knapsack problem</a>. You can use this way to find the best result, becasue in such problems, states are heavily history related, (Forgive me for not able to think of a better description), so you can push your current state towards the ending.</p>
-<p>Some of the problems are not simple like that, you need to search for all probably states that can reach State #3 in one move and check which one is the best, (by terms, which costs least).</p>
+<p>Some of the problems are not simple like that, you need to search for all probably states that can reach State #3 in one move and check which one is the best, (In terms, which costs least).</p>
 <p>So the forward programming process can be simply described in one formula:</p>
 <p>$$ J^\ast=\min(C_h^\ast+C_i)$$</p>
 <p>The J star is the best cost for current state, Ch star is the best history cost from beginning to the state before current state, Ci is the cost for taking action i in a given former state.</p>
