@@ -70,9 +70,9 @@
 &lt;/ul&gt;
 &lt;h3 id=&#34;bidirection-search&#34;&gt;Bidirection search&lt;/h3&gt;
 &lt;p&gt;Bidirection search is based on the simple math:&lt;/p&gt;
-&lt;p&gt;$$2\ast branch^{depth/2} \text{is much less than} branch^{depth}$$&lt;/p&gt;
-&lt;p&gt;Need a test to check whether the frontiers of two searches intersect.&lt;/p&gt;
-&lt;p&gt;But calculating the predecessors need substantial ingenuity.&lt;/p&gt;
+&lt;p&gt;$$2\ast branch^{depth/2} \quad  \text{is much less than} \quad branch^{depth}$$&lt;/p&gt;
+&lt;p&gt;It needs a test to check whether the frontiers of two searches intersect.&lt;/p&gt;
+&lt;p&gt;But calculating the predecessors needs substantial ingenuity.&lt;/p&gt;
 &lt;h2 id=&#34;informed-heuristic-search&#34;&gt;Informed (Heuristic) Search&lt;/h2&gt;
 &lt;p&gt;The difference between informed and uninformed search is whether we can find a heuristic function.&lt;/p&gt;
 &lt;p&gt;$$h(n)=\text{heuristic function of a node}$$&lt;/p&gt;
