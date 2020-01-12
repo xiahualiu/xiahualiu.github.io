@@ -8,12 +8,39 @@
     <generator>Hugo -- gohugo.io</generator>
     <atom:link href="https://xiahualiu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>LRTA* AND-OR ALPHA-BETA algorithms</title>
+      <link>https://xiahualiu.github.io/posts/2020-01-11-lrta-ab/</link>
+      <pubDate>Sat, 11 Jan 2020 21:59:55 -0500</pubDate>
+      <guid>https://xiahualiu.github.io/posts/2020-01-11-lrta-ab/</guid>
+      <description>&lt;p&gt;In this post, I will write down my understanding of these three algorithms, which are intended to solve:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Unknown but fully observable environment: LRTA*&lt;/li&gt;
+&lt;li&gt;Known but non-deterministic environment: AND-OR Tree Search&lt;/li&gt;
+&lt;li&gt;Classical two-player adversary game: ALPHA-BETA Tree Search&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The reason I put AND-OR and ALPHA-BETA Tree searches together is I think they are quite similiar, one is agent versus environment, one is agent versus another optimal agent.&lt;/p&gt;
+&lt;p&gt;The reason I skipped genetic algorithm is that it is just a concept, and contains too many sub algorithms that follow the same evolutionary concept. I wrote a program using GA solving TSP problem, &lt;a href=&#34;https://github.com/xiahualiu/TSP_example&#34;&gt;TSP example&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;learning-real-time-a&#34;&gt;Learning Real Time A*&lt;/h2&gt;
+&lt;p&gt;LRTA* is a simple implement of a online search agent. It is suitable for an unknown environment and the environment is safe to explore.&lt;/p&gt;
+&lt;p&gt;The LRTA* algorithm is just like the value iteration algorithm of MDP, but the difference is in value iteration algorithm, the environment is known, we initialize the utility randomly with a random value linked to any state.&lt;/p&gt;
+&lt;p&gt;But LRTA* is able to solve the unknown environment, we cannot assign a value at first, instead, the agent can only get access to the states where it has been in. So LRTA* use a &lt;code&gt;result&lt;/code&gt; to store transitions, and a &lt;code&gt;H&lt;/code&gt; to store the value of the explored states.&lt;/p&gt;
+&lt;h2 id=&#34;and-or-search&#34;&gt;AND-OR Search&lt;/h2&gt;
+&lt;p&gt;AND-OR search include two functions that calling each other. It is an interesting idea.&lt;/p&gt;
+&lt;p&gt;AND nodes can be regarded as an unstable transition model, which leads to different next states. AND-OR search is a DFS search, every path will end in a failure (loop or dead) or goal.&lt;/p&gt;
+&lt;p&gt;OR nodes is the agent choice node, agent choose what to do in OR nodes. If the OR node is goal, OR search return the empty plan, and the upper OR nodes will add reflexes (if state n then do x) to that plan and the plan will eventually leads the agent to the goal.&lt;/p&gt;
+&lt;p&gt;In AND nodes, the nodes return &amp;ldquo;switch&amp;rdquo; plans, so not matter what the environment outcome is, the plan is consistent for an agent. However this switch may have a failure case.&lt;/p&gt;
+&lt;p&gt;It is a little tricky the fact that AND-OR search only need to find one goal, because OR searches exhausts all outcomes of an action, and AND searches are the choices of an agent, so if we only need a solution which can be not optimal, we just need find one possible plan.&lt;/p&gt;
+&lt;h2 id=&#34;alpha-beta-pruningsearch&#34;&gt;ALPHA-BETA Pruning/Search&lt;/h2&gt;
+&lt;p&gt;Alpha-Beta search is actually a smarter version of minimax search. Every path maintains a value bound (alpha and beta) that some bad branches will not be considered and explored if they are in the bound.&lt;/p&gt;
+&lt;p&gt;Values need to be backed-up along the path. So every node on the path shares the same bound.&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Searching Methods - AI: A Modern Approach Notes</title>
       <link>https://xiahualiu.github.io/posts/2020-01-07-searching/</link>
       <pubDate>Tue, 07 Jan 2020 13:02:01 -0500</pubDate>
       <guid>https://xiahualiu.github.io/posts/2020-01-07-searching/</guid>
       <description>&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;
-&lt;p&gt;This article is my summary of the famous book, Artificial Intelligence: A Modern Approach Chapter 3.&lt;/p&gt;
+&lt;p&gt;This article is my personal version summary of the famous book, Artificial Intelligence: A Modern Approach Chapter 3.&lt;/p&gt;
 &lt;h2 id=&#34;tree-search-and-graph-search&#34;&gt;Tree Search and Graph Search&lt;/h2&gt;
 &lt;p&gt;Tree search expands all child nodes and adds them into frontier even some of them have been visited.&lt;/p&gt;
 &lt;p&gt;Graph search maintains a explored list where stores all visited nodes, it only adds unexplored nodes into frontier.&lt;/p&gt;
@@ -34,7 +61,7 @@
 &lt;/ul&gt;
 &lt;h4 id=&#34;depth-first-search&#34;&gt;Depth first search:&lt;/h4&gt;
 &lt;p&gt;DFS can be implement by two ways, one is using a LIFO (last input first output) stack, the other is calling &lt;code&gt;child()&lt;/code&gt; function recursively.&lt;/p&gt;
-&lt;p&gt;Natural DFS under tree search condition is incomplete, because the depth is infinite.&lt;/p&gt;
+&lt;p&gt;Natural DFS under tree search (not the graph search) condition is incomplete, because the depth is infinite. The DFS itself is not an optimal algrithm.&lt;/p&gt;
 &lt;h5 id=&#34;advantage-of-dfs&#34;&gt;Advantage of DFS:&lt;/h5&gt;
 &lt;ul&gt;
 &lt;li&gt;It frees node memory once it finishs digging a branch, all the nodes on the branch can be deleted. So it can run on a memory-limited machine.&lt;/li&gt;

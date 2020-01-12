@@ -63,7 +63,7 @@
 </header>
 
   <h2 id="abstract">Abstract</h2>
-<p>This article is my summary of the famous book, Artificial Intelligence: A Modern Approach Chapter 3.</p>
+<p>This article is my personal version summary of the famous book, Artificial Intelligence: A Modern Approach Chapter 3.</p>
 <h2 id="tree-search-and-graph-search">Tree Search and Graph Search</h2>
 <p>Tree search expands all child nodes and adds them into frontier even some of them have been visited.</p>
 <p>Graph search maintains a explored list where stores all visited nodes, it only adds unexplored nodes into frontier.</p>
@@ -84,7 +84,7 @@
 </ul>
 <h4 id="depth-first-search">Depth first search:</h4>
 <p>DFS can be implement by two ways, one is using a LIFO (last input first output) stack, the other is calling <code>child()</code> function recursively.</p>
-<p>Natural DFS under tree search condition is incomplete, because the depth is infinite.</p>
+<p>Natural DFS under tree search (not the graph search) condition is incomplete, because the depth is infinite. The DFS itself is not an optimal algrithm.</p>
 <h5 id="advantage-of-dfs">Advantage of DFS:</h5>
 <ul>
 <li>It frees node memory once it finishs digging a branch, all the nodes on the branch can be deleted. So it can run on a memory-limited machine.</li>
