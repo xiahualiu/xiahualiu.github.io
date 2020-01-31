@@ -85,7 +85,7 @@ renderMathInElement(
 
   <p>Partial fraction expansion (also known as partial fraction decomposition) is a very basic math operation when we want to simplify a problem involving a fraction with polynomial numerator and denominator. We have some methods to handle the fundamental fraction terms like Laplace transform of a simple exponential signal is:</p>
 
-<p>$$F(s)=\frac{1}{a+s}$$</p>
+<p><span  class="math">\[F(s)=\frac{1}{a+s}\]</span></p>
 
 <p>And the by inverse Laplace Transform we know the signal is either</p>
 
@@ -95,35 +95,35 @@ renderMathInElement(
 
 <p>But in a more complicated situation, while we are facing the transform like</p>
 
-<p>$$F(s)=\frac{s+3}{s^3+7s^2+10s}$$</p>
+<p><span  class="math">\[F(s)=\frac{s+3}{s^3+7s^2+10s}\]</span></p>
 
 <p>We want to decompose the fraction into a sum of simple fractions:</p>
 
-<p>$$F(s)=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{s+5}$$</p>
+<p><span  class="math">\[F(s)=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{s+5}\]</span></p>
 
 <p>So we can use the basic Laplace transform pairs to get the signal. But we need a way to determine the values of</p>
 
-<p>$$A_1,\ A_2 \text{ and }A_3$$</p>
+<p><span  class="math">\[A_1,\ A_2 \text{ and }A_3\]</span></p>
 
 <h2 id="a-simple-partial-fraction-expansion">A Simple Partial Fraction Expansion</h2>
 
 <p>The simple situation is the one shown above, there is a simple and straightforward method to determining the unknown coefficients</p>
 
-<p>$$A_1,\ A_2 \text{ and }A_3$$</p>
+<p><span  class="math">\[A_1,\ A_2 \text{ and }A_3\]</span></p>
 
 <p>To find (A_1), multiply (F(s)) by (s).</p>
 
-<p>$$\begin{aligned}
-sF(s)&amp;=s\frac{s+3}{s(s+2)(s+5)} \cr
-&amp;=A_1+s\frac{A_2}{s+2}+s\frac{A_3}{s+5}
-\end{aligned}$$</p>
+<p><span  class="math">\[\begin{aligned}
+sF(s)&=s\frac{s+3}{s(s+2)(s+5)} \cr 
+&=A_1+s\frac{A_2}{s+2}+s\frac{A_3}{s+5}
+\end{aligned}\]</span></p>
 
 <p>and then set (s=0).</p>
 
-<p>$$\begin{aligned}
-sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A<em>1 \cr
-&amp;=\frac{s+3}{s(s+5)}|</em>{s=0}=\frac{3}{10}
-\end{aligned}$$</p>
+<p><span  class="math">\[\begin{aligned}
+sF(s)|_{s=0}&=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \cr
+&=\frac{s+3}{s(s+5)}|_{s=0}=\frac{3}{10}
+\end{aligned}\]</span></p>
 
 <p>Likewise, we can get (A_2) by setting (s=-2), get (A_3)</p>
 
@@ -141,13 +141,13 @@ sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A<em>1 \cr
 <li><p><strong><em>Repeated Real Roots</em></strong> Another possibility is a case of repeated roots. For example</p></li>
 </ul>
 
-<p>$$F(s)=\frac{s+3}{s(s+2)^2(s+5)}$$</p>
+<p><span  class="math">\[F(s)=\frac{s+3}{s(s+2)^2(s+5)}\]</span></p>
 
 <ul>
 <li><strong><em>Complex Roots</em></strong> If the denominator cannot be reduced to a product of real roots. For example</li>
 </ul>
 
-<p>$$F(s)=\frac{s+3}{(s+5)(s^2+4s+5)}=\frac{s+3}{(s+5)(s+2+j)(s+2-j)}$$</p>
+<p><span  class="math">\[F(s)=\frac{s+3}{(s+5)(s^2+4s+5)}=\frac{s+3}{(s+5)(s+2+j)(s+2-j)}\]</span></p>
 
 <h4 id="order-of-numerator-polynomial-is-not-less-than-that-of-the-denominator">Order of numerator polynomial is not less than that of the denominator</h4>
 
@@ -157,69 +157,69 @@ sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A<em>1 \cr
 
 <p>Like the example done above, In general</p>
 
-<p>$$F(s)=\frac{A_1}{s+a_1}+\frac{A_2}{s+a_2}+\cdot\cdot\cdot+\frac{A_n}{s+a_n}$$</p>
+<p><span  class="math">\[F(s)=\frac{A_1}{s+a_1}+\frac{A_2}{s+a_2}+\cdot\cdot\cdot+\frac{A_n}{s+a_n}\]</span></p>
 
-<p>$$A_i=(s+a<em>i)F(s)|</em>{s=-a_i}$$</p>
+<p><span  class="math">\[A_i=(s+a_i)F(s)|_{s=-a_i}\]</span></p>
 
-<p>When calculation is done by hand, it is easily to use the &ldquo;cover-up&rdquo; method.</p>
+<p>When calculation is done by hand, it is easily to use the &quot;cover-up&quot; method.</p>
 
 <h4 id="repeated-real-roots">Repeated Real Roots</h4>
 
 <p>For example, consider the fraction:</p>
 
-<p>$$F(s)=\frac{s+3}{s(s+2)^2(s+5)}$$</p>
+<p><span  class="math">\[F(s)=\frac{s+3}{s(s+2)^2(s+5)}\]</span></p>
 
 <p>The expansion for this case is:</p>
 
-<p>$$F(s)=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{(s+2)^2}+\frac{A_4}{s+5}$$</p>
+<p><span  class="math">\[F(s)=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{(s+2)^2}+\frac{A_4}{s+5}\]</span></p>
 
 <p>And we can proof the simple method cannot be used since ((s+2)) appear twice, and we can only get one value by setting (s=-2).</p>
 
 <p>There are two ways, the most favored by the texbook method uses the relationship</p>
 
-<p>$$A<em>2=\left[\frac{d}{ds}(s+2)^2F(s)\right]</em>{s=-2}$$</p>
+<p><span  class="math">\[A_2=\left[\frac{d}{ds}(s+2)^2F(s)\right]_{s=-2}\]</span></p>
 
 <p>so</p>
 
-<p>$$A<em>2=\left.\frac{s(s+5)-(s+3)(2s+5)}{(s(s+5))^2}\right|</em>{s=-2}$$</p>
+<p><span  class="math">\[A_2=\left.\frac{s(s+5)-(s+3)(2s+5)}{(s(s+5))^2}\right|_{s=-2}\]</span></p>
 
 <p>While this method is elegant (and can be extended to multiply repeated roots), the differentiation of the ratio of polynomials is prone to errors.</p>
 
 <h5 id="example-cross-multiplication">Example: Cross Multiplication</h5>
 
-<p>$$F(s)=\frac{s+3}{s(s+2)^2(s+5)}=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{(s+2)^2}+\frac{A_4}{s+5}$$</p>
+<p><span  class="math">\[F(s)=\frac{s+3}{s(s+2)^2(s+5)}=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{(s+2)^2}+\frac{A_4}{s+5}\]</span></p>
 
-<p>$$s+3=(s+2)^2(s+5)A_1+s(s+2)(s+5)A_2+s(s+5)A_3+s(s+2^2)A_4$$</p>
+<p><span  class="math">\[s+3=(s+2)^2(s+5)A_1+s(s+2)(s+5)A_2+s(s+5)A_3+s(s+2^2)A_4\]</span></p>
 
-<p>$$s+3=(A_1+A_2+A_4)s^3+(9A_1+7A_2+A_3+4A_4)s^2+(24A_1+10A_2+5A_3+4A_4)s+20A_1 $$</p>
+<p><span  class="math">\[s+3=(A_1+A_2+A_4)s^3+(9A_1+7A_2+A_3+4A_4)s^2+(24A_1+10A_2+5A_3+4A_4)s+20A_1 \]</span></p>
 
 <p>This yields a four-by-four system of equations that can be solved for A1 through A4.</p>
 
-<p>$$\begin{aligned}
-A_1+A_2+A_4&amp;=0 \cr
-9A_1+7A_2+A_3+4A_4 &amp;=0 \cr
-24A_1+10A_2+5A_3+4A_4&amp;=1 \cr
-20A_1&amp;=3
-\end{aligned}$$</p>
+<p><span  class="math">\[\begin{aligned}
+A_1+A_2+A_4&=0 \cr
+9A_1+7A_2+A_3+4A_4 &=0 \cr
+24A_1+10A_2+5A_3+4A_4&=1 \cr
+20A_1&=3
+\end{aligned}\]</span></p>
 
 <p>Or, in the matrix form</p>
 
-<p>$$\begin{bmatrix}
-{1} &amp; {1} &amp; {0} &amp; {1} \cr
-{9} &amp; {7} &amp; {1} &amp; {4} \cr
-{24} &amp; {10} &amp; {5} &amp; {4} \cr
-{20} &amp; {0} &amp; {0} &amp; {0}
+<p><span  class="math">\[\begin{bmatrix}
+{1} & {1} & {0} & {1} \cr
+{9} & {7} & {1} & {4} \cr
+{24} & {10} & {5} & {4} \cr
+{20} & {0} & {0} & {0}
 \end{bmatrix}\begin{bmatrix}
-{A<em>{1}} \cr
-{A</em>{2}} \cr
-{A<em>{3}} \cr
-{A</em>{4}}
+{A_{1}} \cr
+{A_{2}} \cr
+{A_{3}} \cr
+{A_{4}}
 \end{bmatrix}=\begin{bmatrix}
 {0} \cr
 {0} \cr
 {1} \cr
 {3}
-\end{bmatrix}$$</p>
+\end{bmatrix}\]</span></p>
 
 <p>We can combine the cover-up method to get the coefficients that is distinct then use cross multiplication to get the coefficients that corresponds to the repeated roots.</p>
 
@@ -227,22 +227,22 @@ A_1+A_2+A_4&amp;=0 \cr
 
 <p>Consider the fraction</p>
 
-<p>$$\begin{aligned}
-F(s) &amp;=\frac{s+3}{(s+5)\left(s^{2}+4 s+5\right)}=\frac{s+3}{(s+5)(s+2-j)(s+2+j)} \cr
-&amp;=\frac{A<em>{1}}{(s+5)}+\frac{A</em>{2}}{(s+2-j)}+\frac{A_{3}}{(s+2+j)}
-\end{aligned}$$</p>
+<p><span  class="math">\[\begin{aligned}
+F(s) &=\frac{s+3}{(s+5)\left(s^{2}+4 s+5\right)}=\frac{s+3}{(s+5)(s+2-j)(s+2+j)} \cr
+&=\frac{A_{1}}{(s+5)}+\frac{A_{2}}{(s+2-j)}+\frac{A_{3}}{(s+2+j)}
+\end{aligned}\]</span></p>
 
 <p>where</p>
 
-<p>$$\begin{array}{l}
-{A<em>{1}=(s+5) F(s)|</em>{s=-5}} \cr
-{A<em>{2}=(s+2-j) F(s)|</em>{s=-2+j}} \cr
-{A<em>{3}=(s+2+j) F(s)|</em>{s=-2+j}=A_{2}^{*}}
-\end{array}$$</p>
+<p><span  class="math">\[\begin{array}{l}
+{A_{1}=(s+5) F(s)|_{s=-5}} \cr
+{A_{2}=(s+2-j) F(s)|_{s=-2+j}} \cr
+{A_{3}=(s+2+j) F(s)|_{s=-2+j}=A_{2}^{*}}
+\end{array}\]</span></p>
 
 <p>Another way to expand the fraction without resorting to complex numbers is to perform the expansion as follows.</p>
 
-<p>$$F(s)=\frac{s+3}{(s+5)(s^{2}+4 s+5)}=\frac{A}{s+5}+\frac{B s+C}{s^{2}+4 s+5}$$</p>
+<p><span  class="math">\[F(s)=\frac{s+3}{(s+5)(s^{2}+4 s+5)}=\frac{A}{s+5}+\frac{B s+C}{s^{2}+4 s+5}\]</span></p>
 
 <p>Note that the numerator of the second term is no longer a constant, but is instead a first order polynomial. Use cross-multiplication to get (A\ B\ C).</p>
   
