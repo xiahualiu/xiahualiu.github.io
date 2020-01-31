@@ -41,7 +41,7 @@ renderMathInElement(
               delimiters: [
                   {left: "$$", right: "$$", display: true},
                   {left: "\\[", right: "\\]", display: true},
-                  {left: "\$", right: "\$", display: false},
+                  {left: "$", right: "$", display: false},
                   {left: "\\(", right: "\\)", display: false}
               ]
           }
@@ -86,7 +86,7 @@ renderMathInElement(
   <p>Partial fraction expansion (also known as partial fraction decomposition) is a very basic math operation when we want to simplify a problem involving a fraction with polynomial numerator and denominator. We have some methods to handle the fundamental fraction terms like Laplace transform of a simple exponential signal is:</p>
 <p>$$F(s)=\frac{1}{a+s}$$</p>
 <p>And the by inverse Laplace Transform we know the signal is either</p>
-<p>$e^{-at}u(t)$ or $-e^{-at}u(-t)$</p>
+<p>(e^{-at}u(t)) or (-e^{-at}u(-t))</p>
 <p>, depending on the transform is left-sided or right-sided.</p>
 <p>But in a more complicated situation, while we are facing the transform like</p>
 <p>$$F(s)=\frac{s+3}{s^3+7s^2+10s}$$</p>
@@ -97,18 +97,18 @@ renderMathInElement(
 <h2 id="a-simple-partial-fraction-expansion">A Simple Partial Fraction Expansion</h2>
 <p>The simple situation is the one shown above, there is a simple and straightforward method to determining the unknown coefficients</p>
 <p>$$A_1,\ A_2 \text{ and }A_3$$</p>
-<p>To find $A_1$, multiply $F(s)$ by $s$.</p>
+<p>To find (A_1), multiply (F(s)) by (s).</p>
 <p>$$\begin{aligned}
 sF(s)&amp;=s\frac{s+3}{s(s+2)(s+5)} \cr
 &amp;=A_1+s\frac{A_2}{s+2}+s\frac{A_3}{s+5}
 \end{aligned}$$</p>
-<p>and then set $s=0$.</p>
+<p>and then set (s=0).</p>
 <p>$$\begin{aligned}
 sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \cr
 &amp;=\frac{s+3}{s(s+5)}|_{s=0}=\frac{3}{10}
 \end{aligned}$$</p>
-<p>Likewise, we can get $A_2$ by setting $s=-2$, get $A_3$</p>
-<p>by setting $s=-5$.</p>
+<p>Likewise, we can get (A_2) by setting (s=-2), get (A_3)</p>
+<p>by setting (s=-5).</p>
 <h2 id="special-cases-of-parial-fraction-expansion">Special Cases of Parial Fraction Expansion</h2>
 <p>The simple partial fraction expansion can expand fraction into a sum of simpler fractions. However, ther are many situations where the expansion is not so simple.</p>
 <ul>
@@ -116,7 +116,7 @@ sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \cr
 <p><em><strong>Order of numerator polynomial is not less than that of the denominator.</strong></em> Partial fraction expansion can only be performed when the order of the denominator polynomial (the bottom term of the fraction) is greater than the order of the numerator (the top term).  If this condition is not met, we must perform an extra step before continuing with the expansion.</p>
 </li>
 <li>
-<p><em><strong>DIstinct Real Roots</strong></em> The problem solved above is described as the case of distinct, real roots.   This means that each term only appears once in the denominator, and the root of each term in the denominator is a distinct real number.  In the example above, the roots were at $0$, $-2$ and $-5$.</p>
+<p><em><strong>DIstinct Real Roots</strong></em> The problem solved above is described as the case of distinct, real roots.   This means that each term only appears once in the denominator, and the root of each term in the denominator is a distinct real number.  In the example above, the roots were at (0), (-2) and (-5).</p>
 </li>
 <li>
 <p><em><strong>Repeated Real Roots</strong></em> Another possibility is a case of repeated roots. For example</p>
@@ -139,7 +139,7 @@ sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \cr
 <p>$$F(s)=\frac{s+3}{s(s+2)^2(s+5)}$$</p>
 <p>The expansion for this case is:</p>
 <p>$$F(s)=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{(s+2)^2}+\frac{A_4}{s+5}$$</p>
-<p>And we can proof the simple method cannot be used since $(s+2)$ appear twice, and we can only get one value by setting $s=-2$.</p>
+<p>And we can proof the simple method cannot be used since ((s+2)) appear twice, and we can only get one value by setting (s=-2).</p>
 <p>There are two ways, the most favored by the texbook method uses the relationship</p>
 <p>$$A_2=\left[\frac{d}{ds}(s+2)^2F(s)\right]_{s=-2}$$</p>
 <p>so</p>
@@ -188,7 +188,7 @@ F(s) &amp;=\frac{s+3}{(s+5)\left(s^{2}+4 s+5\right)}=\frac{s+3}{(s+5)(s+2-j)(s+2
 \end{array}$$</p>
 <p>Another way to expand the fraction without resorting to complex numbers is to perform the expansion as follows.</p>
 <p>$$F(s)=\frac{s+3}{(s+5)(s^{2}+4 s+5)}=\frac{A}{s+5}+\frac{B s+C}{s^{2}+4 s+5}$$</p>
-<p>Note that the numerator of the second term is no longer a constant, but is instead a first order polynomial. Use cross-multiplication to get A B C.</p>
+<p>Note that the numerator of the second term is no longer a constant, but is instead a first order polynomial. Use cross-multiplication to get (A\ B\ C).</p>
   
 
 
