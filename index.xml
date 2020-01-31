@@ -224,9 +224,7 @@
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[F(s)=\frac{1}{a+s}\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;And the by inverse Laplace Transform we know the signal is either&lt;/p&gt;
-
-&lt;p&gt;(e^{-at}u(t)) or (-e^{-at}u(-t))&lt;/p&gt;
+&lt;p&gt;And the by inverse Laplace Transform we know the signal is either $e^{-at}u(t)$ or $-e^{-at}u(-t)$&lt;/p&gt;
 
 &lt;p&gt;, depending on the transform is left-sided or right-sided.&lt;/p&gt;
 
@@ -248,23 +246,23 @@
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[A_1,\ A_2 \text{ and }A_3\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;To find (A_1), multiply (F(s)) by (s).&lt;/p&gt;
+&lt;p&gt;To find $A_1$, multiply $F(s)$ by $s$.&lt;/p&gt;
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\begin{aligned}
 sF(s)&amp;=s\frac{s+3}{s(s+2)(s+5)} \cr 
 &amp;=A_1+s\frac{A_2}{s+2}+s\frac{A_3}{s+5}
 \end{aligned}\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;and then set (s=0).&lt;/p&gt;
+&lt;p&gt;and then set $s=0$.&lt;/p&gt;
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\begin{aligned}
 sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \cr
 &amp;=\frac{s+3}{s(s+5)}|_{s=0}=\frac{3}{10}
 \end{aligned}\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Likewise, we can get (A_2) by setting (s=-2), get (A_3)&lt;/p&gt;
+&lt;p&gt;Likewise, we can get $A_2$ by setting $s=-2$, get $A_3$&lt;/p&gt;
 
-&lt;p&gt;by setting (s=-5).&lt;/p&gt;
+&lt;p&gt;by setting $s=-5$.&lt;/p&gt;
 
 &lt;h2 id=&#34;special-cases-of-parial-fraction-expansion&#34;&gt;Special Cases of Parial Fraction Expansion&lt;/h2&gt;
 
@@ -273,7 +271,7 @@ sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \cr
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;Order of numerator polynomial is not less than that of the denominator.&lt;/em&gt;&lt;/strong&gt; Partial fraction expansion can only be performed when the order of the denominator polynomial (the bottom term of the fraction) is greater than the order of the numerator (the top term).  If this condition is not met, we must perform an extra step before continuing with the expansion.&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;DIstinct Real Roots&lt;/em&gt;&lt;/strong&gt; The problem solved above is described as the case of distinct, real roots.   This means that each term only appears once in the denominator, and the root of each term in the denominator is a distinct real number.  In the example above, the roots were at (0), (-2) and (-5).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;DIstinct Real Roots&lt;/em&gt;&lt;/strong&gt; The problem solved above is described as the case of distinct, real roots.   This means that each term only appears once in the denominator, and the root of each term in the denominator is a distinct real number.  In the example above, the roots were at $0$, $-2$ and $-5$.&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;Repeated Real Roots&lt;/em&gt;&lt;/strong&gt; Another possibility is a case of repeated roots. For example&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -310,7 +308,7 @@ sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \cr
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[F(s)=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{(s+2)^2}+\frac{A_4}{s+5}\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;And we can proof the simple method cannot be used since ((s+2)) appear twice, and we can only get one value by setting (s=-2).&lt;/p&gt;
+&lt;p&gt;And we can proof the simple method cannot be used since $(s+2)$ appear twice, and we can only get one value by setting $s=-2$.&lt;/p&gt;
 
 &lt;p&gt;There are two ways, the most favored by the texbook method uses the relationship&lt;/p&gt;
 
@@ -381,7 +379,7 @@ F(s) &amp;=\frac{s+3}{(s+5)\left(s^{2}+4 s+5\right)}=\frac{s+3}{(s+5)(s+2-j)(s+2
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[F(s)=\frac{s+3}{(s+5)(s^{2}+4 s+5)}=\frac{A}{s+5}+\frac{B s+C}{s^{2}+4 s+5}\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Note that the numerator of the second term is no longer a constant, but is instead a first order polynomial. Use cross-multiplication to get (A\ B\ C).&lt;/p&gt;</description>
+&lt;p&gt;Note that the numerator of the second term is no longer a constant, but is instead a first order polynomial. Use cross-multiplication to get $A\ B\ C$.&lt;/p&gt;</description>
     </item>
     <item>
       <title>How is Linear Feedback Shift Register(LFSR) used on Cyclic Redundancy Check(CRC)</title>
