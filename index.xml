@@ -15,15 +15,166 @@
       <guid>https://xiahualiu.github.io/posts/2020-01-30-matrix-multiplication/</guid>
       <description>&lt;p&gt;Matrix calculus is very important in machine learning and control theories. However there are all kinds of rules making it hard to remember and use. In this post, I summarize some basic rules and an important proof in machine learning theory, which includes the famous &amp;quot;Trace Trick&amp;quot;! This trick is super useful and super hard as well! Haha, this is the reason why we always explore new things, because it is hard!&lt;/p&gt;
 
-&lt;h2 id=&#34;differetiate-a-matrix&#34;&gt;Differetiate a matrix&lt;/h2&gt;
+&lt;h2 id=&#34;differentiation&#34;&gt;Differentiation&lt;/h2&gt;
 
-&lt;p&gt;Differentiating a matrix is same as differentiate all items in matrix respectively.&lt;/p&gt;
+&lt;p&gt;For the rules of matrix differentiation, all we need to remember are:&lt;/p&gt;
 
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\.{A}(t)=\begin{bmatrix}
-\.{A}_{11}(t) &amp; \cdots $ \.{A}_{1n}(t) \cr
-\vdots &amp; \ddots &amp; \vdots \cr
-\.{A}_{n1}(t) &amp; \cdots &amp; \.A{nn}(t) \cr
-\end{bmatrix}\]&lt;/span&gt;&lt;/p&gt;</description>
+&lt;ul&gt;
+&lt;li&gt;Gradient&lt;/li&gt;
+&lt;li&gt;the Jacobian matrix&lt;/li&gt;
+&lt;li&gt;the Hessian matrix&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;* All vectors in this post refer to column vectors with dimension &lt;span  class=&#34;math&#34;&gt;\(N\)&lt;/span&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;getting-started&#34;&gt;Getting started&lt;/h3&gt;
+
+&lt;p&gt;So for a warm up part, we differentiate a matrix with respect to a scalar variable, the result is pretty intuitive and natural:&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\dot{A}=\begin{bmatrix}
+\dot{A}_{11} &amp; \cdots &amp; \dot{A}_{1n} \\
+\vdots &amp; \ddots &amp; \vdots \\
+\dot{A}_{n1} &amp; \cdots &amp; \dot{A}_{nn} 
+\end{bmatrix}\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;gradient&#34;&gt;Gradient&lt;/h3&gt;
+
+&lt;p&gt;The gradient of a scalar function can be visualized as the changes in different directions.&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\nabla f(\textbf{x})=\begin{bmatrix}
+\frac{\partial f}{\partial x_1} \\
+\frac{\partial f}{\partial x_2} \\
+\vdots \\
+\frac{\partial f}{\partial x_n} \\
+\end{bmatrix}\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;It is the most simplifed case, remember it returns a vector that&#39;s in the same shape as the vector variable.&lt;/p&gt;
+
+&lt;h3 id=&#34;jacobian-matrix&#34;&gt;Jacobian Matrix&lt;/h3&gt;
+
+&lt;p&gt;Jacobian matrix is the first-order derivative of a &lt;strong&gt;vector function&lt;/strong&gt;, a vector function is a function that &lt;strong&gt;receives a vector value and returns a vector value&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Jacobian matrix is obtained from &lt;span  class=&#34;math&#34;&gt;\((\nabla \textbf{f})^T\)&lt;/span&gt;, they are equivalent.&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{\partial \textbf{y}}{\partial \textbf{x}}=[\frac{\partial \textbf{f}}{\partial x_1} \cdots \frac{\partial \textbf{f}}{\partial x_n}]=\begin{bmatrix}
+\frac{\partial f_1}{\partial x_1}  &amp; \cdots &amp; \frac{\partial f_1}{\partial x_n} \\
+\vdots &amp; \ddots &amp; \vdots \\
+\frac{\partial f_n}{\partial x_1} &amp; \cdots &amp; \frac{\partial f_n}{\partial x_n}
+\end{bmatrix}\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;We did gradient operation at first, transposed the result, then applied the simple first derivative expansion as discussed in the warm up section.&lt;/p&gt;
+
+&lt;h2 id=&#34;hessian-matrix&#34;&gt;Hessian Matrix&lt;/h2&gt;
+
+&lt;p&gt;Hessian matrix is the second-order partial derivatives of a &lt;strong&gt;scalar-valued&lt;/strong&gt; function. A scalar-valued function is a function that &lt;strong&gt;receives a scalar or vector and returns a scalar&lt;/strong&gt;. Here we assume it the function receives a vector.&lt;/p&gt;
+
+&lt;p&gt;Since it is a scalar function, first we find the gradient:&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{\partial y}{\partial \textbf{x}}=\begin{bmatrix} \frac{\partial y}{\partial x_1} \\
+\vdots \\
+\frac{\partial y}{\partial x_n} \\
+\end{bmatrix}=\nabla \textbf{f}\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;And we need to do this one more time.A sharp eye reader may notice the second derivative is the Jacobian matrix of the gradient, which is:&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\(\textbf{J}(\nabla \textbf{f})\)&lt;/span&gt;:&lt;/p&gt;
+
+&lt;p&gt;However, &lt;strong&gt;Hessian matrix is defined with an extra tranpose operation&lt;/strong&gt;, so it is actually:&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\(\textbf{J}(\nabla \textbf{f})^T\)&lt;/span&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\mathbf{H}=\left[\begin{array}{cccc}
+{\frac{\partial^{2} f}{\partial x_{1}^{2}}} &amp; {\frac{\partial^{2} f}{\partial x_{1} \partial x_{2}}} &amp; {\cdots} &amp; {\frac{\partial^{2} f}{\partial x_{1} \partial x_{n}}} \\
+{\frac{\partial^{2} f}{\partial x_{2} \partial x_{1}}} &amp; {\frac{\partial^{2} f}{\partial x_{2}^{2}}} &amp; {\cdots} &amp; {\frac{\partial^{2} f}{\partial x_{2} \partial x_{n}}} \\
+{\vdots} &amp; {\vdots} &amp; {\ddots} &amp; {\vdots} \\
+{\frac{\partial^{2} f}{\partial x_{n} \partial x_{1}}} &amp; {\frac{\partial^{2} f}{\partial x_{n} \partial x_{2}}} &amp; {\cdots} &amp; {\frac{\partial^{2} f}{\partial x_{n}^{2}}}
+\end{array}\right]\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;So till now I hope you can write the steps how we get Jacobian and Hessian matrix.&lt;/p&gt;
+
+&lt;h2 id=&#34;integral&#34;&gt;Integral&lt;/h2&gt;
+
+&lt;p&gt;And calculating the integral of the whole matrix is simple as the warm up part.&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\int A(t) {\rm d}t=\begin{bmatrix}
+\int A_{11}{\rm d}t &amp; \cdots &amp; \int A_{1n}(t){\rm d}t \\
+\vdots &amp; \ddots &amp; \vdots \\
+\int A_{n1}(t){\rm d}t &amp; \cdots &amp; \int A_{nn}(t){\rm d}t
+\end{bmatrix}\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;trace-trick&#34;&gt;Trace trick&lt;/h2&gt;
+
+&lt;p&gt;In this section, we will teach you how to understand trace trick and as usual, we start with a simple case:&lt;/p&gt;
+
+&lt;h3 id=&#34;derivative-of-a-quadratic-form&#34;&gt;Derivative of a quadratic form&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;If you have no idea what a quadratic form is, I suggest you stop reading downwards&lt;/strong&gt;, because you have to have a good understanding of it, otherwise you will not realize the reason and the true importance of finding its derivative.&lt;/p&gt;
+
+&lt;p&gt;I also suggest a wonderful book for that foundation, &lt;em&gt;Linear Algebra and its Applications&lt;/em&gt;, this is a must-read book for new learners.&lt;/p&gt;
+
+&lt;p&gt;So here we begin!&lt;/p&gt;
+
+&lt;p&gt;Define a function:&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[f(\textbf{x})=\textbf{x}^T\textbf{Ax}\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a scalar function, since &lt;span  class=&#34;math&#34;&gt;\(\textbf{x}\)&lt;/span&gt; is &lt;span  class=&#34;math&#34;&gt;\(m\times 1\)&lt;/span&gt;. So the size of the output is:&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[(1\times m)\times(m\times m)\times(m\times 1)=(1\times 1)\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;And we need to find its first derivative w.r.t &lt;span  class=&#34;math&#34;&gt;\(\textbf{x}\)&lt;/span&gt;. How?&lt;/p&gt;
+
+&lt;p&gt;You may think, it is same as finding the gradient of the function, so just expand the equation and find partial derivative.&lt;/p&gt;
+
+&lt;p&gt;Yes, it is indeed a good idea, but expanding all the terms is way to tedious and humans are fallible. Is there any other way around?&lt;/p&gt;
+
+&lt;p&gt;Yes, there is. It is called &lt;strong&gt;Trace Trick&lt;/strong&gt; and is widely used in finding the derivative of quadratic form function.&lt;/p&gt;
+
+&lt;h3 id=&#34;trace&#34;&gt;Trace&lt;/h3&gt;
+
+&lt;p&gt;From wikipedia:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;In linear algebra, the trace of a square matrix &lt;span  class=&#34;math&#34;&gt;\(A\)&lt;/span&gt; is defined to be the sum of elements on the main diagonal of &lt;span  class=&#34;math&#34;&gt;\(A\)&lt;/span&gt;. The trace of a matrix is the sum of its eigenvalues, and it is invariant with respect to a change of basis.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;trace-laws&#34;&gt;Trace laws&lt;/h3&gt;
+
+&lt;p&gt;There are two most important laws:&lt;/p&gt;
+
+&lt;h4 id=&#34;transpose-law&#34;&gt;Transpose law&lt;/h4&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\operatorname{tr}(\mathbf{A})=\operatorname{tr}\left(\mathbf{A}^{\top}\right)\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;cyclic-permutation-law&#34;&gt;Cyclic permutation law&lt;/h4&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\operatorname{tr}(\mathbf{A B C D})=\operatorname{tr}(\mathbf{B C D A})=\operatorname{tr}(\mathbf{C D A B})=\operatorname{tr}(\mathbf{D A B C})\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;How do we apply the trace trick in our calculation? Well, from the definition of the trace, a trace of a scalar (which can be considered as a &lt;span  class=&#34;math&#34;&gt;\(1\times 1\)&lt;/span&gt; matrix) is itself, so:&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\operatorname{tr}(\texbf{x}^T\textbf{Ax})=\texbf{x}^T\textbf{Ax}\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Now it is the trick time:&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\begin{aligned}
+{\rm d}(\textbf{x}^T\textbf{Ax}) &amp;={\rm d}(\operatorname{tr}(\textbf{x}^T\textbf{Ax})) \\
+&amp;=\operatorname{tr}({\rm d}(\textbf{Ax}\textbf{x}^T)) \\
+&amp;=\operatorname{tr}({\rm d}(\textbf{Ax})\textbf{x}^T+{\bf Ax}{\rm d}(\textbf{x}^T)) \\
+&amp;=\operatorname{tr}({\rm d}(\textbf{Ax})\textbf{x}^T)+\operatorname{tr}({\bf Ax}{\rm d}(\textbf{x}^T)) \\
+&amp;=\operatorname{tr}(\textbf{A}({\rm d}\textbf{x})\textbf{x}^T)+\operatorname{tr}\left((({\rm d}\textbf{x})\textbf{x}^T \textbf{A}^T)^T\right) \\
+&amp;=\operatorname{tr}((\textbf{x}^T\textbf{A}({\rm d}\textbf{x})) + \operatorname{tr}(\textbf{x}^T\textbf{A}^T({\rm d}\textbf{x})) \\
+&amp;=\operatorname{tr}(\textbf{x}^T\textbf{A}){\rm d}\textbf{x} + \operatorname{tr}(\textbf{x}^T\textbf{A}^T){\rm d}\textbf{x} \\
+&amp;=\operatorname{tr}\left((\textbf{x}^T\textbf{A}+\textbf{x}^T\textbf{A}^T){\rm d}\textbf{x}\right) \\
+&amp;=(\textbf{x}^T\textbf{A}+\textbf{x}^T\textbf{A}^T){\rm d}\textbf{x}
+\end{aligned}\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;We used cyclic permutation law at beginning and at the end twice, and used transpose law only once to transform &lt;span  class=&#34;math&#34;&gt;\({\rm d}\textbf{x}^T\)&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;And we can get the result &lt;span  class=&#34;math&#34;&gt;\(\textbf{x}^T\textbf{A}+\textbf{x}^T\textbf{A}^T\)&lt;/span&gt; simply in several steps!&lt;/p&gt;
+
+&lt;h2 id=&#34;differetiate-an-inverse&#34;&gt;Differetiate an inverse&lt;/h2&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{\rm d}{{\rm d}t}(A^{-1})=-A^{-1}\dot{A}A^{-1}\]&lt;/span&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>LRTA* AND-OR ALPHA-BETA algorithms</title>
