@@ -111,7 +111,7 @@
 
 <p>Jacobian matrix is the first-order derivative of a <strong>vector function</strong>, a vector function is a function that <strong>receives a vector value and returns a vector value</strong>.</p>
 
-<p>Jacobian matrix is obtained from <span  class="math">\((\nabla \textbf{f})^T\)</span>, they are equivalent.</p>
+<p>Jacobian matrix is obtained from <span  class="math">\((\nabla \textbf{f})^{\top}\)</span>, they are equivalent.</p>
 
 <p><span  class="math">\[\frac{\partial \textbf{y}}{\partial \textbf{x}}=[\frac{\partial \textbf{f}}{\partial x_1} \cdots \frac{\partial \textbf{f}}{\partial x_n}]=\begin{bmatrix}
 \frac{\partial f_1}{\partial x_1}  & \cdots & \frac{\partial f_1}{\partial x_n} \\
@@ -138,7 +138,7 @@
 
 <p>However, <strong>Hessian matrix is defined with an extra tranpose operation</strong>, so it is actually:</p>
 
-<p><span  class="math">\(\textbf{J}(\nabla \textbf{f})^T\)</span>:</p>
+<p><span  class="math">\(\textbf{J}(\nabla \textbf{f})^{\top}\)</span>:</p>
 
 <p><span  class="math">\[\mathbf{H}=\left[\begin{array}{cccc}
 {\frac{\partial^{2} f}{\partial x_{1}^{2}}} & {\frac{\partial^{2} f}{\partial x_{1} \partial x_{2}}} & {\cdots} & {\frac{\partial^{2} f}{\partial x_{1} \partial x_{n}}} \\
@@ -173,7 +173,7 @@
 
 <p>Define a function:</p>
 
-<p><span  class="math">\[f(\textbf{x})=\textbf{x}^T\textbf{Ax}\]</span></p>
+<p><span  class="math">\[f(\textbf{x})=\textbf{x}^{\top}\textbf{Ax}\]</span></p>
 
 <p>This is a scalar function, since <span  class="math">\(\textbf{x}\)</span> is <span  class="math">\(m\times 1\)</span>. So the size of the output is:</p>
 
@@ -197,7 +197,7 @@
 
 <h3 id="trace-laws">Trace laws</h3>
 
-<p>There are two most important laws:</p>
+<p>Here are two most important laws:</p>
 
 <h4 id="transpose-law">Transpose law</h4>
 
@@ -209,25 +209,25 @@
 
 <p>How do we apply the trace trick in our calculation? Well, from the definition of the trace, a trace of a scalar (which can be considered as a <span  class="math">\(1\times 1\)</span> matrix) is itself, so:</p>
 
-<p><span  class="math">\[\operatorname{tr}(\texbf{x}^T\textbf{Ax})=\texbf{x}^T\textbf{Ax}\]</span></p>
+<p><span  class="math">\[\operatorname{tr}(\textbf{x}^{\top}\textbf{Ax})=\textbf{x}^{\top}\textbf{Ax}\]</span></p>
 
 <p>Now it is the trick time:</p>
 
 <p><span  class="math">\[\begin{aligned}
-{\rm d}(\textbf{x}^T\textbf{Ax}) &={\rm d}(\operatorname{tr}(\textbf{x}^T\textbf{Ax})) \\
-&=\operatorname{tr}({\rm d}(\textbf{Ax}\textbf{x}^T)) \\
-&=\operatorname{tr}({\rm d}(\textbf{Ax})\textbf{x}^T+{\bf Ax}{\rm d}(\textbf{x}^T)) \\
-&=\operatorname{tr}({\rm d}(\textbf{Ax})\textbf{x}^T)+\operatorname{tr}({\bf Ax}{\rm d}(\textbf{x}^T)) \\
-&=\operatorname{tr}(\textbf{A}({\rm d}\textbf{x})\textbf{x}^T)+\operatorname{tr}\left((({\rm d}\textbf{x})\textbf{x}^T \textbf{A}^T)^T\right) \\
-&=\operatorname{tr}((\textbf{x}^T\textbf{A}({\rm d}\textbf{x})) + \operatorname{tr}(\textbf{x}^T\textbf{A}^T({\rm d}\textbf{x})) \\
-&=\operatorname{tr}(\textbf{x}^T\textbf{A}){\rm d}\textbf{x} + \operatorname{tr}(\textbf{x}^T\textbf{A}^T){\rm d}\textbf{x} \\
-&=\operatorname{tr}\left((\textbf{x}^T\textbf{A}+\textbf{x}^T\textbf{A}^T){\rm d}\textbf{x}\right) \\
-&=(\textbf{x}^T\textbf{A}+\textbf{x}^T\textbf{A}^T){\rm d}\textbf{x}
+{\rm d}(\textbf{x}^{\top}\textbf{Ax}) &={\rm d}(\operatorname{tr}(\textbf{x}^{\top}\textbf{Ax})) \\
+&=\operatorname{tr}({\rm d}(\textbf{Ax}\textbf{x}^{\top})) \\
+&=\operatorname{tr}({\rm d}(\textbf{Ax})\textbf{x}^{\top}+{\bf Ax}{\rm d}(\textbf{x}^{\top})) \\
+&=\operatorname{tr}({\rm d}(\textbf{Ax})\textbf{x}^{\top})+\operatorname{tr}({\bf Ax}{\rm d}(\textbf{x}^{\top})) \\
+&=\operatorname{tr}(\textbf{A}({\rm d}\textbf{x})\textbf{x}^{\top})+\operatorname{tr}\left((({\rm d}\textbf{x})\textbf{x}^{\top} \textbf{A}^{\top})^{\top}\right) \\
+&=\operatorname{tr}((\textbf{x}^{\top}\textbf{A}({\rm d}\textbf{x})) + \operatorname{tr}(\textbf{x}^{\top}\textbf{A}^{\top}({\rm d}\textbf{x})) \\
+&=\operatorname{tr}(\textbf{x}^{\top}\textbf{A}){\rm d}\textbf{x} + \operatorname{tr}(\textbf{x}^{\top}\textbf{A}^{\top}){\rm d}\textbf{x} \\
+&=\operatorname{tr}\left((\textbf{x}^{\top}\textbf{A}+\textbf{x}^{\top}\textbf{A}^{\top}){\rm d}\textbf{x}\right) \\
+&=(\textbf{x}^{\top}\textbf{A}+\textbf{x}^{\top}\textbf{A}^{\top}){\rm d}\textbf{x}
 \end{aligned}\]</span></p>
 
-<p>We used cyclic permutation law at beginning and at the end twice, and used transpose law only once to transform <span  class="math">\({\rm d}\textbf{x}^T\)</span></p>
+<p>We used cyclic permutation law at beginning and at the end twice, and used transpose law only once to transform <span  class="math">\({\rm d}\textbf{x}^{\top}\)</span></p>
 
-<p>And we can get the result <span  class="math">\(\textbf{x}^T\textbf{A}+\textbf{x}^T\textbf{A}^T\)</span> simply in several steps!</p>
+<p>And we can get the result <span  class="math">\(\textbf{x}^{\top}\textbf{A}+\textbf{x}^{\top}\textbf{A}^{\top}\)</span> simply in several steps!</p>
 
 <h2 id="differetiate-an-inverse">Differetiate an inverse</h2>
 

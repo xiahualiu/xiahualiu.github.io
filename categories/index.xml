@@ -53,7 +53,7 @@
 
 &lt;p&gt;Jacobian matrix is the first-order derivative of a &lt;strong&gt;vector function&lt;/strong&gt;, a vector function is a function that &lt;strong&gt;receives a vector value and returns a vector value&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;Jacobian matrix is obtained from &lt;span  class=&#34;math&#34;&gt;\((\nabla \textbf{f})^T\)&lt;/span&gt;, they are equivalent.&lt;/p&gt;
+&lt;p&gt;Jacobian matrix is obtained from &lt;span  class=&#34;math&#34;&gt;\((\nabla \textbf{f})^{\top}\)&lt;/span&gt;, they are equivalent.&lt;/p&gt;
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{\partial \textbf{y}}{\partial \textbf{x}}=[\frac{\partial \textbf{f}}{\partial x_1} \cdots \frac{\partial \textbf{f}}{\partial x_n}]=\begin{bmatrix}
 \frac{\partial f_1}{\partial x_1}  &amp; \cdots &amp; \frac{\partial f_1}{\partial x_n} \\
@@ -80,7 +80,7 @@
 
 &lt;p&gt;However, &lt;strong&gt;Hessian matrix is defined with an extra tranpose operation&lt;/strong&gt;, so it is actually:&lt;/p&gt;
 
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\(\textbf{J}(\nabla \textbf{f})^T\)&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\(\textbf{J}(\nabla \textbf{f})^{\top}\)&lt;/span&gt;:&lt;/p&gt;
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\mathbf{H}=\left[\begin{array}{cccc}
 {\frac{\partial^{2} f}{\partial x_{1}^{2}}} &amp; {\frac{\partial^{2} f}{\partial x_{1} \partial x_{2}}} &amp; {\cdots} &amp; {\frac{\partial^{2} f}{\partial x_{1} \partial x_{n}}} \\
@@ -115,7 +115,7 @@
 
 &lt;p&gt;Define a function:&lt;/p&gt;
 
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[f(\textbf{x})=\textbf{x}^T\textbf{Ax}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[f(\textbf{x})=\textbf{x}^{\top}\textbf{Ax}\]&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;This is a scalar function, since &lt;span  class=&#34;math&#34;&gt;\(\textbf{x}\)&lt;/span&gt; is &lt;span  class=&#34;math&#34;&gt;\(m\times 1\)&lt;/span&gt;. So the size of the output is:&lt;/p&gt;
 
@@ -139,7 +139,7 @@
 
 &lt;h3 id=&#34;trace-laws&#34;&gt;Trace laws&lt;/h3&gt;
 
-&lt;p&gt;There are two most important laws:&lt;/p&gt;
+&lt;p&gt;Here are two most important laws:&lt;/p&gt;
 
 &lt;h4 id=&#34;transpose-law&#34;&gt;Transpose law&lt;/h4&gt;
 
@@ -151,25 +151,25 @@
 
 &lt;p&gt;How do we apply the trace trick in our calculation? Well, from the definition of the trace, a trace of a scalar (which can be considered as a &lt;span  class=&#34;math&#34;&gt;\(1\times 1\)&lt;/span&gt; matrix) is itself, so:&lt;/p&gt;
 
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\operatorname{tr}(\texbf{x}^T\textbf{Ax})=\texbf{x}^T\textbf{Ax}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\operatorname{tr}(\textbf{x}^{\top}\textbf{Ax})=\textbf{x}^{\top}\textbf{Ax}\]&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;Now it is the trick time:&lt;/p&gt;
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\begin{aligned}
-{\rm d}(\textbf{x}^T\textbf{Ax}) &amp;={\rm d}(\operatorname{tr}(\textbf{x}^T\textbf{Ax})) \\
-&amp;=\operatorname{tr}({\rm d}(\textbf{Ax}\textbf{x}^T)) \\
-&amp;=\operatorname{tr}({\rm d}(\textbf{Ax})\textbf{x}^T+{\bf Ax}{\rm d}(\textbf{x}^T)) \\
-&amp;=\operatorname{tr}({\rm d}(\textbf{Ax})\textbf{x}^T)+\operatorname{tr}({\bf Ax}{\rm d}(\textbf{x}^T)) \\
-&amp;=\operatorname{tr}(\textbf{A}({\rm d}\textbf{x})\textbf{x}^T)+\operatorname{tr}\left((({\rm d}\textbf{x})\textbf{x}^T \textbf{A}^T)^T\right) \\
-&amp;=\operatorname{tr}((\textbf{x}^T\textbf{A}({\rm d}\textbf{x})) + \operatorname{tr}(\textbf{x}^T\textbf{A}^T({\rm d}\textbf{x})) \\
-&amp;=\operatorname{tr}(\textbf{x}^T\textbf{A}){\rm d}\textbf{x} + \operatorname{tr}(\textbf{x}^T\textbf{A}^T){\rm d}\textbf{x} \\
-&amp;=\operatorname{tr}\left((\textbf{x}^T\textbf{A}+\textbf{x}^T\textbf{A}^T){\rm d}\textbf{x}\right) \\
-&amp;=(\textbf{x}^T\textbf{A}+\textbf{x}^T\textbf{A}^T){\rm d}\textbf{x}
+{\rm d}(\textbf{x}^{\top}\textbf{Ax}) &amp;={\rm d}(\operatorname{tr}(\textbf{x}^{\top}\textbf{Ax})) \\
+&amp;=\operatorname{tr}({\rm d}(\textbf{Ax}\textbf{x}^{\top})) \\
+&amp;=\operatorname{tr}({\rm d}(\textbf{Ax})\textbf{x}^{\top}+{\bf Ax}{\rm d}(\textbf{x}^{\top})) \\
+&amp;=\operatorname{tr}({\rm d}(\textbf{Ax})\textbf{x}^{\top})+\operatorname{tr}({\bf Ax}{\rm d}(\textbf{x}^{\top})) \\
+&amp;=\operatorname{tr}(\textbf{A}({\rm d}\textbf{x})\textbf{x}^{\top})+\operatorname{tr}\left((({\rm d}\textbf{x})\textbf{x}^{\top} \textbf{A}^{\top})^{\top}\right) \\
+&amp;=\operatorname{tr}((\textbf{x}^{\top}\textbf{A}({\rm d}\textbf{x})) + \operatorname{tr}(\textbf{x}^{\top}\textbf{A}^{\top}({\rm d}\textbf{x})) \\
+&amp;=\operatorname{tr}(\textbf{x}^{\top}\textbf{A}){\rm d}\textbf{x} + \operatorname{tr}(\textbf{x}^{\top}\textbf{A}^{\top}){\rm d}\textbf{x} \\
+&amp;=\operatorname{tr}\left((\textbf{x}^{\top}\textbf{A}+\textbf{x}^{\top}\textbf{A}^{\top}){\rm d}\textbf{x}\right) \\
+&amp;=(\textbf{x}^{\top}\textbf{A}+\textbf{x}^{\top}\textbf{A}^{\top}){\rm d}\textbf{x}
 \end{aligned}\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;We used cyclic permutation law at beginning and at the end twice, and used transpose law only once to transform &lt;span  class=&#34;math&#34;&gt;\({\rm d}\textbf{x}^T\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;We used cyclic permutation law at beginning and at the end twice, and used transpose law only once to transform &lt;span  class=&#34;math&#34;&gt;\({\rm d}\textbf{x}^{\top}\)&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;And we can get the result &lt;span  class=&#34;math&#34;&gt;\(\textbf{x}^T\textbf{A}+\textbf{x}^T\textbf{A}^T\)&lt;/span&gt; simply in several steps!&lt;/p&gt;
+&lt;p&gt;And we can get the result &lt;span  class=&#34;math&#34;&gt;\(\textbf{x}^{\top}\textbf{A}+\textbf{x}^{\top}\textbf{A}^{\top}\)&lt;/span&gt; simply in several steps!&lt;/p&gt;
 
 &lt;h2 id=&#34;differetiate-an-inverse&#34;&gt;Differetiate an inverse&lt;/h2&gt;
 
