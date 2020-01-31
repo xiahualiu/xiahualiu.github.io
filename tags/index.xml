@@ -8,6 +8,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <atom:link href="https://xiahualiu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Matrix Calculus</title>
+      <link>https://xiahualiu.github.io/posts/2020-01-30-matrix-multiplication/</link>
+      <pubDate>Thu, 30 Jan 2020 20:17:54 -0500</pubDate>
+      <guid>https://xiahualiu.github.io/posts/2020-01-30-matrix-multiplication/</guid>
+      <description>&lt;p&gt;Matrix calculus is very important in machine learning and control theories. However there are all kinds of rules making it hard to remember and use. In this post, I summarize some basic rules and an important proof in machine learning theory, which includes the famous &amp;ldquo;Trace Trick&amp;rdquo;! This trick is super useful and super hard as well! Haha, this is the reason why we always explore new things, because it is hard!&lt;/p&gt;
+&lt;h2 id=&#34;differetiate-a-matrix&#34;&gt;Differetiate a matrix&lt;/h2&gt;
+&lt;p&gt;Differentiating a matrix is same as differentiate all items in matrix respectively.&lt;/p&gt;
+&lt;p&gt;$$\.{A}(t)=\begin{bmatrix}
+\.{A}&lt;em&gt;{11}(t) &amp;amp; \cdots $ \.{A}&lt;/em&gt;{1n}(t) \cr
+\vdots &amp;amp; \ddots &amp;amp; \vdots \cr
+\.{A}_{n1}(t) &amp;amp; \cdots &amp;amp; \.A{nn}(t) \cr
+\end{bmatrix}$$&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>LRTA* AND-OR ALPHA-BETA algorithms</title>
       <link>https://xiahualiu.github.io/posts/2020-01-11-lrta-ab/</link>
       <pubDate>Sat, 11 Jan 2020 21:59:55 -0500</pubDate>
@@ -217,10 +231,10 @@
 &lt;p&gt;We want to decompose the fraction into a sum of simple fractions:&lt;/p&gt;
 &lt;p&gt;$$F(s)=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{s+5}$$&lt;/p&gt;
 &lt;p&gt;So we can use the basic Laplace transform pairs to get the signal. But we need a way to determine the values of&lt;/p&gt;
-&lt;p&gt;$A_1,\ A_2\text{ and }A_3$&lt;/p&gt;
+&lt;p&gt;$A_1,\ A_2 \text{ and }A_3$&lt;/p&gt;
 &lt;h2 id=&#34;a-simple-partial-fraction-expansion&#34;&gt;A Simple Partial Fraction Expansion&lt;/h2&gt;
 &lt;p&gt;The simple situation is the one shown above, there is a simple and straightforward method to determining the unknown coefficients&lt;/p&gt;
-&lt;p&gt;$A_1,\ A_2\text{ and }A_3$&lt;/p&gt;
+&lt;p&gt;$A_1,\ A_2 \text{ and }A_3$&lt;/p&gt;
 &lt;p&gt;To find&lt;/p&gt;
 &lt;p&gt;$$A_1$$&lt;/p&gt;
 &lt;p&gt;, multiply F(s) by s.&lt;/p&gt;
@@ -234,9 +248,9 @@ sF(s)&amp;amp;=s\frac{s+3}{s(s+2)(s+5)} \cr
 sF(s)|_{s=0}&amp;amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \cr
 &amp;amp;=\frac{s+3}{s(s+5)}|_{s=0}=\frac{3}{10}
 \end{aligned}$$&lt;/p&gt;
-&lt;p&gt;Likewise, we can get $A_2$ by setting s=-2, get&lt;/p&gt;
+&lt;p&gt;Likewise, we can get $$A_2$$ by setting $$s=-2$$ , get&lt;/p&gt;
 &lt;p&gt;$$A_3$$&lt;/p&gt;
-&lt;p&gt;by setting s=-5.&lt;/p&gt;
+&lt;p&gt;by setting $$s=-5$$.&lt;/p&gt;
 &lt;h2 id=&#34;special-cases-of-parial-fraction-expansion&#34;&gt;Special Cases of Parial Fraction Expansion&lt;/h2&gt;
 &lt;p&gt;The simple partial fraction expansion can expand fraction into a sum of simpler fractions. However, ther are many situations where the expansion is not so simple.&lt;/p&gt;
 &lt;ul&gt;
@@ -244,7 +258,7 @@ sF(s)|_{s=0}&amp;amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \cr
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Order of numerator polynomial is not less than that of the denominator.&lt;/strong&gt;&lt;/em&gt; Partial fraction expansion can only be performed when the order of the denominator polynomial (the bottom term of the fraction) is greater than the order of the numerator (the top term).  If this condition is not met, we must perform an extra step before continuing with the expansion.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;DIstinct Real Roots&lt;/strong&gt;&lt;/em&gt; The problem solved above is described as the case of distinct, real roots.   This means that each term only appears once in the denominator, and the root of each term in the denominator is a distinct real number.  In the example above, the roots were at 0, -2 and -5.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;DIstinct Real Roots&lt;/strong&gt;&lt;/em&gt; The problem solved above is described as the case of distinct, real roots.   This means that each term only appears once in the denominator, and the root of each term in the denominator is a distinct real number.  In the example above, the roots were at $$0$$, $$-2$$ and $$-5$$.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;Repeated Real Roots&lt;/strong&gt;&lt;/em&gt; Another possibility is a case of repeated roots. For example&lt;/p&gt;
@@ -267,7 +281,7 @@ sF(s)|_{s=0}&amp;amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \cr
 &lt;p&gt;$$F(s)=\frac{s+3}{s(s+2)^2(s+5)}$$&lt;/p&gt;
 &lt;p&gt;The expansion for this case is:&lt;/p&gt;
 &lt;p&gt;$$F(s)=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{(s+2)^2}+\frac{A_4}{s+5}$$&lt;/p&gt;
-&lt;p&gt;And we can proof the simple method cannot be used since $(s+2)$ appear twice, and we can only get one value by setting $s=-2$.&lt;/p&gt;
+&lt;p&gt;And we can proof the simple method cannot be used since $(s+2)$ appear twice, and we can only get one value by setting $$s=-2$$.&lt;/p&gt;
 &lt;p&gt;There are two ways, the most favored by the texbook method uses the relationship&lt;/p&gt;
 &lt;p&gt;$$A_2=\left[\frac{d}{ds}(s+2)^2F(s)\right]_{s=-2}$$&lt;/p&gt;
 &lt;p&gt;so&lt;/p&gt;

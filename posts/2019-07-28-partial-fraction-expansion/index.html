@@ -82,10 +82,10 @@
 <p>We want to decompose the fraction into a sum of simple fractions:</p>
 <p>$$F(s)=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{s+5}$$</p>
 <p>So we can use the basic Laplace transform pairs to get the signal. But we need a way to determine the values of</p>
-<p>$A_1,\ A_2\text{ and }A_3$</p>
+<p>$A_1,\ A_2 \text{ and }A_3$</p>
 <h2 id="a-simple-partial-fraction-expansion">A Simple Partial Fraction Expansion</h2>
 <p>The simple situation is the one shown above, there is a simple and straightforward method to determining the unknown coefficients</p>
-<p>$A_1,\ A_2\text{ and }A_3$</p>
+<p>$A_1,\ A_2 \text{ and }A_3$</p>
 <p>To find</p>
 <p>$$A_1$$</p>
 <p>, multiply F(s) by s.</p>
@@ -99,9 +99,9 @@ sF(s)&amp;=s\frac{s+3}{s(s+2)(s+5)} \cr
 sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \cr
 &amp;=\frac{s+3}{s(s+5)}|_{s=0}=\frac{3}{10}
 \end{aligned}$$</p>
-<p>Likewise, we can get $A_2$ by setting s=-2, get</p>
+<p>Likewise, we can get $$A_2$$ by setting $$s=-2$$ , get</p>
 <p>$$A_3$$</p>
-<p>by setting s=-5.</p>
+<p>by setting $$s=-5$$.</p>
 <h2 id="special-cases-of-parial-fraction-expansion">Special Cases of Parial Fraction Expansion</h2>
 <p>The simple partial fraction expansion can expand fraction into a sum of simpler fractions. However, ther are many situations where the expansion is not so simple.</p>
 <ul>
@@ -109,7 +109,7 @@ sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \cr
 <p><em><strong>Order of numerator polynomial is not less than that of the denominator.</strong></em> Partial fraction expansion can only be performed when the order of the denominator polynomial (the bottom term of the fraction) is greater than the order of the numerator (the top term).  If this condition is not met, we must perform an extra step before continuing with the expansion.</p>
 </li>
 <li>
-<p><em><strong>DIstinct Real Roots</strong></em> The problem solved above is described as the case of distinct, real roots.   This means that each term only appears once in the denominator, and the root of each term in the denominator is a distinct real number.  In the example above, the roots were at 0, -2 and -5.</p>
+<p><em><strong>DIstinct Real Roots</strong></em> The problem solved above is described as the case of distinct, real roots.   This means that each term only appears once in the denominator, and the root of each term in the denominator is a distinct real number.  In the example above, the roots were at $$0$$, $$-2$$ and $$-5$$.</p>
 </li>
 <li>
 <p><em><strong>Repeated Real Roots</strong></em> Another possibility is a case of repeated roots. For example</p>
@@ -132,7 +132,7 @@ sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \cr
 <p>$$F(s)=\frac{s+3}{s(s+2)^2(s+5)}$$</p>
 <p>The expansion for this case is:</p>
 <p>$$F(s)=\frac{A_1}{s}+\frac{A_2}{s+2}+\frac{A_3}{(s+2)^2}+\frac{A_4}{s+5}$$</p>
-<p>And we can proof the simple method cannot be used since $(s+2)$ appear twice, and we can only get one value by setting $s=-2$.</p>
+<p>And we can proof the simple method cannot be used since $(s+2)$ appear twice, and we can only get one value by setting $$s=-2$$.</p>
 <p>There are two ways, the most favored by the texbook method uses the relationship</p>
 <p>$$A_2=\left[\frac{d}{ds}(s+2)^2F(s)\right]_{s=-2}$$</p>
 <p>so</p>
