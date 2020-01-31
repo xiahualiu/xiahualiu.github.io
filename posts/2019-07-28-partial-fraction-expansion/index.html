@@ -90,13 +90,13 @@
 <p>$$A_1$$</p>
 <p>, multiply F(s) by s.</p>
 <p>$$\begin{aligned}
-sF(s)&amp;=s\frac{s+3}{s(s+2)(s+5)} \
+sF(s)&amp;=s\frac{s+3}{s(s+2)(s+5)} \\\
 &amp;=A_1+s\frac{A_2}{s+2}+s\frac{A_3}{s+5}
 \end{aligned}$$</p>
 <p>and then set</p>
 <p>$$s=0$$.</p>
 <p>$$\begin{aligned}
-sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \<br>
+sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \\\<br>
 &amp;=\frac{s+3}{s(s+5)}|_{s=0}=\frac{3}{10}
 \end{aligned}$$</p>
 <p>Likewise, we can get $A_2$ by setting s=-2, get</p>
@@ -144,39 +144,39 @@ sF(s)|_{s=0}&amp;=A_1+0\frac{A_2}{0+2}+0\frac{A_3}{0+5}=A_1 \<br>
 <p>$$s+3=(A_1+A_2+A_4)s^3+(9A_1+7A_2+A_3+4A_4)s^2+(24A_1+10A_2+5A_3+4A_4)s+20A_1 $$</p>
 <p>This yields a four-by-four system of equations that can be solved for A1 through A4.</p>
 <p>$$\begin{aligned}
-A_1+A_2+A_4&amp;=0 \<br>
-9A_1+7A_2+A_3+4A_4 &amp;=0 \<br>
-24A_1+10A_2+5A_3+4A_4&amp;=1 \<br>
+A_1+A_2+A_4&amp;=0 \\\<br>
+9A_1+7A_2+A_3+4A_4 &amp;=0 \\\<br>
+24A_1+10A_2+5A_3+4A_4&amp;=1 \\\<br>
 20A_1&amp;=3
 \end{aligned}$$</p>
 <p>Or, in the matrix form</p>
 <p>$$\begin{bmatrix}
-{1} &amp; {1} &amp; {0} &amp; {1} \<br>
-{9} &amp; {7} &amp; {1} &amp; {4} \<br>
-{24} &amp; {10} &amp; {5} &amp; {4} \<br>
+{1} &amp; {1} &amp; {0} &amp; {1} \\\<br>
+{9} &amp; {7} &amp; {1} &amp; {4} \\\<br>
+{24} &amp; {10} &amp; {5} &amp; {4} \\\<br>
 {20} &amp; {0} &amp; {0} &amp; {0}
 \end{bmatrix}\begin{bmatrix}
-{A_{1}} \<br>
-{A_{2}} \
-{A_{3}} \
+{A_{1}} \\\<br>
+{A_{2}} \\\<br>
+{A_{3}} \\\<br>
 {A_{4}}
 \end{bmatrix}=\begin{bmatrix}
-{0} \<br>
-{0} \<br>
-{1} \<br>
+{0} \\\<br>
+{0} \\\<br>
+{1} \\\<br>
 {3}
 \end{bmatrix}$$</p>
 <p>We can combine the cover-up method to get the coefficients that is distinct then use cross multiplication to get the coefficients that corresponds to the repeated roots.</p>
 <h3 id="complex-roots">Complex Roots</h3>
 <p>Consider the fraction</p>
 <p>$$\begin{aligned}
-F(s) &amp;=\frac{s+3}{(s+5)\left(s^{2}+4 s+5\right)}=\frac{s+3}{(s+5)(s+2-j)(s+2+j)} \<br>
+F(s) &amp;=\frac{s+3}{(s+5)\left(s^{2}+4 s+5\right)}=\frac{s+3}{(s+5)(s+2-j)(s+2+j)} \\\<br>
 &amp;=\frac{A_{1}}{(s+5)}+\frac{A_{2}}{(s+2-j)}+\frac{A_{3}}{(s+2+j)}
 \end{aligned}$$</p>
 <p>where</p>
 <p>$$\begin{array}{l}
-{A_{1}=(s+5) F(s)|_{s=-5}} \
-{A_{2}=(s+2-j) F(s)|_{s=-2+j}} \
+{A_{1}=(s+5) F(s)|_{s=-5}} \\\<br>
+{A_{2}=(s+2-j) F(s)|_{s=-2+j}} \\\
 {A_{3}=(s+2+j) F(s)|_{s=-2+j}=A_{2}^{*}}
 \end{array}$$</p>
 <p>Another way to expand the fraction without resorting to complex numbers is to perform the expansion as follows.</p>
