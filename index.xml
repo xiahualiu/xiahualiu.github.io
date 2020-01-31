@@ -226,7 +226,7 @@
 &lt;p&gt;$$A_1$$&lt;/p&gt;
 &lt;p&gt;, multiply F(s) by s.&lt;/p&gt;
 &lt;p&gt;$$\begin{aligned}
-sF(s)&amp;amp;=s\frac{s+3}{s(s+2)(s+5)} \\\
+sF(s)&amp;amp;=s\frac{s+3}{s(s+2)(s+5)} \cr
 &amp;amp;=A_1+s\frac{A_2}{s+2}+s\frac{A_3}{s+5}
 \end{aligned}$$&lt;/p&gt;
 &lt;p&gt;and then set&lt;/p&gt;
