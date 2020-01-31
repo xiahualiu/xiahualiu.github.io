@@ -74,6 +74,7 @@
 <p>LRTA* is a simple implement of a online search agent. It is suitable for an unknown environment and the environment is safe to explore.</p>
 <p>The LRTA* algorithm is just like the value iteration algorithm of MDP, but the difference is in value iteration algorithm, the environment is known, we initialize the utility randomly with a random value linked to any state.</p>
 <p>But LRTA* is able to solve the unknown environment, we cannot assign a value at first, instead, the agent can only get access to the states where it has been in. So LRTA* use a <code>result</code> to store transitions, and a <code>H</code> to store the value of the explored states.</p>
+<p>And there is a problem which cannot be overcome by any type of algorithms, i.e. asserting the optimality of the solution, since we can only explored limited state space, so there is not guarantee that there is no better solution than the one we found.</p>
 <h2 id="and-or-search">AND-OR Search</h2>
 <p>AND-OR search include two functions that calling each other. It is an interesting idea.</p>
 <p>AND nodes can be regarded as an unstable transition model, which leads to different next states. AND-OR search is a DFS search, every path will end in a failure (loop or dead) or goal.</p>
