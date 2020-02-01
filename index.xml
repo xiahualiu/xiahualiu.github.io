@@ -21,15 +21,15 @@
 
 &lt;ul&gt;
 &lt;li&gt;Gradient&lt;/li&gt;
-&lt;li&gt;the Jacobian matrix&lt;/li&gt;
-&lt;li&gt;the Hessian matrix&lt;/li&gt;
+&lt;li&gt;The Jacobian matrix&lt;/li&gt;
+&lt;li&gt;The Hessian matrix&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;* All vectors in this post refer to column vectors with dimension &lt;span  class=&#34;math&#34;&gt;\(N\)&lt;/span&gt;.&lt;/p&gt;
 
 &lt;h3 id=&#34;getting-started&#34;&gt;Getting started&lt;/h3&gt;
 
-&lt;p&gt;So for a warm up part, we differentiate a matrix with respect to a scalar variable, the result is pretty intuitive and natural:&lt;/p&gt;
+&lt;p&gt;To start with the concept, we differentiate a matrix with respect to a scalar variable, the result is pretty intuitive and natural:&lt;/p&gt;
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\dot{A}=\begin{bmatrix}
 \dot{A}_{11} &amp; \cdots &amp; \dot{A}_{1n} \\
@@ -48,15 +48,15 @@
 \frac{\partial f}{\partial x_n} \\
 \end{bmatrix}\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;It is the most simplifed case, remember it returns a vector that&#39;s in the same shape as the vector variable.&lt;/p&gt;
+&lt;p&gt;It is the most simplifed case, remember it returns a vector that&#39;s in the same shape as the input vector variable.&lt;/p&gt;
 
 &lt;h3 id=&#34;jacobian-matrix&#34;&gt;Jacobian Matrix&lt;/h3&gt;
 
 &lt;p&gt;Jacobian matrix is the first-order derivative of a &lt;strong&gt;vector function&lt;/strong&gt;, a vector function is a function that &lt;strong&gt;receives a vector value and returns a vector value&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;Jacobian matrix is obtained from &lt;span  class=&#34;math&#34;&gt;\((\nabla \textbf{f})^{\top}\)&lt;/span&gt;, they are equivalent.&lt;/p&gt;
+&lt;p&gt;Jacobian matrix is obtained from &lt;span  class=&#34;math&#34;&gt;\((\nabla \textbf{f})^{\top}\)&lt;/span&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{\partial \textbf{y}}{\partial \textbf{x}}=[\frac{\partial \textbf{f}}{\partial x_1} \cdots \frac{\partial \textbf{f}}{\partial x_n}]=\begin{bmatrix}
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[(\nabla \textbf{f})^{\top}=[\frac{\partial \textbf{f}}{\partial x_1} \cdots \frac{\partial \textbf{f}}{\partial x_n}]=\begin{bmatrix}
 \frac{\partial f_1}{\partial x_1}  &amp; \cdots &amp; \frac{\partial f_1}{\partial x_n} \\
 \vdots &amp; \ddots &amp; \vdots \\
 \frac{\partial f_n}{\partial x_1} &amp; \cdots &amp; \frac{\partial f_n}{\partial x_n}
@@ -77,11 +77,11 @@
 
 &lt;p&gt;And we need to do this one more time.A sharp eye reader may notice the second derivative is the Jacobian matrix of the gradient, which is:&lt;/p&gt;
 
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\(\textbf{J}(\nabla \textbf{f})\)&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\textbf{J}(\nabla \textbf{f})\]&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;However, &lt;strong&gt;Hessian matrix is defined with an extra tranpose operation&lt;/strong&gt;, so it is actually:&lt;/p&gt;
 
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\(\textbf{J}(\nabla \textbf{f})^{\top}\)&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\textbf{J}(\nabla \textbf{f})^{\top}\]&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\mathbf{H}=\left[\begin{array}{cccc}
 {\frac{\partial^{2} f}{\partial x_{1}^{2}}} &amp; {\frac{\partial^{2} f}{\partial x_{1} \partial x_{2}}} &amp; {\cdots} &amp; {\frac{\partial^{2} f}{\partial x_{1} \partial x_{n}}} \\
@@ -90,11 +90,11 @@
 {\frac{\partial^{2} f}{\partial x_{n} \partial x_{1}}} &amp; {\frac{\partial^{2} f}{\partial x_{n} \partial x_{2}}} &amp; {\cdots} &amp; {\frac{\partial^{2} f}{\partial x_{n}^{2}}}
 \end{array}\right]\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;So till now I hope you can write the steps how we get Jacobian and Hessian matrix.&lt;/p&gt;
+&lt;p&gt;Till now I hope you can understand what Jacobian matrix and Hessian matrix are, and be able to write the steps how we get Jacobian and Hessian matrix.&lt;/p&gt;
 
 &lt;h2 id=&#34;integral&#34;&gt;Integral&lt;/h2&gt;
 
-&lt;p&gt;And calculating the integral of the whole matrix is simple as the warm up part.&lt;/p&gt;
+&lt;p&gt;Calculating the integral of the whole matrix is as simple as the warm up part.&lt;/p&gt;
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\int A(t) {\rm d}t=\begin{bmatrix}
 \int A_{11}{\rm d}t &amp; \cdots &amp; \int A_{1n}(t){\rm d}t \\
@@ -104,13 +104,13 @@
 
 &lt;h2 id=&#34;trace-trick&#34;&gt;Trace trick&lt;/h2&gt;
 
-&lt;p&gt;In this section, we will teach you how to understand trace trick and as usual, we start with a simple case:&lt;/p&gt;
+&lt;p&gt;In this section, we will teach you what trace trick is. As usual, we start with a simple case:&lt;/p&gt;
 
 &lt;h3 id=&#34;derivative-of-a-quadratic-form&#34;&gt;Derivative of a quadratic form&lt;/h3&gt;
 
-&lt;p&gt;&lt;strong&gt;If you have no idea what a quadratic form is, I suggest you stop reading downwards&lt;/strong&gt;, because you have to have a good understanding of it, otherwise you will not realize the reason and the true importance of finding its derivative.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;If you have no idea what a quadratic form is, I suggest you stop reading downwards&lt;/strong&gt;, because you have to have a good understanding of it, otherwise you cannot realize why we want to find its derivative.&lt;/p&gt;
 
-&lt;p&gt;I also suggest a wonderful book for that foundation, &lt;em&gt;Linear Algebra and its Applications&lt;/em&gt;, this is a must-read book for new learners.&lt;/p&gt;
+&lt;p&gt;I also suggest a wonderful book for that foundation, &lt;em&gt;Linear Algebra and its Applications&lt;/em&gt;, this is a must-read for all new learners.&lt;/p&gt;
 
 &lt;p&gt;So here we begin!&lt;/p&gt;
 
@@ -124,11 +124,11 @@
 
 &lt;p&gt;And we need to find its first derivative w.r.t &lt;span  class=&#34;math&#34;&gt;\(\textbf{x}\)&lt;/span&gt;. How?&lt;/p&gt;
 
-&lt;p&gt;You may think, it is same as finding the gradient of the function, so just expand the equation and find partial derivative.&lt;/p&gt;
+&lt;p&gt;You may think, it is same as finding the gradient of the function, so just expand the equation and find the partial derivative.&lt;/p&gt;
 
-&lt;p&gt;Yes, it is indeed a good idea, but expanding all the terms is way to tedious and humans are fallible. Is there any other way around?&lt;/p&gt;
+&lt;p&gt;Yes, it is indeed a reasonal idea, but expanding all the terms is way to tedious and humans are fallible. Is there any other way to obtain the result without messing the matrix?&lt;/p&gt;
 
-&lt;p&gt;Yes, there is. It is called &lt;strong&gt;Trace Trick&lt;/strong&gt; and is widely used in finding the derivative of quadratic form function.&lt;/p&gt;
+&lt;p&gt;Yes, there is. It is called &lt;strong&gt;&amp;quot;Trace Trick&amp;quot;&lt;/strong&gt; and is widely used in finding the derivative of quadratic form function.&lt;/p&gt;
 
 &lt;h3 id=&#34;trace&#34;&gt;Trace&lt;/h3&gt;
 
@@ -154,7 +154,7 @@
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\operatorname{tr}(\textbf{x}^{\top}\textbf{Ax})=\textbf{x}^{\top}\textbf{Ax}\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Now it is the trick time:&lt;/p&gt;
+&lt;p&gt;Now it is the trick time, I will write everything here, please read the following equation, and try to understand how I get to the final line:&lt;/p&gt;
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\begin{aligned}
 {\rm d}(\textbf{x}^{\top}\textbf{Ax}) &amp;={\rm d}(\operatorname{tr}(\textbf{x}^{\top}\textbf{Ax})) \\
@@ -168,13 +168,82 @@
 &amp;=(\textbf{x}^{\top}\textbf{A}+\textbf{x}^{\top}\textbf{A}^{\top}){\rm d}\textbf{x}
 \end{aligned}\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;We used cyclic permutation law at beginning and at the end twice, and used transpose law only once to transform &lt;span  class=&#34;math&#34;&gt;\({\rm d}\textbf{x}^{\top}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;I used cyclic permutation law at beginning and at the end twice, and used transpose law only once to transform &lt;span  class=&#34;math&#34;&gt;\({\rm d}\textbf{x}^{\top}\)&lt;/span&gt;. I installed trace function on first line and uninstall the trace function on the last line, &lt;span  class=&#34;math&#34;&gt;\({\rm d}\textbf{x}=\lim(\textbf{x}_1-\textbf{x}_2)\in \Bbb{R}^{N}\)&lt;/span&gt;, it can be proved that the expression on final line is still a scalar.&lt;/p&gt;
 
 &lt;p&gt;And we can get the result &lt;span  class=&#34;math&#34;&gt;\(\textbf{x}^{\top}\textbf{A}+\textbf{x}^{\top}\textbf{A}^{\top}\)&lt;/span&gt; simply in several steps!&lt;/p&gt;
 
-&lt;h2 id=&#34;differetiate-an-inverse&#34;&gt;Differetiate an inverse&lt;/h2&gt;
+&lt;h4 id=&#34;another-important-law&#34;&gt;Another Important Law&lt;/h4&gt;
 
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{\rm d}{{\rm d}t}(A^{-1})=-A^{-1}\dot{A}A^{-1}\]&lt;/span&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{\partial}{\partial A}\operatorname{tr}(AB)=B^{\top}\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;This law will be used once in the next section.&lt;/p&gt;
+
+&lt;h2 id=&#34;multivariate-guassian-distribution-maximum-likelihood-estimate&#34;&gt;Multivariate Guassian Distribution Maximum Likelihood Estimate&lt;/h2&gt;
+
+&lt;p&gt;So in the end, I want to calculate the MLE for a multivariate guassian distribution model with all the things discussed in this post, I hope you can enjoy it as much as I do!&lt;/p&gt;
+
+&lt;h4 id=&#34;problem&#34;&gt;Problem:&lt;/h4&gt;
+
+&lt;p&gt;Given &lt;span  class=&#34;math&#34;&gt;\(N\)&lt;/span&gt; samples &lt;span  class=&#34;math&#34;&gt;\(\{X_1,X_2,X_3,...,X_i\}\)&lt;/span&gt; are drawn from a p-variate multivariate guassian distribution model i.i.d:&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[p(x | \mu, \Sigma)=\frac{1}{(2 \pi)^{p / 2}|\Sigma|^{1 / 2}} \exp \left\{-\frac{1}{2}(x-\mu)^{T} \Sigma^{-1}(x-\mu)\right\}\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Find the MLE for &lt;span  class=&#34;math&#34;&gt;\(\mu\ \Sigma\)&lt;/span&gt;.&lt;/p&gt;
+
+&lt;h4 id=&#34;solution&#34;&gt;Solution:&lt;/h4&gt;
+
+&lt;p&gt;Define the likelihood function &lt;span  class=&#34;math&#34;&gt;\(L\)&lt;/span&gt;,:&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[f(\mu, \Sigma)=\frac{1}{(2\pi)^{\frac{pN}{2}}|\Sigma|^{\frac{N}{2}}}\exp{\left\{\sum_{i=1}^{N}-\frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu)\right\}}\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;In order to simplify the problem, plus due to the fact that the multivariate guassian distribution belongs to the exponential distribution family. Instead straight differentiating the likelihood function, it is better to calculate the logarithmic differentiation of the function.&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[L(\mu, \Sigma)=\ln f(\mu, \Sigma)=\sum_{i=1}^{N}-\frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu)-\frac{pN}{2}\ln 2\pi - \frac{N}{2}\ln|\Sigma|\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;find-the-mle-for-mu&#34;&gt;Find the MLE for &lt;span  class=&#34;math&#34;&gt;\[\mu\]&lt;/span&gt;&lt;/h5&gt;
+
+&lt;p&gt;Find &lt;span  class=&#34;math&#34;&gt;\(\mu\)&lt;/span&gt; first, then &lt;span  class=&#34;math&#34;&gt;\(\Sigma\)&lt;/span&gt;, calculate the first-order partial derivative of &lt;span  class=&#34;math&#34;&gt;\(L(\mu, \Sigma)\)&lt;/span&gt; w.r.t &lt;span  class=&#34;math&#34;&gt;\(\mu\)&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{\partial L(\mu, \Sigma)}{\parial \mu} = \sum_{i=1}^n - \partial \frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu) /\partial \mu \]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;And if we regard &lt;span  class=&#34;math&#34;&gt;\((X_i-\mu)\)&lt;/span&gt; as &lt;span  class=&#34;math&#34;&gt;\(\textbf{x}\)&lt;/span&gt; in the former section, the partial derivative on the right side is simply:&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{1}{2}\sum_{i=1}^{N} (X_i-\mu)^{\top}\Sigma^{-1}+ (X_i-\mu)^{\top}(\Sigma^{-1})^T\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Since &lt;span  class=&#34;math&#34;&gt;\(\Sigma\)&lt;/span&gt; is the covariance matrix, it is symmetric:&lt;/p&gt;
+
+&lt;p&gt;$$\begin{aligned}
+\Sigma&lt;sup&gt;{-1}\Sigma&amp;amp;=(\Sigma\Sigma&lt;/sup&gt;{-1})^{\top} &lt;br&gt;
+\Sigma&lt;sup&gt;{-1}\Sigma&amp;amp;=(\Sigma&lt;/sup&gt;{-1})&lt;sup&gt;{\top}\Sigma&lt;/sup&gt;{\top} &lt;br&gt;
+\Sigma&lt;sup&gt;{-1}&amp;amp;=(\Sigma&lt;/sup&gt;{-1})^{\top}
+\end{aligned}$&lt;/p&gt;
+
+&lt;p&gt;The partial derivative w.r.t &lt;span  class=&#34;math&#34;&gt;\(\mu\)&lt;/span&gt; in the end:&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{\partial L(\mu, \Sigma)}{\partial \mu} =\sum_{i=1}^n(X_i-\mu)^{\top}\Sigma^{-1}\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Find its critical point, i.e. the mean of all samples:&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\hat{\mu}=\frac{1}{N}\sum_{i=1}^{N}X_i\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;find-sigma&#34;&gt;Find &lt;span  class=&#34;math&#34;&gt;\[\Sigma\]&lt;/span&gt;&lt;/h5&gt;
+
+&lt;p&gt;Since we get &lt;span  class=&#34;math&#34;&gt;\(\hat{\mu}\)&lt;/span&gt;, and apparently the &lt;span  class=&#34;math&#34;&gt;\(\mu\)&lt;/span&gt; estimate does not rely on &lt;span  class=&#34;math&#34;&gt;\(\Sigma\)&lt;/span&gt;, these two parameters are independent. We can safely subsititute all &lt;span  class=&#34;math&#34;&gt;\(\mu\)&lt;/span&gt; with &lt;span  class=&#34;math&#34;&gt;\(\hat{\mu}\)&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\begin{aligned}
+\frac{\partial L(\hat{\mu}, \Sigma)}{\partial \Sigma^{-1}}&amp;=\partial\left(-\frac{N}{2}\ln|\Sigma|\right)/\partial\Sigma^{-1}-\frac{1}{2}\sum_{i=1}^{N}(X_i-\hat{\mu})(X_i-\hat{\mu})^{\top} \\
+&amp;=\partial (\frac{N}{2}\ln|\Sigma^{-1}|)/\partial \Sigma^{-1} -\frac{1}{2}\sum_{i=1}^{N}(X_i-\hat{\mu})(X_i-\hat{\mu})^{\top} \\
+&amp;=\frac{N}{2\Sigma^{-1}}-\frac{1}{2}\sum_{i=1}^{N}(X_i-\hat{\mu})(X_i-\hat{\mu})^{\top} \\
+&amp;=\frac{N}{2}\Sigma-\frac{1}{2}\sum_{i=1}^{N}(X_i-\hat{\mu})(X_i-\hat{\mu})^{\top}
+\end{aligned} \]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;The last term on the first line was obtained by first using the cyclic permutaion then using the extra law in the former section.&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{1}{2} \sum_{n}\left(x_{n}-\mu\right)^{\top} \Sigma^{-1}\left(x_{n}-\mu\right)=\frac{1}{2} \sum_{i=1}^{N} \operatorname{tr}\left[\left(X_{i}-\hat{\mu}\right)\left(X_{i}-\hat{\mu}\right)^{\top} \Sigma^{-1}\right]\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Then using the extra law.&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{\partial}{\partial\Sigma^{-1}}(\frac{1}{2} \sum_{i=1}^{N} \operatorname{tr}\left[\left(X_{i}-\hat{\mu}\right)\left(X_{i}-\hat{\mu}\right)^{\top} \Sigma^{-1}\right])=\frac{1}{2}\sum_{i=1}^{N}(X_i-\hat{\mu})(X_i-\hat{\mu})^{\top}\]&lt;/span&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>LRTA* AND-OR ALPHA-BETA algorithms</title>

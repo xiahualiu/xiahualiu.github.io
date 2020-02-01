@@ -78,15 +78,15 @@
 
 <ul>
 <li>Gradient</li>
-<li>the Jacobian matrix</li>
-<li>the Hessian matrix</li>
+<li>The Jacobian matrix</li>
+<li>The Hessian matrix</li>
 </ul>
 
 <p>* All vectors in this post refer to column vectors with dimension <span  class="math">\(N\)</span>.</p>
 
 <h3 id="getting-started">Getting started</h3>
 
-<p>So for a warm up part, we differentiate a matrix with respect to a scalar variable, the result is pretty intuitive and natural:</p>
+<p>To start with the concept, we differentiate a matrix with respect to a scalar variable, the result is pretty intuitive and natural:</p>
 
 <p><span  class="math">\[\dot{A}=\begin{bmatrix}
 \dot{A}_{11} & \cdots & \dot{A}_{1n} \\
@@ -105,15 +105,15 @@
 \frac{\partial f}{\partial x_n} \\
 \end{bmatrix}\]</span></p>
 
-<p>It is the most simplifed case, remember it returns a vector that's in the same shape as the vector variable.</p>
+<p>It is the most simplifed case, remember it returns a vector that's in the same shape as the input vector variable.</p>
 
 <h3 id="jacobian-matrix">Jacobian Matrix</h3>
 
 <p>Jacobian matrix is the first-order derivative of a <strong>vector function</strong>, a vector function is a function that <strong>receives a vector value and returns a vector value</strong>.</p>
 
-<p>Jacobian matrix is obtained from <span  class="math">\((\nabla \textbf{f})^{\top}\)</span>, they are equivalent.</p>
+<p>Jacobian matrix is obtained from <span  class="math">\((\nabla \textbf{f})^{\top}\)</span>.</p>
 
-<p><span  class="math">\[\frac{\partial \textbf{y}}{\partial \textbf{x}}=[\frac{\partial \textbf{f}}{\partial x_1} \cdots \frac{\partial \textbf{f}}{\partial x_n}]=\begin{bmatrix}
+<p><span  class="math">\[(\nabla \textbf{f})^{\top}=[\frac{\partial \textbf{f}}{\partial x_1} \cdots \frac{\partial \textbf{f}}{\partial x_n}]=\begin{bmatrix}
 \frac{\partial f_1}{\partial x_1}  & \cdots & \frac{\partial f_1}{\partial x_n} \\
 \vdots & \ddots & \vdots \\
 \frac{\partial f_n}{\partial x_1} & \cdots & \frac{\partial f_n}{\partial x_n}
@@ -134,11 +134,11 @@
 
 <p>And we need to do this one more time.A sharp eye reader may notice the second derivative is the Jacobian matrix of the gradient, which is:</p>
 
-<p><span  class="math">\(\textbf{J}(\nabla \textbf{f})\)</span>:</p>
+<p><span  class="math">\[\textbf{J}(\nabla \textbf{f})\]</span></p>
 
 <p>However, <strong>Hessian matrix is defined with an extra tranpose operation</strong>, so it is actually:</p>
 
-<p><span  class="math">\(\textbf{J}(\nabla \textbf{f})^{\top}\)</span>:</p>
+<p><span  class="math">\[\textbf{J}(\nabla \textbf{f})^{\top}\]</span></p>
 
 <p><span  class="math">\[\mathbf{H}=\left[\begin{array}{cccc}
 {\frac{\partial^{2} f}{\partial x_{1}^{2}}} & {\frac{\partial^{2} f}{\partial x_{1} \partial x_{2}}} & {\cdots} & {\frac{\partial^{2} f}{\partial x_{1} \partial x_{n}}} \\
@@ -147,11 +147,11 @@
 {\frac{\partial^{2} f}{\partial x_{n} \partial x_{1}}} & {\frac{\partial^{2} f}{\partial x_{n} \partial x_{2}}} & {\cdots} & {\frac{\partial^{2} f}{\partial x_{n}^{2}}}
 \end{array}\right]\]</span></p>
 
-<p>So till now I hope you can write the steps how we get Jacobian and Hessian matrix.</p>
+<p>Till now I hope you can understand what Jacobian matrix and Hessian matrix are, and be able to write the steps how we get Jacobian and Hessian matrix.</p>
 
 <h2 id="integral">Integral</h2>
 
-<p>And calculating the integral of the whole matrix is simple as the warm up part.</p>
+<p>Calculating the integral of the whole matrix is as simple as the warm up part.</p>
 
 <p><span  class="math">\[\int A(t) {\rm d}t=\begin{bmatrix}
 \int A_{11}{\rm d}t & \cdots & \int A_{1n}(t){\rm d}t \\
@@ -161,13 +161,13 @@
 
 <h2 id="trace-trick">Trace trick</h2>
 
-<p>In this section, we will teach you how to understand trace trick and as usual, we start with a simple case:</p>
+<p>In this section, we will teach you what trace trick is. As usual, we start with a simple case:</p>
 
 <h3 id="derivative-of-a-quadratic-form">Derivative of a quadratic form</h3>
 
-<p><strong>If you have no idea what a quadratic form is, I suggest you stop reading downwards</strong>, because you have to have a good understanding of it, otherwise you will not realize the reason and the true importance of finding its derivative.</p>
+<p><strong>If you have no idea what a quadratic form is, I suggest you stop reading downwards</strong>, because you have to have a good understanding of it, otherwise you cannot realize why we want to find its derivative.</p>
 
-<p>I also suggest a wonderful book for that foundation, <em>Linear Algebra and its Applications</em>, this is a must-read book for new learners.</p>
+<p>I also suggest a wonderful book for that foundation, <em>Linear Algebra and its Applications</em>, this is a must-read for all new learners.</p>
 
 <p>So here we begin!</p>
 
@@ -181,11 +181,11 @@
 
 <p>And we need to find its first derivative w.r.t <span  class="math">\(\textbf{x}\)</span>. How?</p>
 
-<p>You may think, it is same as finding the gradient of the function, so just expand the equation and find partial derivative.</p>
+<p>You may think, it is same as finding the gradient of the function, so just expand the equation and find the partial derivative.</p>
 
-<p>Yes, it is indeed a good idea, but expanding all the terms is way to tedious and humans are fallible. Is there any other way around?</p>
+<p>Yes, it is indeed a reasonal idea, but expanding all the terms is way to tedious and humans are fallible. Is there any other way to obtain the result without messing the matrix?</p>
 
-<p>Yes, there is. It is called <strong>Trace Trick</strong> and is widely used in finding the derivative of quadratic form function.</p>
+<p>Yes, there is. It is called <strong>&quot;Trace Trick&quot;</strong> and is widely used in finding the derivative of quadratic form function.</p>
 
 <h3 id="trace">Trace</h3>
 
@@ -211,7 +211,7 @@
 
 <p><span  class="math">\[\operatorname{tr}(\textbf{x}^{\top}\textbf{Ax})=\textbf{x}^{\top}\textbf{Ax}\]</span></p>
 
-<p>Now it is the trick time:</p>
+<p>Now it is the trick time, I will write everything here, please read the following equation, and try to understand how I get to the final line:</p>
 
 <p><span  class="math">\[\begin{aligned}
 {\rm d}(\textbf{x}^{\top}\textbf{Ax}) &={\rm d}(\operatorname{tr}(\textbf{x}^{\top}\textbf{Ax})) \\
@@ -225,13 +225,82 @@
 &=(\textbf{x}^{\top}\textbf{A}+\textbf{x}^{\top}\textbf{A}^{\top}){\rm d}\textbf{x}
 \end{aligned}\]</span></p>
 
-<p>We used cyclic permutation law at beginning and at the end twice, and used transpose law only once to transform <span  class="math">\({\rm d}\textbf{x}^{\top}\)</span></p>
+<p>I used cyclic permutation law at beginning and at the end twice, and used transpose law only once to transform <span  class="math">\({\rm d}\textbf{x}^{\top}\)</span>. I installed trace function on first line and uninstall the trace function on the last line, <span  class="math">\({\rm d}\textbf{x}=\lim(\textbf{x}_1-\textbf{x}_2)\in \Bbb{R}^{N}\)</span>, it can be proved that the expression on final line is still a scalar.</p>
 
 <p>And we can get the result <span  class="math">\(\textbf{x}^{\top}\textbf{A}+\textbf{x}^{\top}\textbf{A}^{\top}\)</span> simply in several steps!</p>
 
-<h2 id="differetiate-an-inverse">Differetiate an inverse</h2>
+<h4 id="another-important-law">Another Important Law</h4>
 
-<p><span  class="math">\[\frac{\rm d}{{\rm d}t}(A^{-1})=-A^{-1}\dot{A}A^{-1}\]</span></p>
+<p><span  class="math">\[\frac{\partial}{\partial A}\operatorname{tr}(AB)=B^{\top}\]</span></p>
+
+<p>This law will be used once in the next section.</p>
+
+<h2 id="multivariate-guassian-distribution-maximum-likelihood-estimate">Multivariate Guassian Distribution Maximum Likelihood Estimate</h2>
+
+<p>So in the end, I want to calculate the MLE for a multivariate guassian distribution model with all the things discussed in this post, I hope you can enjoy it as much as I do!</p>
+
+<h4 id="problem">Problem:</h4>
+
+<p>Given <span  class="math">\(N\)</span> samples <span  class="math">\(\{X_1,X_2,X_3,...,X_i\}\)</span> are drawn from a p-variate multivariate guassian distribution model i.i.d:</p>
+
+<p><span  class="math">\[p(x | \mu, \Sigma)=\frac{1}{(2 \pi)^{p / 2}|\Sigma|^{1 / 2}} \exp \left\{-\frac{1}{2}(x-\mu)^{T} \Sigma^{-1}(x-\mu)\right\}\]</span></p>
+
+<p>Find the MLE for <span  class="math">\(\mu\ \Sigma\)</span>.</p>
+
+<h4 id="solution">Solution:</h4>
+
+<p>Define the likelihood function <span  class="math">\(L\)</span>,:</p>
+
+<p><span  class="math">\[f(\mu, \Sigma)=\frac{1}{(2\pi)^{\frac{pN}{2}}|\Sigma|^{\frac{N}{2}}}\exp{\left\{\sum_{i=1}^{N}-\frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu)\right\}}\]</span></p>
+
+<p>In order to simplify the problem, plus due to the fact that the multivariate guassian distribution belongs to the exponential distribution family. Instead straight differentiating the likelihood function, it is better to calculate the logarithmic differentiation of the function.</p>
+
+<p><span  class="math">\[L(\mu, \Sigma)=\ln f(\mu, \Sigma)=\sum_{i=1}^{N}-\frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu)-\frac{pN}{2}\ln 2\pi - \frac{N}{2}\ln|\Sigma|\]</span></p>
+
+<h5 id="find-the-mle-for-mu">Find the MLE for <span  class="math">\[\mu\]</span></h5>
+
+<p>Find <span  class="math">\(\mu\)</span> first, then <span  class="math">\(\Sigma\)</span>, calculate the first-order partial derivative of <span  class="math">\(L(\mu, \Sigma)\)</span> w.r.t <span  class="math">\(\mu\)</span>.</p>
+
+<p><span  class="math">\[\frac{\partial L(\mu, \Sigma)}{\parial \mu} = \sum_{i=1}^n - \partial \frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu) /\partial \mu \]</span></p>
+
+<p>And if we regard <span  class="math">\((X_i-\mu)\)</span> as <span  class="math">\(\textbf{x}\)</span> in the former section, the partial derivative on the right side is simply:</p>
+
+<p><span  class="math">\[\frac{1}{2}\sum_{i=1}^{N} (X_i-\mu)^{\top}\Sigma^{-1}+ (X_i-\mu)^{\top}(\Sigma^{-1})^T\]</span></p>
+
+<p>Since <span  class="math">\(\Sigma\)</span> is the covariance matrix, it is symmetric:</p>
+
+<p>$$\begin{aligned}
+\Sigma<sup>{-1}\Sigma&amp;=(\Sigma\Sigma</sup>{-1})^{\top} <br>
+\Sigma<sup>{-1}\Sigma&amp;=(\Sigma</sup>{-1})<sup>{\top}\Sigma</sup>{\top} <br>
+\Sigma<sup>{-1}&amp;=(\Sigma</sup>{-1})^{\top}
+\end{aligned}$</p>
+
+<p>The partial derivative w.r.t <span  class="math">\(\mu\)</span> in the end:</p>
+
+<p><span  class="math">\[\frac{\partial L(\mu, \Sigma)}{\partial \mu} =\sum_{i=1}^n(X_i-\mu)^{\top}\Sigma^{-1}\]</span></p>
+
+<p>Find its critical point, i.e. the mean of all samples:</p>
+
+<p><span  class="math">\[\hat{\mu}=\frac{1}{N}\sum_{i=1}^{N}X_i\]</span></p>
+
+<h5 id="find-sigma">Find <span  class="math">\[\Sigma\]</span></h5>
+
+<p>Since we get <span  class="math">\(\hat{\mu}\)</span>, and apparently the <span  class="math">\(\mu\)</span> estimate does not rely on <span  class="math">\(\Sigma\)</span>, these two parameters are independent. We can safely subsititute all <span  class="math">\(\mu\)</span> with <span  class="math">\(\hat{\mu}\)</span>.</p>
+
+<p><span  class="math">\[\begin{aligned}
+\frac{\partial L(\hat{\mu}, \Sigma)}{\partial \Sigma^{-1}}&=\partial\left(-\frac{N}{2}\ln|\Sigma|\right)/\partial\Sigma^{-1}-\frac{1}{2}\sum_{i=1}^{N}(X_i-\hat{\mu})(X_i-\hat{\mu})^{\top} \\
+&=\partial (\frac{N}{2}\ln|\Sigma^{-1}|)/\partial \Sigma^{-1} -\frac{1}{2}\sum_{i=1}^{N}(X_i-\hat{\mu})(X_i-\hat{\mu})^{\top} \\
+&=\frac{N}{2\Sigma^{-1}}-\frac{1}{2}\sum_{i=1}^{N}(X_i-\hat{\mu})(X_i-\hat{\mu})^{\top} \\
+&=\frac{N}{2}\Sigma-\frac{1}{2}\sum_{i=1}^{N}(X_i-\hat{\mu})(X_i-\hat{\mu})^{\top}
+\end{aligned} \]</span></p>
+
+<p>The last term on the first line was obtained by first using the cyclic permutaion then using the extra law in the former section.</p>
+
+<p><span  class="math">\[\frac{1}{2} \sum_{n}\left(x_{n}-\mu\right)^{\top} \Sigma^{-1}\left(x_{n}-\mu\right)=\frac{1}{2} \sum_{i=1}^{N} \operatorname{tr}\left[\left(X_{i}-\hat{\mu}\right)\left(X_{i}-\hat{\mu}\right)^{\top} \Sigma^{-1}\right]\]</span></p>
+
+<p>Then using the extra law.</p>
+
+<p><span  class="math">\[\frac{\partial}{\partial\Sigma^{-1}}(\frac{1}{2} \sum_{i=1}^{N} \operatorname{tr}\left[\left(X_{i}-\hat{\mu}\right)\left(X_{i}-\hat{\mu}\right)^{\top} \Sigma^{-1}\right])=\frac{1}{2}\sum_{i=1}^{N}(X_i-\hat{\mu})(X_i-\hat{\mu})^{\top}\]</span></p>
   
 
 
