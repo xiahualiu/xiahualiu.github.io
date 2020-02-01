@@ -197,7 +197,9 @@
 
 &lt;p&gt;In order to simplify the problem, plus due to the fact that the multivariate guassian distribution belongs to the exponential distribution family. Instead straight differentiating the likelihood function, it is better to calculate the logarithmic differentiation of the function.&lt;/p&gt;
 
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[L(\mu, \Sigma)=\ln f(\mu, \Sigma)=\sum_{i=1}^{N}-\frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu)-\frac{pN}{2}\ln 2\pi - \frac{N}{2}\ln|\Sigma|\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\begin{aligned}
+&amp; L(\mu, \Sigma)=\ln f(\mu, \Sigma)= \\
+&amp; \sum_{i=1}^{N}-\frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu)-\frac{pN}{2}\ln 2\pi - \frac{N}{2}\ln|\Sigma|\end{aligned}\]&lt;/span&gt;&lt;/p&gt;
 
 &lt;h5 id=&#34;find-the-mle-for-the-the-mean&#34;&gt;Find the MLE for the the mean&lt;/h5&gt;
 
@@ -240,9 +242,12 @@
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{1}{2} \sum_{n}\left(x_{n}-\mu\right)^{\top} \Sigma^{-1}\left(x_{n}-\mu\right)=\frac{1}{2} \sum_{i=1}^{N} \operatorname{tr}\left[\left(X_{i}-\hat{\mu}\right)\left(X_{i}-\hat{\mu}\right)^{\top} \Sigma^{-1}\right]\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Then using the extra law.&lt;/p&gt;
+&lt;p&gt;Then the extra law was used.&lt;/p&gt;
 
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{\partial}{\partial\Sigma^{-1}}(\frac{1}{2} \sum_{i=1}^{N} \operatorname{tr}\left[\left(X_{i}-\hat{\mu}\right)\left(X_{i}-\hat{\mu}\right)^{\top} \Sigma^{-1}\right])=\frac{1}{2}\sum_{i=1}^{N}(X_i-\hat{\mu})(X_i-\hat{\mu})^{\top}\]&lt;/span&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\begin{aligned}
+&amp; \frac{\partial}{\partial\Sigma^{-1}}(\frac{1}{2} \sum_{i=1}^{N} \operatorname{tr}\left[\left(X_{i}-\hat{\mu}\right)\left(X_{i}-\hat{\mu}\right)^{\top} \Sigma^{-1}\right]) \\
+= &amp; \frac{1}{2}\sum_{i=1}^{N}(X_i-\hat{\mu})(X_i-\hat{\mu})^{\top}
+\end{aligned}\]&lt;/span&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>LRTA* AND-OR ALPHA-BETA algorithms</title>
