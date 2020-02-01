@@ -237,7 +237,7 @@
 
 <h2 id="multivariate-guassian-distribution-maximum-likelihood-estimate">Multivariate Guassian Distribution Maximum Likelihood Estimate</h2>
 
-<p>So in the end, I want to calculate the MLE for a multivariate guassian distribution model with all the things discussed in this post, I hope you can enjoy it as much as I do!</p>
+<p>In the end, I want to show you how to calculate the MLE for a multivariate guassian distribution model with all the stuff discussed in this post, I really hope you can enjoy it as much as I do!</p>
 
 <h4 id="problem">Problem:</h4>
 
@@ -249,7 +249,7 @@
 
 <h4 id="solution">Solution:</h4>
 
-<p>Define the likelihood function <span  class="math">\(L\)</span>,:</p>
+<p>Define the likelihood function <span  class="math">\(L\)</span>:</p>
 
 <p><span  class="math">\[f(\mu, \Sigma)=\frac{1}{(2\pi)^{\frac{pN}{2}}|\Sigma|^{\frac{N}{2}}}\exp{\left\{\sum_{i=1}^{N}-\frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu)\right\}}\]</span></p>
 
@@ -257,11 +257,11 @@
 
 <p><span  class="math">\[L(\mu, \Sigma)=\ln f(\mu, \Sigma)=\sum_{i=1}^{N}-\frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu)-\frac{pN}{2}\ln 2\pi - \frac{N}{2}\ln|\Sigma|\]</span></p>
 
-<h5 id="find-the-mle-for-mu">Find the MLE for <span  class="math">\[\mu\]</span></h5>
+<h5 id="find-the-mle-for-the-the-mean">Find the MLE for the the mean</h5>
 
 <p>Find <span  class="math">\(\mu\)</span> first, then <span  class="math">\(\Sigma\)</span>, calculate the first-order partial derivative of <span  class="math">\(L(\mu, \Sigma)\)</span> w.r.t <span  class="math">\(\mu\)</span>.</p>
 
-<p><span  class="math">\[\frac{\partial L(\mu, \Sigma)}{\parial \mu} = \sum_{i=1}^n - \partial \frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu) /\partial \mu \]</span></p>
+<p><span  class="math">\[\frac{\partial L(\mu, \Sigma)}{\partial \mu} = \sum_{i=1}^n - \partial \frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu) /\partial \mu \]</span></p>
 
 <p>And if we regard <span  class="math">\((X_i-\mu)\)</span> as <span  class="math">\(\textbf{x}\)</span> in the former section, the partial derivative on the right side is simply:</p>
 
@@ -269,13 +269,13 @@
 
 <p>Since <span  class="math">\(\Sigma\)</span> is the covariance matrix, it is symmetric:</p>
 
-<p>$$\begin{aligned}
-\Sigma<sup>{-1}\Sigma&amp;=(\Sigma\Sigma</sup>{-1})^{\top} <br>
-\Sigma<sup>{-1}\Sigma&amp;=(\Sigma</sup>{-1})<sup>{\top}\Sigma</sup>{\top} <br>
-\Sigma<sup>{-1}&amp;=(\Sigma</sup>{-1})^{\top}
-\end{aligned}$</p>
+<p><span  class="math">\[\begin{aligned}
+\Sigma^{-1}\Sigma&=(\Sigma\Sigma^{-1})^{\top} \\
+\Sigma^{-1}\Sigma&=(\Sigma^{-1})^{\top}\Sigma^{\top} \\
+\Sigma^{-1}&=(\Sigma^{-1})^{\top}
+\end{aligned}\]</span></p>
 
-<p>The partial derivative w.r.t <span  class="math">\(\mu\)</span> in the end:</p>
+<p>The partial derivative w.r.t <span  class="math">\(\mu\)</span> in the conclusion:</p>
 
 <p><span  class="math">\[\frac{\partial L(\mu, \Sigma)}{\partial \mu} =\sum_{i=1}^n(X_i-\mu)^{\top}\Sigma^{-1}\]</span></p>
 
@@ -283,9 +283,9 @@
 
 <p><span  class="math">\[\hat{\mu}=\frac{1}{N}\sum_{i=1}^{N}X_i\]</span></p>
 
-<h5 id="find-sigma">Find <span  class="math">\[\Sigma\]</span></h5>
+<h5 id="find-the-mle-for-the-covariance-matrix">Find the MLE for the covariance matrix</h5>
 
-<p>Since we get <span  class="math">\(\hat{\mu}\)</span>, and apparently the <span  class="math">\(\mu\)</span> estimate does not rely on <span  class="math">\(\Sigma\)</span>, these two parameters are independent. We can safely subsititute all <span  class="math">\(\mu\)</span> with <span  class="math">\(\hat{\mu}\)</span>.</p>
+<p>Since we get <span  class="math">\(\hat{\mu}\)</span>, and apparently the <span  class="math">\(\mu\)</span> estimate does not rely on <span  class="math">\(\Sigma\)</span>, these two parameters are independent. We can safely substitute all <span  class="math">\(\mu\)</span> with <span  class="math">\(\hat{\mu}\)</span>.</p>
 
 <p><span  class="math">\[\begin{aligned}
 \frac{\partial L(\hat{\mu}, \Sigma)}{\partial \Sigma^{-1}}&=\partial\left(-\frac{N}{2}\ln|\Sigma|\right)/\partial\Sigma^{-1}-\frac{1}{2}\sum_{i=1}^{N}(X_i-\hat{\mu})(X_i-\hat{\mu})^{\top} \\

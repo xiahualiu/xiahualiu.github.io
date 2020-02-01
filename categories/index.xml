@@ -179,7 +179,7 @@
 
 &lt;h2 id=&#34;multivariate-guassian-distribution-maximum-likelihood-estimate&#34;&gt;Multivariate Guassian Distribution Maximum Likelihood Estimate&lt;/h2&gt;
 
-&lt;p&gt;So in the end, I want to calculate the MLE for a multivariate guassian distribution model with all the things discussed in this post, I hope you can enjoy it as much as I do!&lt;/p&gt;
+&lt;p&gt;In the end, I want to show you how to calculate the MLE for a multivariate guassian distribution model with all the stuff discussed in this post, I really hope you can enjoy it as much as I do!&lt;/p&gt;
 
 &lt;h4 id=&#34;problem&#34;&gt;Problem:&lt;/h4&gt;
 
@@ -191,7 +191,7 @@
 
 &lt;h4 id=&#34;solution&#34;&gt;Solution:&lt;/h4&gt;
 
-&lt;p&gt;Define the likelihood function &lt;span  class=&#34;math&#34;&gt;\(L\)&lt;/span&gt;,:&lt;/p&gt;
+&lt;p&gt;Define the likelihood function &lt;span  class=&#34;math&#34;&gt;\(L\)&lt;/span&gt;:&lt;/p&gt;
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[f(\mu, \Sigma)=\frac{1}{(2\pi)^{\frac{pN}{2}}|\Sigma|^{\frac{N}{2}}}\exp{\left\{\sum_{i=1}^{N}-\frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu)\right\}}\]&lt;/span&gt;&lt;/p&gt;
 
@@ -199,11 +199,11 @@
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[L(\mu, \Sigma)=\ln f(\mu, \Sigma)=\sum_{i=1}^{N}-\frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu)-\frac{pN}{2}\ln 2\pi - \frac{N}{2}\ln|\Sigma|\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;h5 id=&#34;find-the-mle-for-mu&#34;&gt;Find the MLE for &lt;span  class=&#34;math&#34;&gt;\[\mu\]&lt;/span&gt;&lt;/h5&gt;
+&lt;h5 id=&#34;find-the-mle-for-the-the-mean&#34;&gt;Find the MLE for the the mean&lt;/h5&gt;
 
 &lt;p&gt;Find &lt;span  class=&#34;math&#34;&gt;\(\mu\)&lt;/span&gt; first, then &lt;span  class=&#34;math&#34;&gt;\(\Sigma\)&lt;/span&gt;, calculate the first-order partial derivative of &lt;span  class=&#34;math&#34;&gt;\(L(\mu, \Sigma)\)&lt;/span&gt; w.r.t &lt;span  class=&#34;math&#34;&gt;\(\mu\)&lt;/span&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{\partial L(\mu, \Sigma)}{\parial \mu} = \sum_{i=1}^n - \partial \frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu) /\partial \mu \]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{\partial L(\mu, \Sigma)}{\partial \mu} = \sum_{i=1}^n - \partial \frac{1}{2}(X_i-\mu)^{\top}\Sigma^{-1}(X_i-\mu) /\partial \mu \]&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;And if we regard &lt;span  class=&#34;math&#34;&gt;\((X_i-\mu)\)&lt;/span&gt; as &lt;span  class=&#34;math&#34;&gt;\(\textbf{x}\)&lt;/span&gt; in the former section, the partial derivative on the right side is simply:&lt;/p&gt;
 
@@ -211,13 +211,13 @@
 
 &lt;p&gt;Since &lt;span  class=&#34;math&#34;&gt;\(\Sigma\)&lt;/span&gt; is the covariance matrix, it is symmetric:&lt;/p&gt;
 
-&lt;p&gt;$$\begin{aligned}
-\Sigma&lt;sup&gt;{-1}\Sigma&amp;amp;=(\Sigma\Sigma&lt;/sup&gt;{-1})^{\top} &lt;br&gt;
-\Sigma&lt;sup&gt;{-1}\Sigma&amp;amp;=(\Sigma&lt;/sup&gt;{-1})&lt;sup&gt;{\top}\Sigma&lt;/sup&gt;{\top} &lt;br&gt;
-\Sigma&lt;sup&gt;{-1}&amp;amp;=(\Sigma&lt;/sup&gt;{-1})^{\top}
-\end{aligned}$&lt;/p&gt;
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\begin{aligned}
+\Sigma^{-1}\Sigma&amp;=(\Sigma\Sigma^{-1})^{\top} \\
+\Sigma^{-1}\Sigma&amp;=(\Sigma^{-1})^{\top}\Sigma^{\top} \\
+\Sigma^{-1}&amp;=(\Sigma^{-1})^{\top}
+\end{aligned}\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;The partial derivative w.r.t &lt;span  class=&#34;math&#34;&gt;\(\mu\)&lt;/span&gt; in the end:&lt;/p&gt;
+&lt;p&gt;The partial derivative w.r.t &lt;span  class=&#34;math&#34;&gt;\(\mu\)&lt;/span&gt; in the conclusion:&lt;/p&gt;
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\frac{\partial L(\mu, \Sigma)}{\partial \mu} =\sum_{i=1}^n(X_i-\mu)^{\top}\Sigma^{-1}\]&lt;/span&gt;&lt;/p&gt;
 
@@ -225,9 +225,9 @@
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\hat{\mu}=\frac{1}{N}\sum_{i=1}^{N}X_i\]&lt;/span&gt;&lt;/p&gt;
 
-&lt;h5 id=&#34;find-sigma&#34;&gt;Find &lt;span  class=&#34;math&#34;&gt;\[\Sigma\]&lt;/span&gt;&lt;/h5&gt;
+&lt;h5 id=&#34;find-the-mle-for-the-covariance-matrix&#34;&gt;Find the MLE for the covariance matrix&lt;/h5&gt;
 
-&lt;p&gt;Since we get &lt;span  class=&#34;math&#34;&gt;\(\hat{\mu}\)&lt;/span&gt;, and apparently the &lt;span  class=&#34;math&#34;&gt;\(\mu\)&lt;/span&gt; estimate does not rely on &lt;span  class=&#34;math&#34;&gt;\(\Sigma\)&lt;/span&gt;, these two parameters are independent. We can safely subsititute all &lt;span  class=&#34;math&#34;&gt;\(\mu\)&lt;/span&gt; with &lt;span  class=&#34;math&#34;&gt;\(\hat{\mu}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Since we get &lt;span  class=&#34;math&#34;&gt;\(\hat{\mu}\)&lt;/span&gt;, and apparently the &lt;span  class=&#34;math&#34;&gt;\(\mu\)&lt;/span&gt; estimate does not rely on &lt;span  class=&#34;math&#34;&gt;\(\Sigma\)&lt;/span&gt;, these two parameters are independent. We can safely substitute all &lt;span  class=&#34;math&#34;&gt;\(\mu\)&lt;/span&gt; with &lt;span  class=&#34;math&#34;&gt;\(\hat{\mu}\)&lt;/span&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\begin{aligned}
 \frac{\partial L(\hat{\mu}, \Sigma)}{\partial \Sigma^{-1}}&amp;=\partial\left(-\frac{N}{2}\ln|\Sigma|\right)/\partial\Sigma^{-1}-\frac{1}{2}\sum_{i=1}^{N}(X_i-\hat{\mu})(X_i-\hat{\mu})^{\top} \\
