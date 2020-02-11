@@ -6,8 +6,148 @@
     <link>https://xiahualiu.github.io/</link>
     <description>Recent content on Xiahua</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 30 Jan 2020 20:17:54 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 11 Feb 2020 13:17:03 -0500</lastBuildDate>
     <atom:link href="https://xiahualiu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 VS Code 编辑并预览 LaTeX 文件</title>
+      <link>https://xiahualiu.github.io/posts/2020-02-11-tex-on-vscode/</link>
+      <pubDate>Tue, 11 Feb 2020 13:17:03 -0500</pubDate>
+      <guid>https://xiahualiu.github.io/posts/2020-02-11-tex-on-vscode/</guid>
+      <description>&lt;p&gt;今天这篇博文会介绍如何使用 Visual Studio Code 来编辑和预览 LaTeX 论文。&lt;/p&gt;
+&lt;h2 id=&#34;heading&#34;&gt;前置需求&lt;/h2&gt;
+&lt;p&gt;在进入教程之前，首先要确认你安装了如下的程序：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TeXlive 2019&lt;/li&gt;
+&lt;li&gt;Visual Studio Code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以通过以下 CMD 命令确认以上程序已经安装，（按 Win+R 组合键唤起运行窗口输入 cmd 即可打开命令行界面）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;xelatex -v
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果显示 &lt;code&gt;not recognized&lt;/code&gt; 或者找不到，就代表你没有安装好 TeXlive，怎么安装 TeXlive 不在这里介绍了。&lt;/p&gt;
+&lt;h2 id=&#34;heading-1&#34;&gt;第一步&lt;/h2&gt;
+&lt;p&gt;确保了你安装好了这两个软件后就可以进入下一步了。&lt;/p&gt;
+&lt;p&gt;第一步我们要打开安装后的 VS Code，在左侧的侧边栏选择插件选项，就是小爬虫下面哪一个选项，四个小方块，然后在插件搜索栏里面输入 latex。&lt;/p&gt;
+&lt;p&gt;安装第一个名字为 &amp;ldquo;LaTeX Workshop&amp;rdquo; 的插件，安装完成后按照指示 &amp;ldquo;Reload&amp;rdquo; 就可以了。&lt;/p&gt;
+&lt;h2 id=&#34;heading-2&#34;&gt;第二步&lt;/h2&gt;
+&lt;p&gt;确认了第一步完成后，在插件栏里面能够找到新安装的 &amp;ldquo;LaTeX Workshop&amp;rdquo; 插件就可以了。&lt;/p&gt;
+&lt;p&gt;直到现在我们就可以利用这个插件来进行英文论文的书写了，但是还不能编译中文 tex 文件。为了能够顺利的编译中文，我们需要修改默认编译链使用 XeLaTeX 编译器。&lt;/p&gt;
+&lt;p&gt;下一步比较麻烦，首先打开任意一个文件夹，然后点击文件路径栏，在栏里面输入：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;%APPDATA%\Code\User\
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后回车，跳转到设置文件夹，找到 &lt;code&gt;settings.json&lt;/code&gt; 文件 (如果没有就自己创建一个)，使用我们安装的 VS Code 打开，然后用以下的内容覆盖：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;latex-workshop.latex.tools&amp;#34;&lt;/span&gt;: [
+        {
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xelatex-no-pdf&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;command&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xelatex&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;args&amp;#34;&lt;/span&gt;: [
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-no-pdf&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-interaction=nonstopmode&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-file-line-error&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%DOC%&amp;#34;&lt;/span&gt;
+            ]
+        },
+        {
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xelatex-pdf&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;command&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xelatex&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;args&amp;#34;&lt;/span&gt;: [
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-synctex=1&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-interaction=nonstopmode&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-file-line-error&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%DOC%&amp;#34;&lt;/span&gt;
+            ]
+
+        },
+        {
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;latexmk&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;command&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;latexmk&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;args&amp;#34;&lt;/span&gt;: [
+              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-synctex=1&amp;#34;&lt;/span&gt;,
+              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-interaction=nonstopmode&amp;#34;&lt;/span&gt;,
+              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-file-line-error&amp;#34;&lt;/span&gt;,
+              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-pdf&amp;#34;&lt;/span&gt;,
+              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-outdir=%OUTDIR%&amp;#34;&lt;/span&gt;,
+              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%DOC%&amp;#34;&lt;/span&gt;
+            ],
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;env&amp;#34;&lt;/span&gt;: {}
+          },
+          {
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pdflatex&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;command&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pdflatex&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;args&amp;#34;&lt;/span&gt;: [
+              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-synctex=1&amp;#34;&lt;/span&gt;,
+              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-interaction=nonstopmode&amp;#34;&lt;/span&gt;,
+              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-file-line-error&amp;#34;&lt;/span&gt;,
+              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%DOC%&amp;#34;&lt;/span&gt;
+            ],
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;env&amp;#34;&lt;/span&gt;: {}
+          },
+          {
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bibtex&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;command&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bibtex&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;args&amp;#34;&lt;/span&gt;: [
+              &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%DOCFILE%&amp;#34;&lt;/span&gt;
+            ],
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;env&amp;#34;&lt;/span&gt;: {}
+          }
+    ],
+    &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;latex-workshop.latex.recipes&amp;#34;&lt;/span&gt;:[
+        {
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xelatex-single-run&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;tools&amp;#34;&lt;/span&gt;: [
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xelatex-pdf&amp;#34;&lt;/span&gt;,
+            ]
+        },
+        {
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xelatex ➞ bibtex ➞ xelatex × 2&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;tools&amp;#34;&lt;/span&gt;: [
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xelatex-no-pdf&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bibtex&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xelatex-no-pdf&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;xelatex-pdf&amp;#34;&lt;/span&gt;
+            ]
+        },
+        {
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;latexmk 🔃&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;tools&amp;#34;&lt;/span&gt;: [
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;latexmk&amp;#34;&lt;/span&gt;
+            ]
+        },
+        {
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;latexmk (latexmkrc)&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;tools&amp;#34;&lt;/span&gt;: [
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;latexmk_rconly&amp;#34;&lt;/span&gt;
+            ]
+        },
+        {
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;latexmk (lualatex)&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;tools&amp;#34;&lt;/span&gt;: [
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;lualatexmk&amp;#34;&lt;/span&gt;
+            ]
+        },
+        {
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pdflatex ➞ bibtex ➞ pdflatex × 2&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;tools&amp;#34;&lt;/span&gt;: [
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pdflatex&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bibtex&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pdflatex&amp;#34;&lt;/span&gt;,
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pdflatex&amp;#34;&lt;/span&gt;
+            ]
+        },
+        {
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Compile Rnw files&amp;#34;&lt;/span&gt;,
+            &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;tools&amp;#34;&lt;/span&gt;: [
+                &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rnw2pdf&amp;#34;&lt;/span&gt;
+            ]
+        }
+    ]
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;有点长哈，是我自己写的，一定要把这个原封不动的写入 &lt;code&gt;settings.json&lt;/code&gt; 文件。拷贝覆盖了之后，保存，重启 VS Code 就可以了。&lt;/p&gt;
+&lt;p&gt;至此我们已经完成了所有的设置，下一步就是使用啦！&lt;/p&gt;
+&lt;h2 id=&#34;heading-3&#34;&gt;第三步&lt;/h2&gt;
+&lt;p&gt;Visual Studio Code 是一款十分强大的通用编辑器，基本上所有的的文件类型都可以编辑，而且本身由微软出品，更新十分快，非常稳定，是 Windows 平台首选的编辑器。&lt;/p&gt;
+&lt;p&gt;我们首先要选择打开文件夹，然后选择论文的根目录，这样我们就可以在左边的文件浏览器看到所有的文件啦，选择 &lt;code&gt;*.tex&lt;/code&gt; 结尾的文件打开，左边的侧边栏就会多出一个 TeX 选项，这就是我们新安装的插件啦。进入这个选项可以看到很多相关的命令，其中默认的编译链可以适用于中文论文的编译。选择 &amp;ldquo;View LaTeX PDF - View in VSCode tab&amp;rdquo; 就可在侧边栏预览 PDF 啦，注意只有编译一遍才有预览界面哦。&lt;/p&gt;
+&lt;h3 id=&#34;heading-4&#34;&gt;如何编译&lt;/h3&gt;
+&lt;p&gt;选择 &amp;ldquo;Build LaTeX project&amp;rdquo; 进入，再点击下面含有 &amp;ldquo;xelatex&amp;rdquo; 的配方就可以啦，一共有两个，第一个是当你保存时自动进行的 &amp;ldquo;xelatex-single-run&amp;rdquo; 只编译一遍，但是不会更新 bibtex 的内容，另一个是完整的编译过程&amp;quot;xelatex-&amp;gt;bibtex-&amp;gt;xelatex x 2&amp;rdquo;，我们需要&lt;strong&gt;在第一次打开&lt;/strong&gt;项目的时候选择这个进行一遍完整编译，它会更新 bib 的内容，但是太慢。另外当你更新了 bib 文件的时候也要用这个完整的编译链完成引用的更新哦，不然会出错的。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Matrix Calculus</title>
       <link>https://xiahualiu.github.io/posts/2020-01-30-matrix-multiplication/</link>
