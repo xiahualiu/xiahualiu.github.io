@@ -19,7 +19,7 @@
 
 
 <meta name="generator" content="Hugo 0.78.0-DEV" />
-  <title>Raspi-Powerchair - Dev Journal One | Xiahua</title>
+  <title>Raspi-Powerchair - 1st Dev Journal | Xiahua</title>
   <link rel="canonical" href="/posts/raspi-wheel-dev1/">
 
 
@@ -70,7 +70,7 @@
   <article>
     <header class="Heading">
   <h2 class="Heading-title">
-    <a class="Heading-link u-clickable" href="/posts/raspi-wheel-dev1/" rel="bookmark">Raspi-Powerchair - Dev Journal One</a>
+    <a class="Heading-link u-clickable" href="/posts/raspi-wheel-dev1/" rel="bookmark">Raspi-Powerchair - 1st Dev Journal</a>
   </h2>
   
     <time datetime="2020-11-12T00:00:00Z">12 November, 2020</time>
@@ -130,7 +130,82 @@
 </tbody>
 </table>
 <h3 id="messages">Messages</h3>
-<p><img src="/img/raspi-wheel-dev1/protocol_manual.svg" alt="Protocol Manual"></p>
+<h4 id="power-on">Power On</h4>
+<ul>
+<li>Controller sent: <code>0x52</code> <code>0xAD</code>.</li>
+<li>Motor replied: <code>0x72</code> <code>0x10</code> <code>0x00</code> <code>0x7D</code>.</li>
+</ul>
+<h4 id="standard-messaging-every-5ms-interval">Standard Messaging: (Every 5ms interval)</h4>
+<ul>
+<li>Controller sent: <code>0x4A</code> <code>0x10</code> <code>SP</code> <code>FB</code> <code>LR</code> <code>CS</code>.</li>
+<li>Motor replied: <code>0xFE</code> <code>0x54</code> <code>EB</code> <code>0xA0</code> <code>BC</code> <code>UN</code> <code>CS</code>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Symbol</th>
+<th style="text-align:left">Name</th>
+<th style="text-align:right">Data Type</th>
+<th style="text-align:center">Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">SP</td>
+<td style="text-align:left">Speed Level</td>
+<td style="text-align:right">Unsigned char</td>
+<td style="text-align:center"><code>0x00</code>-<code>0x0E</code></td>
+</tr>
+<tr>
+<td style="text-align:center">FB</td>
+<td style="text-align:left">Go Forward/Backward</td>
+<td style="text-align:right">Signed char</td>
+<td style="text-align:center"><code>0x9C</code>-<code>0x64</code></td>
+</tr>
+<tr>
+<td style="text-align:center">LR</td>
+<td style="text-align:left">Go Left/Right</td>
+<td style="text-align:right">Signed char</td>
+<td style="text-align:center"><code>0x9C</code>-<code>0x64</code></td>
+</tr>
+<tr>
+<td style="text-align:center">EB</td>
+<td style="text-align:left">Error Byte</td>
+<td style="text-align:right">Raw</td>
+<td style="text-align:center"><code>0x82</code>: Error</td>
+</tr>
+<tr>
+<td style="text-align:center">EB</td>
+<td style="text-align:left">Error Byte</td>
+<td style="text-align:right">Raw</td>
+<td style="text-align:center"><code>0x02</code>: Good</td>
+</tr>
+<tr>
+<td style="text-align:center">BC</td>
+<td style="text-align:left">Battery Charge</td>
+<td style="text-align:right">Unknown</td>
+<td style="text-align:center">Unknown</td>
+</tr>
+<tr>
+<td style="text-align:center">UN</td>
+<td style="text-align:left">Unknown</td>
+<td style="text-align:right">Unknown</td>
+<td style="text-align:center">Unknown</td>
+</tr>
+<tr>
+<td style="text-align:center">CS</td>
+<td style="text-align:left">Check Sum Byte</td>
+<td style="text-align:right">Raw</td>
+<td style="text-align:center"><code>0x00</code>-<code>0xFF</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="check-sum-byte-calculation-rule">Check Sum Byte Calculation Rule</h4>
+<ol>
+<li>Transform all preceeding bytes into signed char type.</li>
+<li>Sum all signed chars.</li>
+<li>Do a bitwise negation(~) on the sum to get <code>CS</code>.</li>
+</ol>
     
 
 

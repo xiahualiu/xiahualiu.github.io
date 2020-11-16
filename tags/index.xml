@@ -8,7 +8,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <atom:link href="https://xiahualiu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Raspi-Powerchair - Dev Journal One</title>
+      <title>Raspi-Powerchair - 1st Dev Journal</title>
       <link>https://xiahualiu.github.io/posts/raspi-wheel-dev1/</link>
       <pubDate>Thu, 12 Nov 2020 00:00:00 +0000</pubDate>
       <guid>https://xiahualiu.github.io/posts/raspi-wheel-dev1/</guid>
@@ -66,7 +66,82 @@
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h3 id=&#34;messages&#34;&gt;Messages&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&#34;https://xiahualiu.github.io/img/raspi-wheel-dev1/protocol_manual.svg&#34; alt=&#34;Protocol Manual&#34;&gt;&lt;/p&gt;</description>
+&lt;h4 id=&#34;power-on&#34;&gt;Power On&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Controller sent: &lt;code&gt;0x52&lt;/code&gt; &lt;code&gt;0xAD&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Motor replied: &lt;code&gt;0x72&lt;/code&gt; &lt;code&gt;0x10&lt;/code&gt; &lt;code&gt;0x00&lt;/code&gt; &lt;code&gt;0x7D&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;standard-messaging-every-5ms-interval&#34;&gt;Standard Messaging: (Every 5ms interval)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Controller sent: &lt;code&gt;0x4A&lt;/code&gt; &lt;code&gt;0x10&lt;/code&gt; &lt;code&gt;SP&lt;/code&gt; &lt;code&gt;FB&lt;/code&gt; &lt;code&gt;LR&lt;/code&gt; &lt;code&gt;CS&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Motor replied: &lt;code&gt;0xFE&lt;/code&gt; &lt;code&gt;0x54&lt;/code&gt; &lt;code&gt;EB&lt;/code&gt; &lt;code&gt;0xA0&lt;/code&gt; &lt;code&gt;BC&lt;/code&gt; &lt;code&gt;UN&lt;/code&gt; &lt;code&gt;CS&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;Symbol&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Name&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;Data Type&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;Range&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;SP&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Speed Level&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;Unsigned char&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;code&gt;0x00&lt;/code&gt;-&lt;code&gt;0x0E&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;FB&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Go Forward/Backward&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;Signed char&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;code&gt;0x9C&lt;/code&gt;-&lt;code&gt;0x64&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;LR&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Go Left/Right&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;Signed char&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;code&gt;0x9C&lt;/code&gt;-&lt;code&gt;0x64&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;EB&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Error Byte&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;Raw&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;code&gt;0x82&lt;/code&gt;: Error&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;EB&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Error Byte&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;Raw&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;code&gt;0x02&lt;/code&gt;: Good&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;BC&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Battery Charge&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;Unknown&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Unknown&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;UN&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Unknown&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;Unknown&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Unknown&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;CS&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Check Sum Byte&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;Raw&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&lt;code&gt;0x00&lt;/code&gt;-&lt;code&gt;0xFF&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;check-sum-byte-calculation-rule&#34;&gt;Check Sum Byte Calculation Rule&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Transform all preceeding bytes into signed char type.&lt;/li&gt;
+&lt;li&gt;Sum all signed chars.&lt;/li&gt;
+&lt;li&gt;Do a bitwise negation(~) on the sum to get &lt;code&gt;CS&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
   </channel>
 </rss>
