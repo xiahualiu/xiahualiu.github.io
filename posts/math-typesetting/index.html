@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="" xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    
+    
+    <title>Xiahua | Math Typesetting</title>
+    <style type="text/css">
+  body {
+    font-family: monospace,sans-serif;
+  }
+</style>
+
+</head>
+<body><pre> __  __   __   ______   __  __   __  __   ______    
+/\_\_\_\ /\ \ /\  __ \ /\ \_\ \ /\ \/\ \ /\  __ \   
+\/_/\_\/_\ \ \\ \  __ \\ \  __ \\ \ \_\ \\ \  __ \  
+  /\_\/\_\\ \_\\ \_\ \_\\ \_\ \_\\ \_____\\ \_\ \_\ 
+  \/_/\/_/ \/_/ \/_/\/_/ \/_/\/_/ \/_____/ \/_/\/_/</pre>
+<h1>Math Typesetting</h1>
+
+
+  
+  <p>by Hugo Authors
+
+
+  
+  
+
+  <p>Mar 8, 2019</p>
+
+
+
+
+<p>Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.</p>
+<p>In this example we will be using <a href="https://katex.org/">KaTeX</a></p>
+<ul>
+<li>Create a partial under <code>/layouts/partials/math.html</code></li>
+<li>Within this partial reference the <a href="https://katex.org/docs/autorender.html">Auto-render Extension</a> or host these scripts locally.</li>
+<li>Include the partial in your templates like so:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">{{</span> <span style="color:#66d9ef">if</span> or .Params.math .Site.Params.math <span style="color:#f92672">}}</span>
+<span style="color:#f92672">{{</span> partial <span style="color:#e6db74">&#34;math.html&#34;</span> . <span style="color:#f92672">}}</span>
+<span style="color:#f92672">{{</span> end <span style="color:#f92672">}}</span>
+</code></pre></div><ul>
+<li>To enable KaTex globally set the parameter <code>math</code> to <code>true</code> in a project&rsquo;s configuration</li>
+<li>To enable KaTex on a per page basis include the parameter <code>math: true</code> in content files</li>
+</ul>
+<p><strong>Note:</strong> Use the online reference of <a href="https://katex.org/docs/supported.html">Supported TeX Functions</a></p>
+
+<h3 id="examples">Examples</h3>
+
+<p>Block math:
+$$
+\varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
+$$</p>
+
+
+
+
+
+
+<p><a name="nav-menu" id="nav-menu"><strong>Site menu</strong></a></p>
+
+<ul>
+    
+</ul>
+
+<p><a href="#">Back to top</a></p>
+</body>
+</html>
