@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="" xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    
+    
+    <title>Xiahua | Raspi-Powerchair - 1st Dev Journal</title>
+    <style type="text/css">
+  body {
+    font-family: monospace,sans-serif;
+  }
+</style>
+
+</head>
+<body><pre> __  __   __   ______   __  __   __  __   ______    
+/\_\_\_\ /\ \ /\  __ \ /\ \_\ \ /\ \/\ \ /\  __ \   
+\/_/\_\/_\ \ \\ \  __ \\ \  __ \\ \ \_\ \\ \  __ \  
+  /\_\/\_\\ \_\\ \_\ \_\\ \_\ \_\\ \_____\\ \_\ \_\ 
+  \/_/\/_/ \/_/ \/_/\/_/ \/_/\/_/ \/_____/ \/_/\/_/</pre>
+<h1>Raspi-Powerchair - 1st Dev Journal</h1>
+
+
+  </p>
+
+
+
+  
+  
+
+  <p>Nov 12, 2020</p>
+
+
+
+
+<p>This is the first developper journal of my project, using a Raspberry Pi 4B to control an electric wheelchair. This project is partly funded by the IRAS lab at University of Cincinnati and by my own pocket. The project can be found at my GitHub repository <a href="https://github.com/xiahualiu/raspi-powerchair">raspi-powerchair</a>.</p>
+<p>For the first week I have measured the bus signal using a logic analyser, after serveral days I sucessfully extracted all control commands from the communication bus and everything went pretty well.</p>
+<p><img src="/img/raspi-wheel-dev1/wire_connection.jpg" alt="Black line is GND, white line is Tx/Rx, yellow line is unused."></p>
+<p><img src="/img/raspi-wheel-dev1/uart_wave.png" alt="Read the wave from a logic analyser with proper decode setting."></p>
+<p>It used a very common communication protocol, UART. However, it is not very common to see this wire configuration, it only uses a single line to transmit and receive data at the same time. Someone called it one wire UART, docs about it aren&rsquo;t very much, but I found a very useful note <a href="http://ww1.microchip.com/downloads/en/AppNotes/USART-in-One-Wire-Mode-ApplicationNote-DS00002658.pdf">here</a>, made by Microchip.</p>
+<p>At first I thought it is just to connect the Tx and Rx port simply but it is not this simple. Normal serial output ports on a microprocessor, including Raspberry Pi, are <strong>push-pull</strong> type. A push-pull type port is able to output very sharp signal edge, so is good for data transmission. However in this push-pull configuration, <strong>only one</strong> output can be connect to the bus. If two outputs are present on the same bus, with different output levels, it will cause undefined behavior, depending on which output has higher drive strength, and eventually it will damage the output ports.</p>
+<p>In one wire configuration like IIC and this case, the output port is configured to be <strong>open-drain</strong> type, this type usually comes with a pull up resistor, and in this configuration:</p>
+<ul>
+<li>When a node&rsquo;s output is 1, the output port is at tri-state, so the pull-up resistor pull the bus up to <code>Vcc</code>.</li>
+<li>When a node&rsquo;s output is 0, the output enable the drain mosfet, and short the output pin to ground, the bus shows <code>GND</code>.</li>
+</ul>
+<p>We can see that in open-drain mode, 0 is stronger than 1, if one node on the line output 0, then the bus will be 0 no matter other outputs.</p>
+<p>So the first step is to design a open-drain converter, but luckily there are a few available on market. I am planning to use SN74LVC1G07 from Texas Instrument to implement a open-drain converter. This means some extra job like PCB design has to be done in the next few weeks.</p>
+<h2 id="protocol-manual-for-the-powerchair">Protocol Manual for the Powerchair</h2>
+<p>This protocol manual shall update if new commands are found by me.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Entry</th>
+<th style="text-align:left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td style="text-align:left">UART</td>
+</tr>
+<tr>
+<td style="text-align:left">Baud Rate</td>
+<td style="text-align:left">38400</td>
+</tr>
+<tr>
+<td style="text-align:left">Bit Order</td>
+<td style="text-align:left">LSB First</td>
+</tr>
+<tr>
+<td style="text-align:left">Data Bits</td>
+<td style="text-align:left">8</td>
+</tr>
+<tr>
+<td style="text-align:left">Stop Bits</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">Parity Check</td>
+<td style="text-align:left">Even</td>
+</tr>
+<tr>
+<td style="text-align:left">Voltage Level</td>
+<td style="text-align:left">5.0V</td>
+</tr>
+</tbody>
+</table>
+<h3 id="messages">Messages</h3>
+<h4 id="power-on">Power On</h4>
+<ul>
+<li>Controller sent: <code>0x52</code> <code>0xAD</code>.</li>
+<li>Motor replied: <code>0x72</code> <code>0x10</code> <code>0x00</code> <code>0x7D</code>.</li>
+</ul>
+<h4 id="standard-messaging-every-5ms-interval">Standard Messaging: (Every 5ms interval)</h4>
+<ul>
+<li>Controller sent: <code>0x4A</code> <code>0x10</code> <code>SP</code> <code>FB</code> <code>LR</code> <code>CS</code>.</li>
+<li>Motor replied: <code>0xFE</code> <code>0x54</code> <code>EB</code> <code>0xA0</code> <code>BC</code> <code>UN</code> <code>CS</code>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Symbol</th>
+<th style="text-align:left">Name</th>
+<th style="text-align:right">Data Type</th>
+<th style="text-align:center">Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">SP</td>
+<td style="text-align:left">Speed Level</td>
+<td style="text-align:right">Unsigned char</td>
+<td style="text-align:center"><code>0x00</code>-<code>0x0E</code></td>
+</tr>
+<tr>
+<td style="text-align:center">FB</td>
+<td style="text-align:left">Go Forward/Backward</td>
+<td style="text-align:right">Signed char</td>
+<td style="text-align:center"><code>0x9C</code>-<code>0x64</code></td>
+</tr>
+<tr>
+<td style="text-align:center">LR</td>
+<td style="text-align:left">Go Left/Right</td>
+<td style="text-align:right">Signed char</td>
+<td style="text-align:center"><code>0x9C</code>-<code>0x64</code></td>
+</tr>
+<tr>
+<td style="text-align:center">EB</td>
+<td style="text-align:left">Error Byte</td>
+<td style="text-align:right">Raw</td>
+<td style="text-align:center"><code>0x82</code>: Error</td>
+</tr>
+<tr>
+<td style="text-align:center">EB</td>
+<td style="text-align:left">Error Byte</td>
+<td style="text-align:right">Raw</td>
+<td style="text-align:center"><code>0x02</code>: Good</td>
+</tr>
+<tr>
+<td style="text-align:center">BC</td>
+<td style="text-align:left">Battery Charge</td>
+<td style="text-align:right">Unknown</td>
+<td style="text-align:center">Unknown</td>
+</tr>
+<tr>
+<td style="text-align:center">UN</td>
+<td style="text-align:left">Unknown</td>
+<td style="text-align:right">Unknown</td>
+<td style="text-align:center">Unknown</td>
+</tr>
+<tr>
+<td style="text-align:center">CS</td>
+<td style="text-align:left">Check Sum Byte</td>
+<td style="text-align:right">Raw</td>
+<td style="text-align:center"><code>0x00</code>-<code>0xFF</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="check-sum-byte-calculation-rule">Check Sum Byte Calculation Rule</h4>
+<ol>
+<li>Transform all preceeding bytes into signed char type.</li>
+<li>Sum all signed chars.</li>
+<li>Do a bitwise negation(~) on the sum to get <code>CS</code>.</li>
+</ol>
+
+
+
+
+
+
+<p><a name="nav-menu" id="nav-menu"><strong>Site menu</strong></a></p>
+
+<ul>
+    
+</ul>
+
+<p><a href="#">Back to top</a></p>
+</body>
+</html>
