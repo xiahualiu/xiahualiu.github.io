@@ -5,7 +5,16 @@
     <link>https://xiahualiu.github.io/</link>
     <description>Recent content on Xiahua</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 12 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://xiahualiu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://xiahualiu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Failure and plan b - 2nd Dev Journal</title>
+      <link>https://xiahualiu.github.io/posts/raspi-wheel-dev2/</link>
+      <pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiahualiu.github.io/posts/raspi-wheel-dev2/</guid>
+      <description>&lt;p&gt;This is the second developper journal of my project, using a Raspberry Pi 4B to control an electric wheelchair. This project is partly funded by the IRAS lab at University of Cincinnati and by my own pocket. The project can be found at my GitHub repository &lt;a href=&#34;https://github.com/xiahualiu/raspi-powerchair&#34;&gt;raspi-powerchair&lt;/a&gt;. The first post can be found at &lt;a href=&#34;https://https://xiahualiu.github.io/posts/raspi-wheel-dev1/&#34;&gt;xiahualiu.github.io&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Raspi-Powerchair - 1st Dev Journal</title>
       <link>https://xiahualiu.github.io/posts/raspi-wheel-dev1/</link>

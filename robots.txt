@@ -1,3 +1,1 @@
 User-agent: *
-
-https://xiahualiu.github.io/sitemap.xml
