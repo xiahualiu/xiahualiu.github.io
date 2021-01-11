@@ -85,7 +85,7 @@
 <li>The watchdog timer ran off. <em>Timer Interrupt</em></li>
 <li>The reset was not successful.</li>
 </ul>
-<p>In this state, <code>ECU_OK</code> stays <strong>LOW</strong>. <code>PRECHARGE_FINISHED-</code> stays <strong>HIGH</strong>. If there is a IMD problem, <code>IMD_IND</code> stays <strong>HIGH</strong>.</p>
+<p>In this state, <code>ECU_OK</code> stays <strong>LOW</strong>. <code>PRECHARGE_FINISHED-</code> stays <strong>HIGH</strong>.</p>
 <p>ECU leave this state, (to <code>RESET_CONFIRM</code> state) only when the shutdown reset button was pressed <strong>DOWN</strong>. <em>Input Falling-Edge Interrupt</em></p>
 <h4 id="routine_check-state">ROUTINE_CHECK state</h4>
 <p>ECU enters this state when:</p>
@@ -94,7 +94,7 @@
 </ul>
 <p>In this state:</p>
 <ul>
-<li>ECU collects data from BMS, or other peripherals devices, and signals such as <code>IMD_TTL_OK</code>, <code>BMS_TTL_OK</code>, <code>IS_TTL_OK</code>, <code>BSPD_TTL_OK</code>.</li>
+<li>ECU collects data from BMS, BSPD and motor controller.</li>
 <li>ECU checks itself for any memory errors.</li>
 <li>the ECU <strong>should NOT</strong> change output signals.</li>
 </ul>
@@ -153,41 +153,6 @@
 <td style="text-align:center">PUSH PULL</td>
 <td style="text-align:center">TTL</td>
 <td style="text-align:left">Should be <strong>LOW</strong> ASAP once error is found.</td>
-</tr>
-<tr>
-<td style="text-align:left">IMD_TTL_OK</td>
-<td style="text-align:center">INPUT</td>
-<td style="text-align:center">-</td>
-<td style="text-align:center">TTL</td>
-<td style="text-align:left">IMD_OK signal, but at TTL level.</td>
-</tr>
-<tr>
-<td style="text-align:left">IMD_IND</td>
-<td style="text-align:center">OUTPUT</td>
-<td style="text-align:center">PUSH PULL</td>
-<td style="text-align:center">TTL</td>
-<td style="text-align:left">High means IMD fault.</td>
-</tr>
-<tr>
-<td style="text-align:left">BMS_TTL_OK</td>
-<td style="text-align:center">INPUT</td>
-<td style="text-align:center">-</td>
-<td style="text-align:center">TTL</td>
-<td style="text-align:left">BMS_OK signal, but at TTL level.</td>
-</tr>
-<tr>
-<td style="text-align:left">IS_TTL_OK</td>
-<td style="text-align:center">INPUT</td>
-<td style="text-align:center">-</td>
-<td style="text-align:center">TTL</td>
-<td style="text-align:left">IS_OK signal, but at TTL level.</td>
-</tr>
-<tr>
-<td style="text-align:left">BSPD_TTL_OK</td>
-<td style="text-align:center">INPUT</td>
-<td style="text-align:center">-</td>
-<td style="text-align:center">TTL</td>
-<td style="text-align:left">BSPD_OK signal, but at TTL level.</td>
 </tr>
 <tr>
 <td style="text-align:left">PRECHARGE_FINISHED-</td>
