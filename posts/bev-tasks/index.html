@@ -78,6 +78,7 @@
 </ul>
 <p>A count down timer is assigned in this state, when the reset button is released half way, ECU return to <code>ERROR</code> state.</p>
 <p>If the time <code>RESET_HOLD_DURATION</code> runs out, and the reset botton is still pressed <strong>DOWN</strong>. The ECU enters <code>RESET</code> state. This is intended to prevent any accidental press.</p>
+<p><strong>Note</strong>: During the confirm, ECU still does routine check, if routine check fails, ECU immediately returns to ERROR state.</p>
 <h4 id="error-state">ERROR state</h4>
 <p>ECU enters this state when:</p>
 <ul>
@@ -86,7 +87,7 @@
 <li>The reset was not successful.</li>
 </ul>
 <p>In this state, <code>ECU_OK</code> stays <strong>LOW</strong>. <code>PRECHARGE_FINISHED-</code> stays <strong>HIGH</strong>.</p>
-<p>ECU leave this state, (to <code>RESET_CONFIRM</code> state) only when the shutdown reset button was pressed <strong>DOWN</strong>. <em>Input Falling-Edge Interrupt</em></p>
+<p>Upon entering this state, ECU is trapped here for 10 seconds or more at a least (to ensure the state does not bounce back), after that in order to leave this state, (to <code>RESET_CONFIRM</code> state) the shutdown reset button has to be pressed <strong>DOWN</strong>. <em>Input Falling-Edge Interrupt</em></p>
 <h4 id="routine_check-state">ROUTINE_CHECK state</h4>
 <p>ECU enters this state when:</p>
 <ul>
