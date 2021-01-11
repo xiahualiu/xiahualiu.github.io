@@ -5,7 +5,18 @@
     <link>https://xiahualiu.github.io/posts/</link>
     <description>Recent content in Posts on Xiahua</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 21 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://xiahualiu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://xiahualiu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bearcat EV Tasklist</title>
+      <link>https://xiahualiu.github.io/posts/bev-tasks/</link>
+      <pubDate>Sun, 10 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiahualiu.github.io/posts/bev-tasks/</guid>
+      <description>This file is the TODO list for the Bearcat EV software team, and all I/O document.
+State machine  The state machine model needs to be a Moore machine, i.e. the control strategy only depends on the current state, not the inputs. Inputs only trigger the transition from one state to another.
+ State list and transition condition Except all \*_WAIT state and ERROR state, at each state, a watchdog timer must be created at the beginning, to prevent any dead loop error.</description>
+    </item>
+    
     <item>
       <title>Failure and plan b - 2nd Dev Journal</title>
       <link>https://xiahualiu.github.io/posts/raspi-wheel-dev2/</link>
