@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>index on Xiahua</title>
+    <title>index on Xiahua 夏华</title>
     <link>https://xiahualiu.github.io/tags/index/</link>
-    <description>Recent content in index on Xiahua</description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="https://xiahualiu.github.io/tags/index/index.xml" rel="self" type="application/rss+xml" />
+    <description>Recent content in index on Xiahua 夏华</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>CC0 1.0 Universal</copyright><atom:link href="https://xiahualiu.github.io/tags/index/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Posts</title>
       <link>https://xiahualiu.github.io/posts/</link>
-      <pubDate>Tue, 09 Aug 2022 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 10 Aug 2022 01:06:00 +0000</pubDate>
       
       <guid>https://xiahualiu.github.io/posts/</guid>
       <description></description>

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Xiahua 夏华</title>
-    <link>https://xiahualiu.github.io/posts/</link>
-    <description>Recent content in Posts on Xiahua 夏华</description>
+    <title>DC/DC Converter on Xiahua 夏华</title>
+    <link>https://xiahualiu.github.io/tags/dc/dc-converter/</link>
+    <description>Recent content in DC/DC Converter on Xiahua 夏华</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>CC0 1.0 Universal</copyright>
-    <lastBuildDate>Wed, 10 Aug 2022 01:06:00 +0000</lastBuildDate><atom:link href="https://xiahualiu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>CC0 1.0 Universal</copyright><atom:link href="https://xiahualiu.github.io/tags/dc/dc-converter/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>基于 TL494 的隔离推挽DC/DC转换器设计</title>
       <link>https://xiahualiu.github.io/posts/tl494_iso_dcdc_chs/</link>
@@ -23,15 +22,6 @@ TL494 器件包含两个误差放大器、一个片上可调振荡器、一个�
 TL494 器件可在 0°C 至 70°C 的温度范围内工作。 TL494I 器件的工作温度范围为 –40°C 至 85°C。
 我总结一下特点：
 使用方法结构简单，适合作为演示电路中的芯片，也适合初学者和学生学习使用。 非常便宜，单片只有 $0.1 左右，是最便宜的电源控制芯片之一。 输出电流非常大，可以有效驱动大部分的三极管。 天生支持推挽类型的 DC/DC 转换器。 </description>
-    </item>
-    
-    <item>
-      <title>A TL494 Isolated Push-Pull DC/DC Converter Design</title>
-      <link>https://xiahualiu.github.io/posts/tl494_iso_dcdc_eng/</link>
-      <pubDate>Tue, 09 Aug 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://xiahualiu.github.io/posts/tl494_iso_dcdc_eng/</guid>
-      <description></description>
     </item>
     
   </channel>

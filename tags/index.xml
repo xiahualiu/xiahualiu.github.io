@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Xiahua</title>
+    <title>Tags on Xiahua 夏华</title>
     <link>https://xiahualiu.github.io/tags/</link>
-    <description>Recent content in Tags on Xiahua</description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="https://xiahualiu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <description>Recent content in Tags on Xiahua 夏华</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>CC0 1.0 Universal</copyright>
+    <lastBuildDate>Wed, 10 Aug 2022 01:06:00 +0000</lastBuildDate><atom:link href="https://xiahualiu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hardware</title>
+      <link>https://xiahualiu.github.io/tags/hardware/</link>
+      <pubDate>Wed, 10 Aug 2022 01:06:00 +0000</pubDate>
+      
+      <guid>https://xiahualiu.github.io/tags/hardware/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DC/DC Converter</title>
+      <link>https://xiahualiu.github.io/tags/dc/dc-converter/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://xiahualiu.github.io/tags/dc/dc-converter/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>index</title>
       <link>https://xiahualiu.github.io/tags/index/</link>
