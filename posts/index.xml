@@ -13,8 +13,8 @@
       
       <guid>https://xiahualiu.github.io/posts/bev-tasks/</guid>
       <description>This file is the TODO list for the Bearcat EV software team, and also the I/O document.
-State machine  The state machine model needs to be a Moore machine, i.e. the control strategy only depends on the current state, not the inputs. Inputs only trigger the transition from one state to another.
- State list and transition condition Except all \*_WAIT state and ERROR state, at each state, a watchdog timer must be created at the beginning, to prevent any dead loop error.</description>
+State machine The state machine model needs to be a Moore machine, i.e. the control strategy only depends on the current state, not the inputs. Inputs only trigger the transition from one state to another.
+State list and transition condition Except all \*_WAIT state and ERROR state, at each state, a watchdog timer must be created at the beginning, to prevent any dead loop error.</description>
     </item>
     
     <item>
