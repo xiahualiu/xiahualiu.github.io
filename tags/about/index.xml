@@ -2,14 +2,13 @@
 <?xml-stylesheet type="text/xsl" href="https://xiahualiu.github.io/xml/base.min.xml" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Xiahua 夏华</title>
-    <link>https://xiahualiu.github.io/tags/</link>
-    <description>Recent content in Tags on Xiahua 夏华</description>
+    <title>about on Xiahua 夏华</title>
+    <link>https://xiahualiu.github.io/tags/about/</link>
+    <description>Recent content in about on Xiahua 夏华</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC BY 4.0</copyright>
-    <lastBuildDate>Sun, 16 Jul 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://xiahualiu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://xiahualiu.github.io/tags/about/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>基于 TL494 的隔离推挽DC/DC转换器设计</title>
       <link>https://xiahualiu.github.io/posts/tl494_iso_dcdc_chs/</link>

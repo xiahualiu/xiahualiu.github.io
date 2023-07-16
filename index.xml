@@ -1,4 +1,5 @@
-<?xml-stylesheet href="/rss.xsl" type="text/xsl"?>
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="https://xiahualiu.github.io/xml/base.min.xml" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Xiahua 夏华</title>
@@ -6,21 +7,18 @@
     <description>Recent content on Xiahua 夏华</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>CC0 1.0 Universal</copyright>
-    <lastBuildDate>Wed, 10 Aug 2022 01:06:00 +0000</lastBuildDate>
-    
-        <atom:link href="https://xiahualiu.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    
-        <item>
-        <title>基于 TL494 的隔离推挽DC/DC转换器设计</title>
-        <link>https://xiahualiu.github.io/posts/tl494_iso_dcdc_chs/</link>
-        <pubDate>Wed, 10 Aug 2022 01:06:00 +0000</pubDate>
-        
-        <guid>https://xiahualiu.github.io/posts/tl494_iso_dcdc_chs/</guid>
-        <description>Xiahua 夏华 https://xiahualiu.github.io/posts/tl494_iso_dcdc_chs/ -&lt;p&gt;本文将会讨论一种基于 TL494 的隔离推挽类型的 DC/DC 转换器设计。&lt;/p&gt;
-&lt;h2 id=&#34;tl494&#34;&gt;TL494&lt;/h2&gt;
+    <copyright>CC BY 4.0</copyright>
+    <lastBuildDate>Sun, 16 Jul 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://xiahualiu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于 TL494 的隔离推挽DC/DC转换器设计</title>
+      <link>https://xiahualiu.github.io/posts/tl494_iso_dcdc_chs/</link>
+      <pubDate>Wed, 10 Aug 2022 01:06:00 +0000</pubDate>
+      <guid>https://xiahualiu.github.io/posts/tl494_iso_dcdc_chs/</guid>
+      <description>&lt;p&gt;本文将会讨论一种基于 TL494 的隔离推挽类型的 DC/DC 转换器设计。&lt;/p&gt;
+&lt;h2 id=&#34;tl494&#34;&gt;
+  &lt;a class=&#34;Heading-link u-clickable&#34; href=&#34;https://xiahualiu.github.io/posts/tl494_iso_dcdc_chs/#tl494&#34;&gt;TL494&lt;/a&gt;
+&lt;/h2&gt;
 &lt;p&gt;TL494 是一款来自德州仪器的非常古老的电源控制芯片。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;TL494 器件在单个芯片上集成了构建脉宽调制 (PWM) 控制电路所需的所有功能。该器件主要设计用于电源控制，可灵活地根据特定应用定制电源控制电路。&lt;/p&gt;
@@ -44,20 +42,14 @@
 &lt;li&gt;输出电流非常大，可以有效驱动大部分的三极管。&lt;/li&gt;
 &lt;li&gt;天生支持推挽类型的 DC/DC 转换器。&lt;/li&gt;
 &lt;/ul&gt;
-- https://xiahualiu.github.io/posts/tl494_iso_dcdc_chs/ - CC0 1.0 Universal</description>
-        </item>
-    
-    
-    
-        <item>
-        <title>A TL494 Isolated Push-Pull DC/DC Converter Design</title>
-        <link>https://xiahualiu.github.io/posts/tl494_iso_dcdc_eng/</link>
-        <pubDate>Tue, 09 Aug 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://xiahualiu.github.io/posts/tl494_iso_dcdc_eng/</guid>
-        <description>Xiahua 夏华 https://xiahualiu.github.io/posts/tl494_iso_dcdc_eng/ -- https://xiahualiu.github.io/posts/tl494_iso_dcdc_eng/ - CC0 1.0 Universal</description>
-        </item>
-    
-    
+</description>
+    </item>
+    <item>
+      <title>A TL494 Isolated Push-Pull DC/DC Converter Design</title>
+      <link>https://xiahualiu.github.io/posts/tl494_iso_dcdc_eng/</link>
+      <pubDate>Tue, 09 Aug 2022 00:00:00 +0000</pubDate>
+      <guid>https://xiahualiu.github.io/posts/tl494_iso_dcdc_eng/</guid>
+      <description></description>
+    </item>
   </channel>
-</rss> 
+</rss>
