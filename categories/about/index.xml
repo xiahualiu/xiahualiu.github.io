@@ -10,5 +10,50 @@
     <copyright>CC BY 4.0</copyright>
     <lastBuildDate>Sun, 16 Jul 2023 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://xiahualiu.github.io/categories/about/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Some C&#43;&#43; Notes</title>
+      <link>https://xiahualiu.github.io/posts/cpp-notes/</link>
+      <pubDate>Sun, 16 Jul 2023 00:00:00 +0000</pubDate>
+      <guid>https://xiahualiu.github.io/posts/cpp-notes/</guid>
+      <description>&lt;p&gt;Some random C++ notes I learned.&lt;/p&gt;
+&lt;h2 id=&#34;gcc-search-path&#34;&gt;
+  &lt;a class=&#34;Heading-link u-clickable&#34; href=&#34;https://xiahualiu.github.io/posts/cpp-notes/#gcc-search-path&#34;&gt;&lt;code&gt;GCC&lt;/code&gt; Search Path&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Many people mistakingly think &lt;code&gt;gcc&lt;/code&gt; searches &lt;code&gt;$PATH&lt;/code&gt; for all &lt;code&gt;#include&lt;/code&gt; preprocessors but it is actually not.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;gcc&lt;/code&gt; has two ways to look for the included files.&lt;/p&gt;
+&lt;p&gt;One is searching inside the standard system directories, which is hardwared into the &lt;code&gt;gcc&lt;/code&gt; itself for a specific system. You can force &lt;code&gt;gcc&lt;/code&gt; to only search in this way with the angle-bracket form &lt;code&gt;#include&amp;lt;file&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;You can use&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cpp -v /dev/null -o /dev/null&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;gcc -v&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;to learn about the standard system directories on your system.&lt;/p&gt;
+&lt;p&gt;The other is looking for additional directories, this is done mostly by adding compile option &lt;code&gt;-Idir&lt;/code&gt; to &lt;code&gt;gcc&lt;/code&gt;, which cause &lt;code&gt;dir&lt;/code&gt; to be searched &lt;strong&gt;after&lt;/strong&gt; the current directory and &lt;strong&gt;ahead&lt;/strong&gt; of the standard system directories.&lt;/p&gt;
+&lt;p&gt;For more information on this topic, visit GNU document about it &lt;a href=&#34;https://gcc.gnu.org/onlinedocs/cpp/Search-Path.html&#34;&gt;https://gcc.gnu.org/onlinedocs/cpp/Search-Path.html&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;float-number-comparison&#34;&gt;
+  &lt;a class=&#34;Heading-link u-clickable&#34; href=&#34;https://xiahualiu.github.io/posts/cpp-notes/#float-number-comparison&#34;&gt;Float Number Comparison&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Float number comparison gets overlooked a lot in the real world, a lot people will use:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;float&lt;/span&gt; a, b;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (a &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; b) {;&lt;span style=&#34;color:#75715e&#34;&gt;/* Do something */&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (a &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; b) {;&lt;span style=&#34;color:#75715e&#34;&gt;/* Do something */&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (a &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; b) {;&lt;span style=&#34;color:#75715e&#34;&gt;/* Do something */&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (a &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; b) {;&lt;span style=&#34;color:#75715e&#34;&gt;/* Do something */&lt;/span&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;in their code. But if you are familiar with float representation for values you will notice float does not represent a precise value. &lt;a href=&#34;https://en.wikipedia.org/wiki/IEEE_754&#34;&gt;https://en.wikipedia.org/wiki/IEEE_754&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;And the precision depends largely on the range where the float is in.&lt;/p&gt;
+&lt;p&gt;So in the real world practice, instead of using the above test conditions, use:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;cmath&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;float&lt;/span&gt; a, b;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;abs(a&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;b) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; TOLERANCE) {;} &lt;span style=&#34;color:#75715e&#34;&gt;/* TOLERANCE could be a float rvalue */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;abs(a&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;b) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; TOLERANCE) {;} &lt;span style=&#34;color:#75715e&#34;&gt;/* TOLERANCE could be a float rvalue */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (a&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;b &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; TOLERANCE) {;} &lt;span style=&#34;color:#75715e&#34;&gt;/* TOLERANCE could be a float rvalue */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (a&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;b &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; TOLERANCE) {;} &lt;span style=&#34;color:#75715e&#34;&gt;/* TOLERANCE could be a float rvalue */&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;By specifying an extra &lt;code&gt;TOLERANCE&lt;/code&gt; value, the float comparison can now be done safely and the comparing result will be predicatable according to the requirements.&lt;/p&gt;
+</description>
+    </item>
   </channel>
 </rss>
