@@ -53,6 +53,29 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (a&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;b &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; TOLERANCE) {;} &lt;span style=&#34;color:#75715e&#34;&gt;/* TOLERANCE could be a float rvalue */&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (a&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;b &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; TOLERANCE) {;} &lt;span style=&#34;color:#75715e&#34;&gt;/* TOLERANCE could be a float rvalue */&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;By specifying an extra &lt;code&gt;TOLERANCE&lt;/code&gt; value, the float comparison can now be done safely and the comparing result will be predicatable according to the requirements.&lt;/p&gt;
+&lt;h2 id=&#34;add-suffix-or-prefix-to-literals&#34;&gt;
+  &lt;a class=&#34;Heading-link u-clickable&#34; href=&#34;https://xiahualiu.github.io/posts/cpp-notes/#add-suffix-or-prefix-to-literals&#34;&gt;Add Suffix (or Prefix) to Literals&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;This is very important because if you don&amp;rsquo;t the compiler only uses the default types (&lt;code&gt;int&lt;/code&gt; for integer literals and &lt;code&gt;double&lt;/code&gt; for float literals). This could cause unwanted results:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (a&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; b); &lt;span style=&#34;color:#75715e&#34;&gt;// Compiler Warning: Compare unsigned to signed type.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The compiler will warn you about comparing a unsigned value to a signed value because &lt;code&gt;a+1&lt;/code&gt; will be &lt;code&gt;int&lt;/code&gt; instead of &lt;code&gt;unsigned char&lt;/code&gt; anymore.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (a&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1u&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; b); &lt;span style=&#34;color:#75715e&#34;&gt;// No Compiler Warning, you did a great job!
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Always put suffix to numeric literals, C++ is a strong type language, you should always explicitly declare types not only the variables but also those literals.&lt;/p&gt;
+&lt;p&gt;The list of available suffix and prefix for each type can be found below:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Integer Literals. (&lt;a href=&#34;https://en.cppreference.com/w/cpp/language/integer_literal&#34;&gt;https://en.cppreference.com/w/cpp/language/integer_literal&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Float Literals. (&lt;a href=&#34;https://en.cppreference.com/w/cpp/language/floating_literal&#34;&gt;https://en.cppreference.com/w/cpp/language/floating_literal&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Char Literals. (&lt;a href=&#34;https://en.cppreference.com/w/cpp/language/character_literal&#34;&gt;https://en.cppreference.com/w/cpp/language/character_literal&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;String Literals. (&lt;a href=&#34;https://en.cppreference.com/w/cpp/language/string_literal&#34;&gt;https://en.cppreference.com/w/cpp/language/string_literal&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
   </channel>
