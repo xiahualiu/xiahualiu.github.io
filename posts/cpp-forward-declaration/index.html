@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  
+  <meta charset="utf-8">
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  
+    <meta name="description" content="Today I will talk about forward declaration and IWYU(include what you use).
+Forward declaration is a special feature for C and C&#43;&#43;. Before we talk about forward declaration we must know about why declaration exist in C/C&#43;&#43;.
+In C or C&#43;&#43;, the declaration and definition are seperated. Think compiling as writing a book, declaring is like writing down the table of content and the defining is like populating the real content of the book.">
+  
+
+
+<meta name="color-scheme" content="light dark">
+
+
+  <meta itemprop="name" content="Forward Declaration in C&#43;&#43;">
+<meta itemprop="description" content="Today I will talk about forward declaration and IWYU(include what you use).
+Forward declaration is a special feature for C and C&#43;&#43;. Before we talk about forward declaration we must know about why declaration exist in C/C&#43;&#43;.
+In C or C&#43;&#43;, the declaration and definition are seperated. Think compiling as writing a book, declaring is like writing down the table of content and the defining is like populating the real content of the book."><meta itemprop="datePublished" content="2023-08-02T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-08-02T00:00:00+00:00" />
+<meta itemprop="wordCount" content="527">
+<meta itemprop="keywords" content="C&#43;&#43;," />
+
+
+
+  <meta property="og:title" content="Forward Declaration in C&#43;&#43;" />
+<meta property="og:description" content="Today I will talk about forward declaration and IWYU(include what you use).
+Forward declaration is a special feature for C and C&#43;&#43;. Before we talk about forward declaration we must know about why declaration exist in C/C&#43;&#43;.
+In C or C&#43;&#43;, the declaration and definition are seperated. Think compiling as writing a book, declaring is like writing down the table of content and the defining is like populating the real content of the book." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xiahualiu.github.io/posts/cpp-forward-declaration/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-08-02T00:00:00+00:00" />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.115.3">
+  <title>Forward Declaration in C&#43;&#43; | Xiahua 夏华</title>
+  <link rel="canonical" href="https://xiahualiu.github.io/posts/cpp-forward-declaration/">
+
+
+  
+
+
+
+
+
+
+
+
+  
+    
+  
+  
+  <link rel="stylesheet" href="/css/base.min.02fc1c569d661ee08b7aae59fc6b9726c3d147a412a1268d66ba79e7bdbcb16a.css" integrity="sha256-AvwcVp1mHuCLeq5Z/GuXJsPRR6QSoSaNZrp55728sWo=" crossorigin="anonymous">
+
+
+
+</head>
+
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <h1 class="Banner-heading">
+          <a class="Banner-link u-clickable" href="/">Xiahua 夏华</a>
+        </h1>
+      </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/about/">About</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/posts/">Posts</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/tags/">Tags</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/categories/">Categories</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/index.xml">RSS</a>
+        </li>
+      
+    </ul>
+  </div>
+</nav>
+
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
+        
+
+  <article>
+    <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/posts/cpp-forward-declaration/" rel="bookmark">Forward Declaration in C&#43;&#43;</a>
+  </h2>
+  
+    <time datetime="2023-08-02T00:00:00Z">2 August, 2023</time>
+  
+</header>
+    <p>Today I will talk about forward declaration and IWYU(include what you use).</p>
+<p>Forward declaration is a special feature for C and C++. Before we talk about forward declaration we must know about why declaration exist in C/C++.</p>
+<p>In C or C++, the declaration and definition are seperated. Think compiling as writing a book, declaring is like writing down the table of content and the defining is like populating the real content of the book. Between them is the linking process which links a symbol&rsquo;s declaration to its definition.</p>
+<p>When the compiler sees a new declaration, it adds it to the known symbol list (also keeps some basic information about it), and later on when the compiler sees it again it will look up the table and find that name.</p>
+<p>Declaration is important because if you don&rsquo;t declare it first the compiler will complain if it fails to look up for a name. For example the following code would not get compiled:</p>
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> foo(T a){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/* compiler error: ::unimplemented&#39; has not been declared */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">::</span>unimplemented;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> foo<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(<span style="color:#66d9ef">int</span> a){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> foo(<span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+<p>Even though <code>::unimplemented</code> is not really included in the final code (we called the specialized version in <code>main</code>), the compiler still reads it and raise an error.</p>
+<p>However by adding the declaration to <code>unimplemented</code> we make this error go away:</p>
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">/* Declare unimplemented but provide no definition to it */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">unimplemented</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> foo(T a){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/* no error */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">::</span>unimplemented;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> foo<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(<span style="color:#66d9ef">int</span> a){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> foo(<span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+<p>Now it comes to the forward declaration and why we want to use it.</p>
+<p>The simple answer is forward declaration reduces the compilation time.</p>
+<p>For example, assume we have a huge header file <code>foo.h</code> and its source file <code>foo.cpp</code>:</p>
+<p>Pretend we have tons declarations and definitions in those two files.</p>
+<p>In <code>foo.h</code></p>
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">int</span> a);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* 10000 more function declarations */</span></span></span></code></pre></div>
+<p>In <code>foo.cpp</code></p>
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">int</span> a){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* 10000 more function definitions */</span></span></span></code></pre></div>
+<p>In our <code>main.cpp</code>, we can definitely use these symbol declarations provided by <code>foo.h</code> by <code>#include &quot;foo.h&quot;</code>.</p>
+<p>But then <code>main.cpp</code> will be really really long because <code>#include &quot;foo.h&quot;</code> will be replaced by all content from <code>foo.h</code> by pre-processor. <code>main.cpp</code> in the end will be a long file for the compiler to process.</p>
+<p>But it doesn&rsquo;t make any sense, because <code>foo.h</code> and <code>foo.cpp</code> will get compiled along side with <code>main.cpp</code>, why should the compiler read the same 10,000 lines again?</p>
+<p>If we only need to use several functions from <code>foo.h</code>. We can just forward their declarations in <code>main.cpp</code> and rely on the linking process to link them to their definitions in <code>foo.cpp</code>.</p>
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// No need for #include &#34;foo.h&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">int</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> foo(<span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+<p>In the cmake we need to do:</p>
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmake" data-lang="cmake"><span style="display:flex;"><span>add_executable(<span style="color:#e6db74">main</span> <span style="color:#e6db74">main.cpp</span> <span style="color:#e6db74">foo.cpp</span>)</span></span></code></pre></div>
+<p>Forward declaration is very useful in almost all senarios in C++ and should be preferred over <code>#include</code> directive at any time.</p>
+<p>Even though <code>#include</code> is a traditional way to declare a lot of symbols from another file at once but in C++, header files can be really hard to process because of template.</p>
+
+    
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/c&#43;&#43;/" rel="tag">C&#43;&#43;</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/c&#43;&#43;/" rel="tag">C&#43;&#43;</a>
+            </li>
+          
+        </ul>
+      
+    
+  </footer>
+
+    
+  
+    
+    
+    <script src="https://utteranc.es/client.js" data-repo="https://github.com/xiahualiu/blog" data-issue-term="pathname" data-theme="preferred-color-scheme" crossorigin="anonymous" async></script>
+  
+
+  </article>
+
+
+      </div>
+    </div>
+  </main>
+  
+  <footer class="Footer">
+    <div class="u-wrapper">
+      <div class="u-padding">
+        Except where otherwise noted, content on this site is licensed under a &#32; <a href="http://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International License</a>.
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
