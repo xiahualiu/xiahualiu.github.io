@@ -25,7 +25,7 @@ Generally speaking, whenever you write a *.cpp file (such as foo.cpp), your incl
 Generally speaking, whenever you write a *.cpp file (such as foo.cpp), your include section should looks like this:
 /* Copyright section copied from template */ /* Same name header files */ #include &#34;foo.h&#34; /* C System headers */ #include &lt;unistd.h&gt; #include &lt;stdlib.h&gt; /* C&#43;&#43; STL headers */ #include &lt;string&gt; #include &lt;vector&gt; /* Project headers */ #include &#34;base/basictypes."><meta itemprop="datePublished" content="2023-08-03T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2023-08-03T00:00:00+00:00" />
-<meta itemprop="wordCount" content="171">
+<meta itemprop="wordCount" content="170">
 <meta itemprop="keywords" content="C&#43;&#43;,C&#43;&#43; Coding Style," />
 
 
@@ -132,7 +132,7 @@ Generally speaking, whenever you write a *.cpp file (such as foo.cpp), your incl
 <p>You may think &ldquo;wait, does it really matter?&rdquo; in your head, but it is actually quite important for your project to adhere to this order in every source file.</p>
 <p><strong>Why should you put the same name header first?</strong> Because this will ensure your header file, or interface file, gets compiled on its own. And as a result the header is guaranteed to be <strong>self contained</strong>.</p>
 <p>Consider the following example (a bad example):</p>
-<p>!()[images/cpp_include_order.png]</p>
+<p><img src="images/cpp_include_order.png" alt=""></p>
 <p>Because <code>foo.h</code> didn&rsquo;t include all its dependancies, the users of <code>foo.h</code> are forced to include them in their code.</p>
 <p><strong>Make your code self contained!</strong></p>
 
