@@ -2,14 +2,14 @@
 <?xml-stylesheet type="text/xsl" href="https://xiahualiu.github.io/xml/base.min.xml" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Xiahua 夏华</title>
-    <link>https://xiahualiu.github.io/categories/</link>
-    <description>Recent content in Categories on Xiahua 夏华</description>
+    <title>C&#43;&#43; Coding Style on Xiahua 夏华</title>
+    <link>https://xiahualiu.github.io/tags/c&#43;&#43;-coding-style/</link>
+    <description>Recent content in C&#43;&#43; Coding Style on Xiahua 夏华</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>CC BY 4.0</copyright>
-    <lastBuildDate>Sun, 16 Jul 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://xiahualiu.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Aug 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://xiahualiu.github.io/tags/c++-coding-style/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>C&#43;&#43; Coding Style - Include Order</title>
       <link>https://xiahualiu.github.io/posts/cpp-include-order/</link>
