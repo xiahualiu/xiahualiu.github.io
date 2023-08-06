@@ -36,7 +36,7 @@
 &lt;p&gt;You may think &amp;ldquo;wait, does it really matter?&amp;rdquo; in your head, but it is actually quite important for your project to adhere to this order in every source file.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Why should you put the same name header first?&lt;/strong&gt; Because this will ensure your header file, or interface file, gets compiled on its own. And as a result the header is guaranteed to be &lt;strong&gt;self contained&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;Consider the following example (a bad example):&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;images/cpp_include_order.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./cpp_include_order.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Because &lt;code&gt;foo.h&lt;/code&gt; didn&amp;rsquo;t include all its dependancies, the users of &lt;code&gt;foo.h&lt;/code&gt; are forced to include them in their code.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Make your code self contained!&lt;/strong&gt;&lt;/p&gt;
 </description>
